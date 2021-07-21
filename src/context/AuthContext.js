@@ -1,4 +1,5 @@
 import createDataContext from "./createDataContext";
+import axiosApi from '../api/axios';
 
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -8,12 +9,16 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-    return ({ firstname, lastname, email, mobile, password }) => {
+    return async ({ firstname, lastname, email, mobile, password }) => {
         //make an api request to sign up with user details
-
         //if we sign up, modify our state and say that we are authenticated
-
         //if sign up fails, reflect an error message
+        try {
+            const response = await axiosApi.post("/signup", { firstname, lastname, email, mobile, password });
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.message);
+        }
     };
 };
 
