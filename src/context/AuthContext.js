@@ -1,26 +1,31 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from '../api/axios';
+import { navigate } from "../navigationRef";
 
 const authReducer = (state, action) => {
     switch (action.type) {
+        case "add_error":
+            return { ...state, errorMessage: action.payload };
+        case "signup":
+            return { errorMessage: "", token: action.payload };
         default:
             return state;
     }
 };
 
-const signup = dispatch => {
-    return async ({ firstname, lastname, email, mobile, password }) => {
-        //make an api request to sign up with user details
-        //if we sign up, modify our state and say that we are authenticated
-        //if sign up fails, reflect an error message
-        try {
-            const response = await axiosApi.post("/signup", { firstname, lastname, email, mobile, password });
-            console.log(response.data);
-        } catch (err) {
-            console.log(err.message);
-        }
-    };
+//make an api request to sign up with user details
+const signup = dispatch =>  async ({ firstname, lastname, email, mobile, password }) => {
+    try {
+        const response = await axiosApi.post("/signup", { firstname, lastname, email, mobile, password });
+        await AsyncStorage.setItem("token", response.data.token);
+        dispatch({ type: "signup", payload: response.data.token });
+        navigate("Account");
+    } catch (err) {
+        dispatch({ type: "add_error", payload: "Something went wrong with Signup"});
+    }
 };
+
 
 const signin = dispatch => {
     return ({ email, password }) => {
@@ -41,5 +46,5 @@ const signout = dispatch => {
 export const { Provider, Context } = createDataContext(
     authReducer,
     { signup, signin, signout },
-    { isSignedIn: false }
+    { token: null, errorMessage: "" }
 )
