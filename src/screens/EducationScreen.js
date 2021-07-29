@@ -4,26 +4,23 @@ import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
-const AccountScreen = () => {
+const EducationScreen = () => {
   const { signout } = useContext(AuthContext);
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
-      <Text style={{ fontSize: 48 }}>AccountScreen</Text>
-      <Spacer>
-        <Button title="Sign Out" onPress={signout} />
-      </Spacer>
+      <Text style={{ fontSize: 48 }}>EducationScreen</Text>
     </SafeAreaView>
   );
 };
 
-AccountScreen.navigationOptions = {
-  title: "Account",
-  tabBarIcon: () => <Ionicons name="person" size={25} />,
+EducationScreen.navigationOptions = {
+  title: "Education",
+  tabBarIcon: <Entypo name="open-book" size={25} />,
 };
 
 const styles = StyleSheet.create({});
 
-export default AccountScreen;
+export default EducationScreen;
