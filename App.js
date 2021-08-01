@@ -6,12 +6,13 @@ import AccountScreen from "./src/screens/AccountScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import ClinicScreen from "./src/screens/ClinicScreen";
-import EducationScreen from "./src/screens/EducationScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
+import { Entypo } from "@expo/vector-icons";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -27,7 +28,11 @@ const switchNavigator = createSwitchNavigator({
       content: EducationContentScreen
     },
     {
-      initialRouteName: 'list'
+      initialRouteName: 'list',
+      navigationOptions: {
+        title: "Education",
+        tabBarIcon: <Entypo name="open-book" size={25} />
+      }
     }),
     Clinic: ClinicScreen
   }),
@@ -38,11 +43,13 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <App
+      <EducationProvider>
+        <App
         ref={(navigator) => {
           setNavigator(navigator);
         }}
-      />
+        />
+      </EducationProvider>
     </AuthProvider>
   );
 };

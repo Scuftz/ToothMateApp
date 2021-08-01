@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { navigate } from '../navigationRef';
-import { NavigationActions } from 'react-navigation';
+import { Context } from '../context/EducationContext';
+import { FlatList } from 'react-native';
 
 const EducationScreen = ({ navigation }) => {
+
+    const { state, getEducationContent } = useContext(Context)
+    
+    useEffect(() => {
+        getEducationContent();
+        const listener = navigation.addListener('didFocus', () => {
+            getEducationContent();
+        });
+        return () => {
+            listener.remove();
+        };
+    }, []);
+
+
     return (
         <SafeAreaView>
-            <TouchableOpacity onPress={() => navigation.navigate('content')}>
-                <View style={styles.topicStyle}>
-                    <Text style={styles.topicText}>Teeth</Text>
-                </View>
-            </TouchableOpacity>
+                <FlatList 
+                    data={state}
+                    keyExtractor={(education) => education._id}
+                    renderItem = {(item) => {
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate('content', {id: item.item._id})}>
+                            <View style={styles.topicStyle}>
+                                <Text style={styles.topicText}>{item.item.topic}</Text>
+                            </View>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
+                
+            
+            {state.error ? <Text>{state.error}</Text> : null}
         </SafeAreaView>
     );
 };
