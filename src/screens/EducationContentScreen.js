@@ -9,12 +9,10 @@ const EducationContentScreen = ({navigation}) => {
     const content = state.find((content) => content._id === navigation.getParam('id'));
 
     return (
-        <SafeAreaView>
-            <View>
+            <View style={styles.container}>
                 <Text style={styles.title}>{content.topic}</Text>
                 <Text>{content.content}</Text>
             </View>
-        </SafeAreaView>
     );
 };
 
@@ -25,6 +23,9 @@ const styles = StyleSheet.create({
     },
     contentStyle: {
         fontSize: 18
+    },
+    container: {
+        margin: 20
     }
 });
 

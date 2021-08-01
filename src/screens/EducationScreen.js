@@ -10,6 +10,7 @@ const EducationScreen = ({ navigation }) => {
     const { state, getEducationContent } = useContext(Context)
     
     useEffect(() => {
+        //when the screen is opened get all the education contents
         getEducationContent();
         const listener = navigation.addListener('didFocus', () => {
             getEducationContent();
@@ -35,9 +36,6 @@ const EducationScreen = ({ navigation }) => {
                         );
                     }}
                 />
-                
-            
-            {state.error ? <Text>{state.error}</Text> : null}
         </SafeAreaView>
     );
 };
@@ -50,7 +48,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     topicText: {
-        fontSize: 20
+        fontSize: 20,
+        alignSelf: 'center'
     }
 });
 
