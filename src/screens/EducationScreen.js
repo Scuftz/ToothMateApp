@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context } from '../context/EducationContext';
 import { FlatList } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const EducationScreen = ({ navigation }) => {
 
@@ -22,7 +23,7 @@ const EducationScreen = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView>
+        <View style={styles.screenStyle}>
                 <FlatList 
                     data={state}
                     keyExtractor={(education) => education._id}
@@ -31,25 +32,44 @@ const EducationScreen = ({ navigation }) => {
                             <TouchableOpacity onPress={() => navigation.navigate('content', {id: item.item._id})}>
                             <View style={styles.topicStyle}>
                                 <Text style={styles.topicText}>{item.item.topic}</Text>
+                                <MaterialIcons name="keyboard-arrow-right" size={30} />
                             </View>
                             </TouchableOpacity>
                         );
                     }}
                 />
-        </SafeAreaView>
+        </View>
     );
 };
 
+EducationScreen.navigationOptions = () =>
+{
+    return {
+        title: "Education",
+        headerStyle: {
+            backgroundColor: '#00BAFF'
+        }
+    }
+}
+
 const styles = StyleSheet.create({
     topicStyle: {
-        margin: 10,
         borderColor: 'black',
-        borderWidth: 2,
-        justifyContent: 'center',
+        borderBottomWidth: 1,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        paddingVertical: 10
     },
     topicText: {
+        flex: 1,
+        marginLeft: 10,
         fontSize: 20,
-        alignSelf: 'center'
+        alignSelf: 'flex-start',
+    },
+    screenStyle: {
+        flex: 1,
+        backgroundColor: '#6AC9F1'
     }
 });
 

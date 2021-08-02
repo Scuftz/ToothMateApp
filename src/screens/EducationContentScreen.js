@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context } from '../context/EducationContext';
 
@@ -11,21 +11,43 @@ const EducationContentScreen = ({navigation}) => {
     return (
             <View style={styles.container}>
                 <Text style={styles.title}>{content.topic}</Text>
-                <Text>{content.content}</Text>
+                <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+                    <Text style={styles.contentStyle}>{content.content}</Text>
+                </ScrollView>
             </View>
     );
 };
 
+EducationContentScreen.navigationOptions = ({ navigation }) => {
+    return {
+        title: "Education",
+        headerStyle: {
+            backgroundColor: '#00BAFF'
+        },
+        cardStyle: {
+            backgroundColor: 'white'
+        }
+    }
+}
+
 const styles = StyleSheet.create({
     title:{
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        borderColor: 'black',
     },
     contentStyle: {
-        fontSize: 18
+        fontSize: 18,
     },
     container: {
-        margin: 20
+        marginHorizontal: 20,
+        marginVertical: 10,
+        flex: 1
+    },
+    scroll: {
+        marginTop: 15,
+        marginBottom: 5
     }
 });
 
