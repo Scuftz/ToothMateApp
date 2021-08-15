@@ -6,6 +6,7 @@ import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Ionicons } from "@expo/vector-icons";
 import Caller from "../components/Caller";
+import ChildAccountButtons from "../components/ChildAccountButtons";
 
 const AccountScreen = () => {
   const { signout } = useContext(AuthContext);
@@ -14,6 +15,7 @@ const AccountScreen = () => {
     <SafeAreaView forceInset={{ top: "always" }}>
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <Caller />
+      <ChildAccountButtons />
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
       </Spacer>

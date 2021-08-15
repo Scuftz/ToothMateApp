@@ -64,6 +64,7 @@ const signin =
       const response = await axiosApi.post("/signin", { email, password });
       console.log("here");
       await AsyncStorage.setItem("token", response.data.token);
+      console.log(response.data.user);
       dispatch({ type: "signin", payload: response.data.token });
       navigate("Account");
     } catch (err) {
