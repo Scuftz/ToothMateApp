@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Context } from "../context/AppointmentContext";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Context } from "../context/AppointmentContext";
 
-const ClinicScreen = ({ navigation }) => {
+const AppointmentScreen = ({ navigation }) => {
   const { state, getAppointmentContent } = useContext(Context);
 
   useEffect(() => {
-    //when the screen is opened get all the appointment contents
+    //when the screen is opened get all the education contents
     getAppointmentContent();
     const listener = navigation.addListener("didFocus", () => {
       getAppointmentContent();
@@ -20,12 +20,6 @@ const ClinicScreen = ({ navigation }) => {
     };
   }, []);
 
-  useEffect(() => {
-    //console.log(state);
-    getAllClinics()
-  }, [])
-
-  const [ search, setSearch ] = useState('');
   return (
     <View style={styles.screenStyle}>
       <FlatList
@@ -39,7 +33,7 @@ const ClinicScreen = ({ navigation }) => {
               }
             >
               <View style={styles.topicStyle}>
-                <Text style={styles.topicText}>{item.item.email}</Text>
+                {/* <Text style={styles.topicText}>{item.item.topic}</Text> */}
                 <MaterialIcons name="keyboard-arrow-right" size={30} />
               </View>
             </TouchableOpacity>
@@ -50,14 +44,9 @@ const ClinicScreen = ({ navigation }) => {
   );
 };
 
-ClinicScreen.navigationOptions = {
-  title: "Clinic",
-  tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
-};
-
-ClinicScreen.navigationOptions = () => {
+AppointmentScreen.navigationOptions = () => {
   return {
-    title: "Clinic",
+    title: "Appointment",
     headerStyle: {
       backgroundColor: "#00BAFF",
     },
@@ -85,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClinicScreen;
+export default AppointmentScreen;
