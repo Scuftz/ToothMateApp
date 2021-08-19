@@ -6,22 +6,46 @@ import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SigninScreen = ({ navigation }) => {
-  const { state, signin, clearErrorMessage } = useContext(AuthContext);
+const SignupChildScreen = ({ navigation }) => {
+  const { state, signupchild, clearErrorMessage } = useContext(AuthContext);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessage} />
       <Spacer>
-        <Text h3>Sign In</Text>
+        <Text h3>Sign Up for ToothMate</Text>
       </Spacer>
       <Spacer />
+      <Input
+        label="First Name"
+        value={firstname}
+        onChangeText={setFirstName}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Input
+        label="Last Name"
+        value={lastname}
+        onChangeText={setLastName}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
       <Input
         label="Email"
         value={email}
         onChangeText={setEmail}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Input
+        label="Mobile"
+        value={mobile}
+        onChangeText={setMobile}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -37,20 +61,18 @@ const SigninScreen = ({ navigation }) => {
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Spacer>
-        <Button title="Sign In" onPress={() => signin({ email, password })} />
+        <Button
+          title="Sign Up"
+          onPress={() =>
+            signupchild({ firstname, lastname, email, mobile, password })
+          }
+        />
       </Spacer>
-      <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-        <Spacer>
-          <Text style={styles.link}>
-            Don't have an account? Sign up instead
-          </Text>
-        </Spacer>
-      </TouchableOpacity>
     </View>
   );
 };
 
-SigninScreen.navigationOptions = () => {
+SignupChildScreen.navigationOptions = () => {
   return {
     headerShown: false,
   };
@@ -60,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    marginBottom: 200,
+    marginBottom: 30,
   },
   errorMessage: {
     fontSize: 16,
@@ -72,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SigninScreen;
+export default SignupChildScreen;

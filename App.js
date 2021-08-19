@@ -13,28 +13,45 @@ import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
 import { Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import SignupChildScreen from "./src/screens/SignupChildScreen";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
-  
+
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
   }),
   mainFlow: createBottomTabNavigator({
-    Account: AccountScreen,
-    Education: createStackNavigator({
-      list: EducationScreen,
-      content: EducationContentScreen
-    },
-    {
-      initialRouteName: 'list',
-      navigationOptions: {
-        title: "Education",
-        tabBarIcon: <Entypo name="open-book" size={25} />
+    /*Account: AccountScreen,*/
+    Account: createStackNavigator(
+      {
+        Account: AccountScreen,
+        Signupchild: SignupChildScreen,
+      },
+      {
+        initialRouteName: "Account",
+        navigationOptions: {
+          title: "Account",
+          tabBarIcon: () => <Ionicons name="person" size={25} />,
+        },
       }
-    }),
-    Clinic: ClinicScreen
+    ),
+    Education: createStackNavigator(
+      {
+        list: EducationScreen,
+        content: EducationContentScreen,
+      },
+      {
+        initialRouteName: "list",
+        navigationOptions: {
+          title: "Education",
+          tabBarIcon: <Entypo name="open-book" size={25} />,
+        },
+      }
+    ),
+    Clinic: ClinicScreen,
   }),
 });
 
@@ -45,9 +62,9 @@ export default () => {
     <AuthProvider>
       <EducationProvider>
         <App
-        ref={(navigator) => {
-          setNavigator(navigator);
-        }}
+          ref={(navigator) => {
+            setNavigator(navigator);
+          }}
         />
       </EducationProvider>
     </AuthProvider>

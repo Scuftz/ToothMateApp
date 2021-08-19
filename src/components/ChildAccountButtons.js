@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -8,8 +8,12 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationEvents } from "react-navigation";
+import { useNavigation } from "@react-navigation/native";
 
-const ChildAccountButtons = () => {
+const ChildAccountButtons = (props) => {
+  console.log(props);
+
   return (
     <View style={styles.backgroundStyle}>
       <View style={styles.titleViewStyle}>
@@ -17,7 +21,10 @@ const ChildAccountButtons = () => {
       </View>
       <View style={styles.buttonViewStyle}>
         <Button title="Other Accounts" />
-        <Button title="Create Account" />
+        <Button
+          title="Create Account"
+          onPress={() => props.navigation.navigate("Signupchild")}
+        />
       </View>
     </View>
   );

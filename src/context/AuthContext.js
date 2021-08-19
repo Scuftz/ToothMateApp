@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
 import { navigate } from "../navigationRef";
+import axios from "../api/axios";
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -15,15 +16,28 @@ const authReducer = (state, action) => {
       return { ...state, errorMessage: "" };
     case "signout":
       return { token: null, errorMessage: "" };
+    case "user":
+      return { errorMessage: "Hello", token: action.payload };
     default:
       return state;
   }
 };
 
+const user = (dispatch) => async () => {
+  try {
+    const token = await AsyncStorage.getItem("token");
+    console.log(token);
+    const response = await axiosApi.post("/user", { token });
+    //console.log(response.data.user);
+    dispatch({ type: "user", payload: response.data.user });
+  } catch (err) {}
+};
+
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
   if (token) {
-    dispatch({ type: "signin", payload: token });
+    const response = await axiosApi.post("/user", { token });
+    dispatch({ type: "signin", payload: response.data });
     navigate("Account");
   } else {
     navigate("Signup");
@@ -57,6 +71,48 @@ const signup =
     }
   };
 
+const signupchild =
+  (dispatch) =>
+  async ({ firstname, lastname, email, mobile, password }) => {
+    try {
+      const parentToken = await AsyncStorage.getItem("token");
+      const response = await axiosApi.post("/signupchild", {
+        firstname,
+        lastname,
+        email,
+        mobile,
+        password,
+        parentToken,
+      });
+      //await AsyncStorage.setItem("token", response.data.token);
+      //dispatch({ type: "signin", payload: response.data.token });
+      navigate("Account");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with Signup",
+      });
+    }
+  };
+
+/*const signin =
+  (dispatch) =>
+  async ({ email, password }) => {
+    try {
+      const response = await axiosApi.post("/signin", { email, password });
+      console.log("here");
+      await AsyncStorage.setItem("token", response.data.token);
+      console.log(response.data.token);
+      dispatch({ type: "signin", payload: response.data.token });
+      navigate("Account");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with Signin",
+      });
+    }
+  };*/
+
 const signin =
   (dispatch) =>
   async ({ email, password }) => {
@@ -64,8 +120,8 @@ const signin =
       const response = await axiosApi.post("/signin", { email, password });
       console.log("here");
       await AsyncStorage.setItem("token", response.data.token);
-      console.log(response.data.user);
-      dispatch({ type: "signin", payload: response.data.token });
+      console.log(response.data);
+      dispatch({ type: "signin", payload: response.data });
       navigate("Account");
     } catch (err) {
       dispatch({
@@ -83,6 +139,14 @@ const signout = (dispatch) => async () => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signup, signin, signout, clearErrorMessage, tryLocalSignin },
+  {
+    signup,
+    signin,
+    signout,
+    clearErrorMessage,
+    tryLocalSignin,
+    user,
+    signupchild,
+  },
   { token: null, errorMessage: "" }
 );
