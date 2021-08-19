@@ -9,6 +9,7 @@ import ClinicScreen from "./src/screens/ClinicScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { Provider as ClinicProvider } from "./src/context/ClinicContext";
+import { Provider as UserProvider } from "./src/context/UserContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
@@ -17,7 +18,7 @@ import { Entypo } from "@expo/vector-icons";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
-  
+
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
@@ -28,13 +29,13 @@ const switchNavigator = createSwitchNavigator({
       list: EducationScreen,
       content: EducationContentScreen
     },
-    {
-      initialRouteName: 'list',
-      navigationOptions: {
-        title: "Education",
-        tabBarIcon: <Entypo name="open-book" size={25} />
-      }
-    }),
+      {
+        initialRouteName: 'list',
+        navigationOptions: {
+          title: "Education",
+          tabBarIcon: <Entypo name="open-book" size={25} />
+        }
+      }),
     Clinic: ClinicScreen
   }),
 });
@@ -44,15 +45,17 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <EducationProvider>
-        <ClinicProvider>
-          <App
-          ref={(navigator) => {
-            setNavigator(navigator);
-          }}
-          />
-        </ClinicProvider>
-      </EducationProvider>
+      <UserProvider>
+        <EducationProvider>
+          <ClinicProvider>
+            <App
+              ref={(navigator) => {
+                setNavigator(navigator);
+              }}
+            />
+          </ClinicProvider>
+        </EducationProvider>
+      </UserProvider>
     </AuthProvider>
   );
 };

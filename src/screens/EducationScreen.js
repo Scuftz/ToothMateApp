@@ -2,20 +2,36 @@ import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Context as AuthContext } from '../context/AuthContext';
+import { Context as UserContext } from '../context/UserContext';
 import { Context as EducationContext } from '../context/EducationContext';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const EducationScreen = ({ navigation }) => {
-    const { authState = state } = useContext(AuthContext);
-    const { state, getEducationContent, getEducationRange } = useContext(EducationContext);
+    const {getUserDOB} = useContext(UserContext);
+    const { state, getEducationRange } = useContext(EducationContext);
+    const date1 = new Date();
+    const date2 = getUserDOB();
+    const dateDiff = (Math.abs(date2-date1))/ (1000 * 60 * 60 * 24 * 365) ;
 
     useEffect(() => {
         //when the screen is opened get all the education contents
-        const listener = navigation.addListener('didFocus', () => {            
-            
+        if (dateDiff > 0 && dateDiff < 11) {
+            getEducationRange(1);
+        } else if (dateDiff > 10 && dateDiff < 18) {
+            getEducationRange(2);
+        } else {
+            getEducationRange(3);
+        }
 
+        const listener = navigation.addListener('didFocus', () => {            
+            if (dateDiff > 0 && dateDiff < 11) {
+                getEducationRange(1);
+            } else if (dateDiff > 10 && dateDiff < 18) {
+                getEducationRange(2);
+            } else {
+                getEducationRange(3);
+            }
         });
         return () => {
             listener.remove();
