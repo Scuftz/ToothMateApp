@@ -10,7 +10,11 @@ const authReducer = (state, action) => {
     // case "signup":
     //     return { errorMessage: "", token: action.payload };
     case "signin":
-      return { errorMessage: "", token: action.payload.token, id: action.payload.id };
+      return {
+        errorMessage: "",
+        token: action.payload.token,
+        id: action.payload.id,
+      };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
     case "signout":
@@ -22,7 +26,9 @@ const authReducer = (state, action) => {
 
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
-  const id = await AsyncStorage.getItem("token");
+  const id = await AsyncStorage.getItem("id");
+  console.log(id);
+  console.log(token);
   if (token) {
     if (id) {
       dispatch({ type: "signin", payload: { token, id } });
@@ -53,7 +59,10 @@ const signup =
       });
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("id", response.data.id);
-      dispatch({ type: "signin", payload: { token: response.data.token, id: response.data.id } });
+      dispatch({
+        type: "signin",
+        payload: { token: response.data.token, id: response.data.id },
+      });
       navigate("Account");
     } catch (err) {
       dispatch({
@@ -68,11 +77,14 @@ const signin =
   async ({ email, password }) => {
     try {
       const response = await axiosApi.post("/signin", { email, password });
-      
+
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("id", response.data.id);
       console.log("here");
-      dispatch({ type: "signin", payload: { token: response.data.token, id: response.data.id } });
+      dispatch({
+        type: "signin",
+        payload: { token: response.data.token, id: response.data.id },
+      });
       navigate("Account");
     } catch (err) {
       dispatch({
@@ -84,7 +96,7 @@ const signin =
 
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
-  await AsyncStorage.removeItem("id")
+  await AsyncStorage.removeItem("id");
   dispatch({ type: "signout" });
   navigate("loginFlow");
 };

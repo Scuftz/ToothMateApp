@@ -1,31 +1,45 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Context } from "../context/AppointmentContext";
+import { Context as UserContext } from "../context/UserContext";
+import "intl";
+import "intl/locale-data/jsonp/en";
 
 const ClinicScreen = ({ navigation }) => {
-  const { state, getAppointmentContent } = useContext(Context);
+  const { state, getEmailAndAppointments } = useContext(UserContext);
 
   useEffect(() => {
-    //when the screen is opened get all the appointment contents
-    getAppointmentContent();
+    getEmailAndAppointments();
+
     const listener = navigation.addListener("didFocus", () => {
-      getAppointmentContent();
+      getEmailAndAppointments();
     });
     return () => {
       listener.remove();
     };
   }, []);
 
-  useEffect(() => {
-    //console.log(state);
-    getAllClinics()
-  }, [])
+  function convertDate(mongoDate) {
+    let date = new Date(mongoDate);
+    let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
+    let month = new Intl.DateTimeFormat("en", { month: "long" }).format(date);
+    let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
 
-  const [ search, setSearch ] = useState('');
+    let stringDate = `${day} ${month} ${year}`;
+    return stringDate;
+  }
+
+  // useEffect(() => {
+  //console.log(state);
+  // getAllClinics();
+  // }, []);
+
+  // const [search, setSearch] = useState("");
+
+  //change to say appointment with date
   return (
     <View style={styles.screenStyle}>
       <FlatList
@@ -39,7 +53,9 @@ const ClinicScreen = ({ navigation }) => {
               }
             >
               <View style={styles.topicStyle}>
-                <Text style={styles.topicText}>{item.item.email}</Text>
+                <Text style={styles.topicText}>
+                  {convertDate(item.item.date)}
+                </Text>
                 <MaterialIcons name="keyboard-arrow-right" size={30} />
               </View>
             </TouchableOpacity>
