@@ -10,13 +10,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 const EducationScreen = ({ navigation }) => {
     const {getUserDOB} = useContext(UserContext);
     const { state, getEducationRange } = useContext(EducationContext);
+    const userState = useContext(UserContext)
     const date1 = new Date();
-    const date2 = getUserDOB();
-    const dateDiff = (Math.abs(date2-date1))/ (1000 * 60 * 60 * 24 * 365) ;
+    
 
     useEffect(() => {
         //when the screen is opened get all the education contents
-        if (dateDiff > 0 && dateDiff < 11) {
+        const date2 = getUserDOB();
+    const dateDiff = (Math.abs(date2-date1))/ (1000 * 60 * 60 * 24 * 365);
+    if (dateDiff > 0 && dateDiff < 11) {
             getEducationRange(1);
         } else if (dateDiff > 10 && dateDiff < 18) {
             getEducationRange(2);

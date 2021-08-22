@@ -42,7 +42,7 @@ const clearErrorMessage = (dispatch) => () => {
 //make an api request to sign up with user details
 const signup =
   (dispatch) =>
-  async ({ firstname, lastname, email, mobile, password }) => {
+  async ({ firstname, lastname, email, mobile, password, clinic }) => {
     try {
       const response = await axiosApi.post("/signup", {
         firstname,
@@ -50,6 +50,7 @@ const signup =
         email,
         mobile,
         password,
+        clinic
       });
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("id", response.data.id);

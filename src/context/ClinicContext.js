@@ -19,10 +19,18 @@ const getAllClinics = (dispatch) => {
     }
 }
 
+const getClinicNames = (dispatch) => {
+    return async () => {
+        const response = await axiosApi.get("/nameClinics")
+        console.log(response.data);
+        dispatch({ type: 'get_all_clinics', payload: response.data })
+    }
+};
+
 const searchClinics = (dispatch) => {
     return async (search) => {
         const response = await axiosApi.get("/Clinics/" + search)
-
+       
         dispatch({ type: 'search_clinics', payload: response.data })
     }
 }
@@ -38,5 +46,5 @@ const addClinic = dispatch =>  async ({ name, suburb, phone, email, bookingURL }
 
 export const { Provider, Context } = createDataContext(
     ClinicReducer,
-    { getAllClinics, addClinic, searchClinics },
+    { getAllClinics, addClinic, searchClinics, getClinicNames },
     [])
