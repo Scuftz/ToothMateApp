@@ -23,4 +23,4 @@ const getUserDOB = (dispatch) => {
 export const { Provider, Context } = createDataContext(
     UserReducer,
     { getUserDOB },
-    {})
+    []);

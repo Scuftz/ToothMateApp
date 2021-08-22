@@ -20,12 +20,6 @@ const ClinicScreen = ({ navigation }) => {
     };
   }, []);
 
-  useEffect(() => {
-    //console.log(state);
-    getAllClinics()
-  }, [])
-
-  const [ search, setSearch ] = useState('');
   return (
     <View style={styles.screenStyle}>
       <FlatList
