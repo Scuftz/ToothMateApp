@@ -32,14 +32,6 @@ const ClinicScreen = ({ navigation }) => {
     return stringDate;
   }
 
-  // useEffect(() => {
-  //console.log(state);
-  // getAllClinics();
-  // }, []);
-
-  // const [search, setSearch] = useState("");
-
-  //change to say appointment with date
   return (
     <View style={styles.screenStyle}>
       <FlatList

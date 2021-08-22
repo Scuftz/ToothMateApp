@@ -10,6 +10,7 @@ import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { Provider as AppointmentProvider } from "./src/context/AppointmentContext";
 import { Provider as UserProvider } from "./src/context/UserContext";
+import { Provider as ClinicProvider } from "./src/context/ClinicContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
@@ -63,17 +64,19 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <EducationProvider>
-        <AppointmentProvider>
-          <UserProvider>
-            <App
-              ref={(navigator) => {
-                setNavigator(navigator);
-              }}
-            />
-          </UserProvider>
-        </AppointmentProvider>
-      </EducationProvider>
+      <ClinicProvider>
+        <EducationProvider>
+          <AppointmentProvider>
+            <UserProvider>
+              <App
+                ref={(navigator) => {
+                  setNavigator(navigator);
+                }}
+              />
+            </UserProvider>
+          </AppointmentProvider>
+        </EducationProvider>
+      </ClinicProvider>
     </AuthProvider>
   );
 };
