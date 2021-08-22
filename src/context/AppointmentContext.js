@@ -6,6 +6,8 @@ const AppointmentReducer = (state, action) => {
   switch (action.type) {
     case "get_appointment_content":
       return action.payload;
+    case "get_user_appointment":
+      return action.payload;
   }
 };
 
@@ -17,8 +19,17 @@ const getAppointmentContent = (dispatch) => {
   };
 };
 
+const getUserAppointments = (dispatch) => {
+  return async (email) => {
+    console.log("Appointment Context Entry");
+    const response = await axiosApi.get("/Appointment/" + email);
+
+    dispatch({ type: "get_user_appointment", payload: response.data });
+  };
+};
+
 export const { Provider, Context } = createDataContext(
   AppointmentReducer,
-  { getAppointmentContent },
+  { getAppointmentContent, getUserAppointments },
   []
 );
