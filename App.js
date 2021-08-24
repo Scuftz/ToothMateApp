@@ -16,6 +16,7 @@ import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
 import AppointmentScreen from "./src/screens/AppointmentScreen";
+import SelectClinicScreen from "./src/screens/SelectClinicScreen";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const switchNavigator = createSwitchNavigator({
@@ -23,6 +24,7 @@ const switchNavigator = createSwitchNavigator({
 
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
+    SelectClinic: SelectClinicScreen,
     Signin: SigninScreen,
   }),
   mainFlow: createBottomTabNavigator({
