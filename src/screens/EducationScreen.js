@@ -2,19 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Context } from '../context/EducationContext';
+import { Context as UserContext } from '../context/UserContext';
+import { Context as EducationContext } from '../context/EducationContext';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const EducationScreen = ({ navigation }) => {
+    const { state, getEducationRange } = useContext(EducationContext);
 
-    const { state, getEducationContent } = useContext(Context)
-    
     useEffect(() => {
         //when the screen is opened get all the education contents
-        getEducationContent();
-        const listener = navigation.addListener('didFocus', () => {
-            getEducationContent();
+        
+        getEducationRange();
+        const listener = navigation.addListener('didFocus', () => {            
+        getEducationRange();
         });
         return () => {
             listener.remove();
@@ -24,26 +25,25 @@ const EducationScreen = ({ navigation }) => {
 
     return (
         <View style={styles.screenStyle}>
-                <FlatList 
-                    data={state}
-                    keyExtractor={(education) => education._id}
-                    renderItem = {(item) => {
-                        return (
-                            <TouchableOpacity onPress={() => navigation.navigate('content', {id: item.item._id})}>
+            <FlatList
+                data={state}
+                keyExtractor={(education) => education._id}
+                renderItem={(item) => {
+                    return (
+                        <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
                             <View style={styles.topicStyle}>
                                 <Text style={styles.topicText}>{item.item.topic}</Text>
                                 <MaterialIcons name="keyboard-arrow-right" size={30} />
                             </View>
-                            </TouchableOpacity>
-                        );
-                    }}
-                />
+                        </TouchableOpacity>
+                    );
+                }}
+            />
         </View>
     );
 };
 
-EducationScreen.navigationOptions = () =>
-{
+EducationScreen.navigationOptions = () => {
     return {
         title: "Education",
         headerStyle: {

@@ -1,36 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Context } from "../context/AppointmentContext";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Context as UserContext } from "../context/UserContext";
-import "intl";
-import "intl/locale-data/jsonp/en";
 
-const ClinicScreen = ({ navigation }) => {
-  const { state, getEmailAndAppointments } = useContext(UserContext);
+const AppointmentScreen = ({ navigation }) => {
+  const { state, getAppointmentContent } = useContext(Context);
 
   useEffect(() => {
-    getEmailAndAppointments();
-
+    //when the screen is opened get all the education contents
+    getAppointmentContent();
     const listener = navigation.addListener("didFocus", () => {
-      getEmailAndAppointments();
+      getAppointmentContent();
     });
     return () => {
       listener.remove();
     };
   }, []);
-
-  function convertDate(mongoDate) {
-    let date = new Date(mongoDate);
-    let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
-    let month = new Intl.DateTimeFormat("en", { month: "long" }).format(date);
-    let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
-
-    let stringDate = `${day} ${month} ${year}`;
-    return stringDate;
-  }
 
   return (
     <View style={styles.screenStyle}>
@@ -45,9 +33,7 @@ const ClinicScreen = ({ navigation }) => {
               }
             >
               <View style={styles.topicStyle}>
-                <Text style={styles.topicText}>
-                  {convertDate(item.item.date)}
-                </Text>
+                {/* <Text style={styles.topicText}>{item.item.topic}</Text> */}
                 <MaterialIcons name="keyboard-arrow-right" size={30} />
               </View>
             </TouchableOpacity>
@@ -58,14 +44,9 @@ const ClinicScreen = ({ navigation }) => {
   );
 };
 
-ClinicScreen.navigationOptions = {
-  title: "Clinic",
-  tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
-};
-
-ClinicScreen.navigationOptions = () => {
+AppointmentScreen.navigationOptions = () => {
   return {
-    title: "Clinic",
+    title: "Appointment",
     headerStyle: {
       backgroundColor: "#00BAFF",
     },
@@ -93,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClinicScreen;
+export default AppointmentScreen;

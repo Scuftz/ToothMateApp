@@ -8,23 +8,26 @@ import SignupScreen from "./src/screens/SignupScreen";
 import ClinicScreen from "./src/screens/ClinicScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
+import { Provider as AppointmentProvider } from "./src/context/AppointmentContext";
+import { Provider as UserProvider } from "./src/context/UserContext";
+import { Provider as ClinicProvider } from "./src/context/ClinicContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
-import { Entypo } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import SignupChildScreen from "./src/screens/SignupChildScreen";
+import AppointmentScreen from "./src/screens/AppointmentScreen";
+import SelectClinicScreen from "./src/screens/SelectClinicScreen";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
 
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
+    SelectClinic: SelectClinicScreen,
     Signin: SigninScreen,
   }),
   mainFlow: createBottomTabNavigator({
-    /*Account: AccountScreen,*/
     Account: createStackNavigator(
       {
         Account: AccountScreen,
@@ -51,7 +54,22 @@ const switchNavigator = createSwitchNavigator({
         },
       }
     ),
-    Clinic: ClinicScreen,
+    // Clinic: ClinicScreen,
+    Clinic: createStackNavigator(
+      {
+        list: ClinicScreen,
+        content: AppointmentScreen,
+      },
+      {
+        initialRouteName: "list",
+        navigationOptions: {
+          title: "Clinic",
+          tabBarIcon: (
+            <MaterialCommunityIcons name="toothbrush-paste" size={25} />
+          ),
+        },
+      }
+    ),
   }),
 });
 
@@ -60,13 +78,19 @@ const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <EducationProvider>
-        <App
-          ref={(navigator) => {
-            setNavigator(navigator);
-          }}
-        />
-      </EducationProvider>
+      <ClinicProvider>
+        <EducationProvider>
+          <AppointmentProvider>
+            <UserProvider>
+              <App
+                ref={(navigator) => {
+                  setNavigator(navigator);
+                }}
+              />
+            </UserProvider>
+          </AppointmentProvider>
+        </EducationProvider>
+      </ClinicProvider>
     </AuthProvider>
   );
 };
