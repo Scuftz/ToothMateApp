@@ -9,7 +9,9 @@ const UserReducer = (state, action) => {
     case "get_DOB":
       return action.payload;
     case "get_user_appointment":
-      return action.payload;
+      return { ...state, appointments: action.payload };
+    case "get_clinic":
+      return { ...state, clinic: action.payload };
   }
 };
 
@@ -22,12 +24,32 @@ const getUserDOB = (dispatch) => {
   };
 };
 
+const getDentalClinic = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const userClinic = await axiosApi.get("/getUserClinic/" + id);
+
+    console.log("clinic id: " + userClinic.data.clinic);
+
+    const clinicID = userClinic.data.clinic;
+    const response = await axiosApi.get("/getDentalClinic/" + clinicID);
+
+    console.log("clinic name: " + response.data.clinic.name);
+    console.log("clinic phone: " + response.data.clinic.phone);
+    console.log("clinic email: " + response.data.clinic.email);
+
+    dispatch({ type: "get_clinic", payload: response.data.clinic });
+  };
+};
+
 const getEmailAndAppointments = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
     const emailResponse = await axiosApi.get("/getEmail/" + id);
     const email = emailResponse.data.email;
     const response = await axiosApi.get("/Appointment/" + email);
+
+    console.log("Email: " + emailResponse.data.email);
 
     const temp = []
       .concat(response.data)
@@ -39,6 +61,6 @@ const getEmailAndAppointments = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
   UserReducer,
-  { getUserDOB, getEmailAndAppointments },
-  []
+  { getUserDOB, getEmailAndAppointments, getDentalClinic },
+  { appointments: [], clinic: null, test: "testx" }
 );

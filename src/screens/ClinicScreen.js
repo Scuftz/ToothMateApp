@@ -1,18 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Caller from "../components/Caller";
 import { Context as UserContext } from "../context/UserContext";
 import "intl";
 import "intl/locale-data/jsonp/en";
 
 const ClinicScreen = ({ navigation }) => {
-  const { state, getEmailAndAppointments } = useContext(UserContext);
+  const {
+    state: { appointments, clinic },
+    getEmailAndAppointments,
+    getDentalClinic,
+  } = useContext(UserContext);
 
   useEffect(() => {
     getEmailAndAppointments();
+    getDentalClinic();
 
     const listener = navigation.addListener("didFocus", () => {
       getEmailAndAppointments();
@@ -32,30 +38,47 @@ const ClinicScreen = ({ navigation }) => {
     return stringDate;
   }
 
-  return (
-    <View style={styles.screenStyle}>
-      <FlatList
-        data={state}
-        keyExtractor={(appointment) => appointment._id}
-        renderItem={(item) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("content", { id: item.item._id })
-              }
-            >
-              <View style={styles.topicStyle}>
-                <Text style={styles.topicText}>
-                  {convertDate(item.item.date)}
-                </Text>
-                <MaterialIcons name="keyboard-arrow-right" size={30} />
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      />
-    </View>
-  );
+  if (clinic === null) {
+    return (
+      <View>
+        <Text> Loading... </Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.screenStyle}>
+        <Text>{clinic.name}</Text>
+
+        <Caller
+          phone={clinic.phone}
+          email={clinic.email}
+          url={clinic.bookingURL}
+        />
+
+        <Text>Your appointments</Text>
+        <FlatList
+          data={appointments}
+          keyExtractor={(appointment) => appointment._id}
+          renderItem={(item) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("content", { id: item.item._id })
+                }
+              >
+                <View style={styles.topicStyle}>
+                  <Text style={styles.topicText}>
+                    {convertDate(item.item.date)}
+                  </Text>
+                  <MaterialIcons name="keyboard-arrow-right" size={30} />
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+    );
+  }
 };
 
 ClinicScreen.navigationOptions = {
@@ -73,6 +96,9 @@ ClinicScreen.navigationOptions = () => {
 };
 
 const styles = StyleSheet.create({
+  caller: {
+    marginTop: 0,
+  },
   topicStyle: {
     borderColor: "black",
     borderBottomWidth: 1,
