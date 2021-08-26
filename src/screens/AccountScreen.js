@@ -11,10 +11,6 @@ import ChildAccountButtons from "../components/ChildAccountButtons";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout } = useContext(AuthContext);
-  let user;
-  if (state.token) {
-    user = state.token.user;
-  }
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
