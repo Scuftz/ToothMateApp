@@ -43,18 +43,17 @@ const tryLocalSignin = (dispatch) => async () => {
   console.log(id);
   console.log(token);
   if (token) {
-<<<<<<< HEAD
-    const response = await axiosApi.post("/user", { token });
-    dispatch({ type: "signin", payload: response.data });
-    navigate("Account");
-=======
     if (id) {
-      dispatch({ type: "signin", payload: { token, id } });
+      /*
+      const response = await axiosApi.post("/user", { token });
+      dispatch({ type: "signin", payload: response.data });
       navigate("Account");
+      */
+      dispatch({ type: "signin", payload: { token, id } });
+      navigate("AccountFlow");
     } else {
       navigate("Signup");
     }
->>>>>>> master
   } else {
     navigate("Signup");
   }
@@ -69,22 +68,39 @@ const signup =
   (dispatch) =>
   async ({ firstname, lastname, email, mobile, password, dob, clinic }) => {
     try {
-      const response = await axiosApi.post("/signup", {
-        firstname,
-        lastname,
-        email,
-        mobile,
-        password,
-        dob,
-        clinic,
-      });
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("id", response.data.id);
-      dispatch({
-        type: "signin",
-        payload: { token: response.data.token, id: response.data.id },
-      });
-      navigate("Account");
+      const parentid = await AsyncStorage.getItem("id");
+      if (parentid === null) {
+        const response = await axiosApi.post("/signup", {
+          firstname,
+          lastname,
+          email,
+          mobile,
+          password,
+          dob,
+          clinic,
+        });
+        await AsyncStorage.setItem("token", response.data.token);
+        await AsyncStorage.setItem("id", response.data.id);
+        dispatch({
+          type: "signin",
+          payload: { token: response.data.token, id: response.data.id },
+        });
+        navigate("AccountFlow");
+      } else {
+        const response = await axiosApi.post("/signupchild", {
+          firstname,
+          lastname,
+          email,
+          mobile,
+          password,
+          dob,
+          clinic,
+          parent: parentid,
+        });
+        //await AsyncStorage.setItem("token", response.data.token);
+        //dispatch({ type: "signin", payload: response.data.token });
+        navigate("Education");
+      }
     } catch (err) {
       dispatch({
         type: "add_error",
@@ -95,16 +111,26 @@ const signup =
 
 const signupchild =
   (dispatch) =>
-  async ({ firstname, lastname, email, mobile, password }) => {
+  async ({
+    firstname,
+    lastname,
+    email,
+    mobile,
+    password,
+    dob,
+    clinic,
+    parent,
+  }) => {
     try {
-      const parentToken = await AsyncStorage.getItem("token");
       const response = await axiosApi.post("/signupchild", {
         firstname,
         lastname,
         email,
         mobile,
         password,
-        parentToken,
+        dob,
+        clinic,
+        parent,
       });
       //await AsyncStorage.setItem("token", response.data.token);
       //dispatch({ type: "signin", payload: response.data.token });
@@ -117,34 +143,29 @@ const signupchild =
     }
   };
 
-/*const signin =
+const signin =
   (dispatch) =>
   async ({ email, password }) => {
     try {
       const response = await axiosApi.post("/signin", { email, password });
 
       await AsyncStorage.setItem("token", response.data.token);
-<<<<<<< HEAD
-      console.log(response.data.token);
-      dispatch({ type: "signin", payload: response.data.token });
-=======
       await AsyncStorage.setItem("id", response.data.id);
       console.log("here");
       dispatch({
         type: "signin",
         payload: { token: response.data.token, id: response.data.id },
       });
->>>>>>> master
-      navigate("Account");
+      navigate("AccountFlow");
     } catch (err) {
       dispatch({
         type: "add_error",
         payload: "Something went wrong with Signin",
       });
     }
-  };*/
+  };
 
-const signin =
+/*const signin =
   (dispatch) =>
   async ({ email, password }) => {
     try {
@@ -160,7 +181,7 @@ const signin =
         payload: "Something went wrong with Signin",
       });
     }
-  };
+  };*/
 
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
@@ -171,7 +192,6 @@ const signout = (dispatch) => async () => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-<<<<<<< HEAD
   {
     signup,
     signin,
@@ -181,9 +201,5 @@ export const { Provider, Context } = createDataContext(
     user,
     signupchild,
   },
-  { token: null, errorMessage: "" }
-=======
-  { signup, signin, signout, clearErrorMessage, tryLocalSignin },
   { token: null, errorMessage: "", id: null }
->>>>>>> master
 );

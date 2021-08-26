@@ -6,6 +6,7 @@ import AccountScreen from "./src/screens/AccountScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import ClinicScreen from "./src/screens/ClinicScreen";
+import SignupChildScreen from "./src/screens/SignupChildScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { Provider as AppointmentProvider } from "./src/context/AppointmentContext";
@@ -17,7 +18,7 @@ import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
 import AppointmentScreen from "./src/screens/AppointmentScreen";
 import SelectClinicScreen from "./src/screens/SelectClinicScreen";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -28,10 +29,11 @@ const switchNavigator = createSwitchNavigator({
     Signin: SigninScreen,
   }),
   mainFlow: createBottomTabNavigator({
-    Account: createStackNavigator(
+    AccountFlow: createStackNavigator(
       {
         Account: AccountScreen,
         Signupchild: SignupChildScreen,
+        SelectClinic: SelectClinicScreen,
       },
       {
         initialRouteName: "Account",

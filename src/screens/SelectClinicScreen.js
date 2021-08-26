@@ -6,9 +6,10 @@ import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SelectClinicScreen = ({ navigation }) => {
-  const { state, signup } = useContext(AuthContext);
+  const { state, signup, signupchild } = useContext(AuthContext);
 
   let firstname = navigation.getParam("firstname");
   let lastname = navigation.getParam("lastname");
@@ -62,7 +63,7 @@ const SelectClinicScreen = ({ navigation }) => {
       <Spacer>
         <Button
           title="Sign Up"
-          onPress={() =>
+          onPress={() => {
             signup({
               firstname,
               lastname,
@@ -71,8 +72,8 @@ const SelectClinicScreen = ({ navigation }) => {
               password,
               dob,
               clinic: clinic.id,
-            })
-          }
+            });
+          }}
         />
       </Spacer>
     </View>

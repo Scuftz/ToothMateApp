@@ -29,10 +29,9 @@ const AccountScreen = ({ navigation }) => {
   );
 };
 
-/*AccountScreen.navigationOptions = {
-  title: "Account",
-  tabBarIcon: () => <Ionicons name="person" size={25} />,
-};*/
+AccountScreen.navigationOptions = {
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({});
 
