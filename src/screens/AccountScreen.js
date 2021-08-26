@@ -11,16 +11,12 @@ import ChildAccountButtons from "../components/ChildAccountButtons";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout } = useContext(AuthContext);
-  let user;
-  if (state.token) {
-    user = state.token.user;
-  }
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <Caller />
-      <ChildAccountButtons data={user} navigation={navigation} />
+      <ChildAccountButtons data={state} navigation={navigation} />
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
         <Button title="User" />
