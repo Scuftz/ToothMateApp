@@ -1,76 +1,90 @@
-import React, { useContext, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Context } from "../context/AppointmentContext";
-import { FlatList } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, { useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Dimensions,
+  Alert,
+} from "react-native";
+import { Button } from "react-native-elements";
+import Spacer from "../components/Spacer";
 
 const AppointmentScreen = ({ navigation }) => {
-  const { state, getAppointmentContent } = useContext(Context);
+  const appointment = navigation.getParam("appointment");
+  console.log("appointment: " + appointment.dentalData);
 
-  useEffect(() => {
-    //when the screen is opened get all the education contents
-    getAppointmentContent();
-    const listener = navigation.addListener("didFocus", () => {
-      getAppointmentContent();
-    });
-    return () => {
-      listener.remove();
-    };
-  }, []);
+  function convertDate(mongoDate) {
+    let date = new Date(mongoDate);
+    let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
+    let month = new Intl.DateTimeFormat("en", { month: "long" }).format(date);
+    let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
+
+    let stringDate = `${day} ${month} ${year}`;
+    return stringDate;
+  }
 
   return (
-    <View style={styles.screenStyle}>
-      <FlatList
-        data={state}
-        keyExtractor={(appointment) => appointment._id}
-        renderItem={(item) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("content", { id: item.item._id })
-              }
-            >
-              <View style={styles.topicStyle}>
-                {/* <Text style={styles.topicText}>{item.item.topic}</Text> */}
-                <MaterialIcons name="keyboard-arrow-right" size={30} />
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <Text style={styles.headingFont}>Date</Text>
+        </View>
+        <Text style={styles.title}>{convertDate(appointment.date)}</Text>
+        <Spacer />
+
+        <Button title="Invoice" />
+        <Spacer />
+        <Button title="X-Rays" />
+      </View>
+    </ScrollView>
   );
 };
 
-AppointmentScreen.navigationOptions = () => {
+AppointmentScreen.navigationOptions = ({ navigation }) => {
   return {
-    title: "Appointment",
+    title: "Your Appointment",
     headerStyle: {
       backgroundColor: "#00BAFF",
+    },
+    cardStyle: {
+      backgroundColor: "white",
     },
   };
 };
 
 const styles = StyleSheet.create({
-  topicStyle: {
-    borderColor: "black",
+  container: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  imageContainer: {
+    width: Dimensions.get("screen").width,
+    height: 400,
+    borderWidth: 1,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
+  heading: {
     borderBottomWidth: 1,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    backgroundColor: "white",
-    paddingVertical: 10,
+    paddingBottom: 3,
   },
-  topicText: {
-    flex: 1,
-    marginLeft: 10,
-    fontSize: 20,
-    alignSelf: "flex-start",
+  title: {
+    fontSize: 22,
+    borderColor: "black",
+    paddingTop: 5,
   },
-  screenStyle: {
-    flex: 1,
-    backgroundColor: "#6AC9F1",
+  headingFont: {
+    fontSize: 16,
+  },
+  scroll: {
+    marginTop: 15,
+    marginBottom: 5,
   },
 });
 

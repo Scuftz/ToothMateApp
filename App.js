@@ -19,6 +19,7 @@ import EducationContentScreen from "./src/screens/EducationContentScreen";
 import AppointmentScreen from "./src/screens/AppointmentScreen";
 import SelectClinicScreen from "./src/screens/SelectClinicScreen";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import DentalChartScreen from "./src/screens/DentalChartScreen";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -57,13 +58,14 @@ const switchNavigator = createSwitchNavigator({
       }
     ),
     // Clinic: ClinicScreen,
-    Clinic: createStackNavigator(
+    ClinicFlow: createStackNavigator(
       {
-        list: ClinicScreen,
-        content: AppointmentScreen,
+        clinic: ClinicScreen,
+        chart: DentalChartScreen,
+        appointment: AppointmentScreen,
       },
       {
-        initialRouteName: "list",
+        initialRouteName: "clinic",
         navigationOptions: {
           title: "Clinic",
           tabBarIcon: (
