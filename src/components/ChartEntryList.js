@@ -17,6 +17,7 @@ ChartEntryList.prototype.updateValue = function (index, value) {
 ChartEntryList.prototype.initList = function () {
   for (var index = 0; index < 32; index++) {
     let x = new ChartInstanceClass(
+      index,
       topPositionArr[index],
       rightPositionArr[index],
       nameArr[index]

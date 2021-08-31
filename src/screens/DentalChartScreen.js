@@ -16,6 +16,7 @@ import Spacer from "../components/Spacer";
 const DentalChartScreen = ({ navigation }) => {
   const appointments = navigation.getParam("appointments");
   const allChartEntries = new ChartEntryList();
+  const [cc, setCC] = useState(null);
   // console.log("appointments: " + appointments);
   // console.log("test: " + appointments[0].dentalData);
 
@@ -35,7 +36,7 @@ const DentalChartScreen = ({ navigation }) => {
         /**
          * DONE: Initialise all ChartEntry
          * DONE: While reading array, use add() method to add value to values array
-         * Convert information into checkbox components
+         * DONE: Convert information into checkbox components
          * Display checkbox components
          *
          * 1) Read in each entry, read numeric value
@@ -50,7 +51,9 @@ const DentalChartScreen = ({ navigation }) => {
   useEffect(() => {
     initChartEntry();
     getAllDentalData();
-    allChartEntries.viewList();
+    // allChartEntries.viewList();
+    setCC(allChartEntries);
+    // console.log(allChartEntries.allEntries[0]);
   }, []);
 
   function convertDate(mongoDate) {
@@ -63,46 +66,50 @@ const DentalChartScreen = ({ navigation }) => {
     return stringDate;
   }
 
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.headingFont}>
-            Click on any tooth to see you dental history!
-          </Text>
+  if (cc === null) {
+    return (
+      <View>
+        <Text> Loading... </Text>
+      </View>
+    );
+  } else {
+    return (
+      <ScrollView>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.headingFont}>
+              Click on any tooth to see you dental history!
+            </Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("../components/dental_mouth.png")}
-        />
-        <CheckBox
-          containerStyle={{
-            position: "absolute",
-            top: "50.5%",
-            right: "71%",
-          }}
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checkedColor="#ff0000"
-          onPress={() => Alert.alert("one Incisor")}
-        />
-        <CheckBox
-          containerStyle={{
-            position: "absolute",
-            top: "55.5%",
-            right: "71%",
-          }}
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checkedColor="#ff0000"
-          onPress={() => Alert.alert("Central Incisor")}
-        />
-      </View>
-    </ScrollView>
-  );
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require("../components/dental_mouth.png")}
+          />
+
+          {(() => {
+            let checkBox = [];
+            checkBox = cc.allEntries.map((tooth) => (
+              <CheckBox
+                key={tooth.id}
+                containerStyle={{
+                  position: "absolute",
+                  top: tooth.top,
+                  right: tooth.right,
+                }}
+                uncheckedIcon="circle-o"
+                uncheckedColor="#00ff0000"
+                onPress={() => Alert.alert(tooth.name)}
+              ></CheckBox>
+            ));
+            return <>{checkBox}</>;
+          })()}
+        </View>
+      </ScrollView>
+    );
+  }
 };
 
 DentalChartScreen.navigationOptions = ({ navigation }) => {
@@ -150,5 +157,23 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+//   console.log("C: " + counter);
+
+//   return (
+//     <>
+//       <CheckBox
+//         containerStyle={{
+//           position: "absolute",
+//           top: "66%",
+//           right: "66%",
+//         }}
+// checkedIcon="dot-circle-o"
+// uncheckedIcon="circle-o"
+// checkedColor="#ff0000"
+// onPress={() => Alert.alert("a")}
+//       />
+//     </>
+//   );
 
 export default DentalChartScreen;
