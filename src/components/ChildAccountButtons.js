@@ -12,7 +12,6 @@ import { NavigationEvents } from "react-navigation";
 import { useNavigation } from "@react-navigation/native";
 
 const ChildAccountButtons = (props) => {
-  console.log(props);
 
   return (
     <View style={styles.backgroundStyle}>

@@ -6,8 +6,8 @@ import axios from "../api/axios";
 
 const UserReducer = (state, action) => {
   switch (action.type) {
-    case "get_DOB":
-      return action.payload;
+    case "get_user":
+      return { ...state, details: action.payload };
     case "get_user_appointment":
       return { ...state, appointments: action.payload };
     case "get_clinic":
@@ -24,12 +24,18 @@ const getUserDOB = (dispatch) => {
   };
 };
 
+const getUser = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.get("/user/" + id);
+    dispatch({ type: "get_user", payload: response.data})
+  }
+}
+
 const getDentalClinic = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
     const userClinic = await axiosApi.get("/getUserClinic/" + id);
-
-    console.log("clinic id: " + userClinic.data.clinic);
 
     const clinicID = userClinic.data.clinic;
     const response = await axiosApi.get("/getDentalClinic/" + clinicID);
@@ -61,6 +67,6 @@ const getEmailAndAppointments = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
   UserReducer,
-  { getUserDOB, getEmailAndAppointments, getDentalClinic },
-  { appointments: [], clinic: null, test: "testx" }
+  { getUserDOB, getEmailAndAppointments, getDentalClinic, getUser },
+  { appointments: [], clinic: null, test: "testx", details: {} }
 );

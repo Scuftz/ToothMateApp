@@ -30,9 +30,7 @@ const authReducer = (state, action) => {
 const user = (dispatch) => async () => {
   try {
     const token = await AsyncStorage.getItem("token");
-    console.log(token);
     const response = await axiosApi.post("/user", { token });
-    //console.log(response.data.user);
     dispatch({ type: "user", payload: response.data.user });
   } catch (err) {}
 };
@@ -40,8 +38,6 @@ const user = (dispatch) => async () => {
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
   const id = await AsyncStorage.getItem("id");
-  console.log(id);
-  console.log(token);
   if (token) {
     if (id) {
       /*
@@ -182,11 +178,20 @@ const signin =
       });
     }
   };*/
+  
+  const updateUser = (dispatch) => {
+    return async ({firstname, lastname, email, mobile, dob}) => {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
 
+      dispatch({ type: "updateUser", payload: response.data.error })}
+    
+  }
+  
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
-  dispatch({ type: "signout" });
+  dispatch({ type: "signout" }); 
   navigate("loginFlow");
 };
 
@@ -200,6 +205,7 @@ export const { Provider, Context } = createDataContext(
     tryLocalSignin,
     user,
     signupchild,
+    updateUser,
   },
   { token: null, errorMessage: "", id: null }
 );
