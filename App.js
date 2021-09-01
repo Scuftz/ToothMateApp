@@ -20,6 +20,7 @@ import AppointmentScreen from "./src/screens/AppointmentScreen";
 import SelectClinicScreen from "./src/screens/SelectClinicScreen";
 import UserScreen from "./src/screens/UserScreen";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import UpdateClinicScreen from "./src/screens/UpdateClinicScreen";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -36,6 +37,7 @@ const switchNavigator = createSwitchNavigator({
         Signupchild: SignupChildScreen,
         SelectClinic: SelectClinicScreen,
         User: UserScreen,
+        UpdateClinic: UpdateClinicScreen,
       },
       {
         initialRouteName: "Account",

@@ -185,7 +185,14 @@ const signin =
       response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
 
       dispatch({ type: "updateUser", payload: response.data.error })}
-    
+  }
+
+  const updateUserClinic = (dispatch) => {
+    return async ({ clinic }) => {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/updateUserClinic/" + id, { clinic })
+
+      dispatch({ type: "updateUser", payload: response.data.error })}
   }
   
 const signout = (dispatch) => async () => {
@@ -206,6 +213,7 @@ export const { Provider, Context } = createDataContext(
     user,
     signupchild,
     updateUser,
+    updateUserClinic,
   },
   { token: null, errorMessage: "", id: null }
 );

@@ -13,7 +13,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout } = useContext(AuthContext);
-  const { getUser } = useContext(UserContext)
+  const { getUser, getDentalClinic } = useContext(UserContext)
   const [ spinner, setSpinner ] = useState(false)
 
   useEffect(() => {
@@ -40,6 +40,11 @@ const AccountScreen = ({ navigation }) => {
           setSpinner(true)
           await getUser();
           navigation.navigate("User")
+          }} />
+        <Button title="Clinic" onPress={async () => {
+          setSpinner(true)
+          await getDentalClinic();
+          navigation.navigate("UpdateClinic")
           }} />
       </Spacer>
     </SafeAreaView>
