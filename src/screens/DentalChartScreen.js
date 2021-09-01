@@ -22,10 +22,13 @@ const DentalChartScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [toothName, setToothName] = useState("");
   const [toothCodes, setToothCodes] = useState("");
+  const [toothCodeArray, setToothCodeArray] = useState([]);
 
-  function toothTappedAlert(name, codes) {
+  function toothTappedAlert(name, codes, arr) {
     setToothName(name);
     setToothCodes(codes);
+    setToothCodeArray(arr);
+    console.log(arr);
     setModalVisible(!modalVisible);
   }
 
@@ -107,7 +110,7 @@ const DentalChartScreen = ({ navigation }) => {
       >
         <View>
           <Text style={styles.headingFont}>
-            Tap on any tooth to see you dental history!
+            Tap on any tooth to see your dental history!
           </Text>
         </View>
         <Spacer />
@@ -129,10 +132,29 @@ const DentalChartScreen = ({ navigation }) => {
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                   <Text style={styles.modalHeading}>{toothName}</Text>
-                  <Text style={styles.modalText}>{toothCodes}</Text>
+                  {/* <Text style={styles.modalText}>{toothCodes}</Text> */}
+                  {(() => {
+                    let dentalTreatment = [];
+                    dentalTreatment = toothCodeArray.map((treatment) => (
+                      <View key={treatment} style={styles.modalBox}>
+                        <View style={styles.leftBox}>
+                          <Text style={styles.modalText}>
+                            {treatment.substring(0, treatment.length - 10)}
+                          </Text>
+                        </View>
+                        <View style={styles.rightBox}>
+                          <Text style={styles.modalDateText}>
+                            {treatment.substring(treatment.length - 10)}
+                          </Text>
+                        </View>
+                      </View>
+                    ));
+                    return <>{dentalTreatment}</>;
+                  })()}
+
                   <Pressable
                     onPress={() => setModalVisible(!modalVisible)}
-                    style={[styles.button, styles.buttonOpen]}
+                    style={styles.button}
                   >
                     <Text style={styles.textStyle}>Close</Text>
                   </Pressable>
@@ -142,7 +164,7 @@ const DentalChartScreen = ({ navigation }) => {
           </View>
 
           {(() => {
-            //setting up checkbox's
+            //setting up checkbox's using information from each ChartInstance in the ChartEntry
             let checkBox = [];
             checkBox = chart.allEntries.map((tooth) => (
               <CheckBox
@@ -154,7 +176,9 @@ const DentalChartScreen = ({ navigation }) => {
                 }}
                 uncheckedIcon="circle-o"
                 uncheckedColor="#00ff0000"
-                onPress={() => toothTappedAlert(tooth.name, tooth.output)}
+                onPress={() =>
+                  toothTappedAlert(tooth.name, tooth.output, tooth.values)
+                }
               ></CheckBox>
             ));
             return <>{checkBox}</>;
@@ -181,11 +205,11 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
     marginVertical: 10,
-    borderWidth: 1,
   },
   content: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   imageContainer: {
     width: 390,
@@ -198,7 +222,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   headingFont: {
-    fontSize: 16,
+    fontSize: 18,
   },
   centeredView: {
     flex: 1,
@@ -207,10 +231,11 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    width: 280,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 30,
+    paddingBottom: 15,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -222,26 +247,37 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
+    overflow: "hidden",
     borderRadius: 15,
     padding: 10,
     paddingLeft: 30,
     paddingRight: 30,
     elevation: 2,
-  },
-  buttonOpen: {
     backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
+    marginTop: 20,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
+  modalBox: {
+    flexDirection: "row",
+    width: 220,
+  },
+  leftBox: {
+    width: 140,
+  },
+  rightBox: {
+    width: 80,
+  },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: "left",
+  },
+  modalDateText: {
+    marginBottom: 15,
+    textAlign: "right",
   },
   modalHeading: {
     marginBottom: 15,
