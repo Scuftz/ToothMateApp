@@ -5,15 +5,13 @@ class ChartInstanceClass {
     this.right = right;
     this.name = name;
     this.values = [];
-    this.output = this.name + "\n";
+    this.output = "";
   }
 }
 
-ChartInstanceClass.prototype.createList = function () {};
-
 ChartInstanceClass.prototype.addValue = function (value) {
   this.values.push(value);
-  this.output += value + " ";
+  this.output += value + "\n";
 };
 
 export default ChartInstanceClass;
