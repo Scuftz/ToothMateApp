@@ -195,6 +195,15 @@ const signin =
       dispatch({ type: "updateUser", payload: response.data.error })}
   }
   
+  const changePassword = (dispatch) => {
+    return async ({ oldPassword, newPassword }) => {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/changePassword/" + id, { oldPassword, newPassword })
+
+      dispatch({ type: "change_password", payload: response.data })
+    }
+  }
+
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
@@ -214,6 +223,7 @@ export const { Provider, Context } = createDataContext(
     signupchild,
     updateUser,
     updateUserClinic,
+    changePassword,
   },
   { token: null, errorMessage: "", id: null }
 );
