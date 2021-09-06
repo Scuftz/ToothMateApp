@@ -46,7 +46,7 @@ const AccountScreen = ({ navigation }) => {
           await getDentalClinic();
           navigation.navigate("UpdateClinic")
           }} />
-        <Button title="Clinic" onPress={() => {
+        <Button title="Change Your Password" onPress={() => {
           navigation.navigate("Password")
           }} />
       </Spacer>

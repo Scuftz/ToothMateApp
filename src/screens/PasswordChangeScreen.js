@@ -23,9 +23,27 @@ const PasswordChangeScreen = () => {
                 onChangeText={setOldPassword}
                 autoCapitalize="none"
                 autoCorrect={false}
+                secureTextEntry
                 inputContainerStyle={styles.inputContainerStyle}
                 inputStyle={styles.textStyle}
                 labelStyle={styles.labelStyle}
+            />
+            <Input 
+                label="New Password"
+                value={newPassword}
+                onChangeText={setNewPassword}
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry
+                inputContainerStyle={styles.inputContainerStyle}
+                inputStyle={styles.textStyle}
+                labelStyle={styles.labelStyle}
+            />
+            <Button
+                title="Change Password"
+                onPress={() =>
+                {changePassword({oldPassword, newPassword})}
+                }
             />
         </KeyboardAwareScrollView>
     );
