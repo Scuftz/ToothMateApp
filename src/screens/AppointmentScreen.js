@@ -13,7 +13,6 @@ import Spacer from "../components/Spacer";
 
 const AppointmentScreen = ({ navigation }) => {
   const appointment = navigation.getParam("appointment");
-  console.log("appointment: " + appointment.dentalData);
 
   function convertDate(mongoDate) {
     let date = new Date(mongoDate);

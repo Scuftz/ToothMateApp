@@ -28,7 +28,6 @@ const DentalChartScreen = ({ navigation }) => {
     setToothName(name);
     setToothCodes(codes);
     setToothCodeArray(arr);
-    console.log(arr);
     setModalVisible(!modalVisible);
   }
 
