@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 24,
     fontSize: 24,
-    borderWidth: 1,
   },
   container: {
     flex: 1,
@@ -133,7 +132,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 24,
     backgroundColor: "lightblue",
-    borderWidth: 10,
   },
   errorMessage: {
     fontSize: 16,
