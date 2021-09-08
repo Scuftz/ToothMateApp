@@ -99,7 +99,8 @@ const signup =
         });
         //await AsyncStorage.setItem("token", response.data.token);
         //dispatch({ type: "signin", payload: response.data.token });
-        navigate("Education");
+        navigate("Account");
+        console.log("sign up child here");
       }
     } catch (err) {
       dispatch({
