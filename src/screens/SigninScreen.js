@@ -9,6 +9,7 @@ import { color } from "react-native-elements/dist/helpers";
 import { BackgroundImage } from "react-native-elements/dist/config";
 import { text } from "react-native-communications";
 
+
 const SigninScreen = ({ navigation }) => {
   const { state, signin, clearErrorMessage } = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     padding: 5,
     fontSize: 16,
+
   },
 
   });
