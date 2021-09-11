@@ -192,7 +192,7 @@ const SignupScreen = ({ navigation }) => {
           <Spacer>
             <View style={styles.link}>
               <Text style={{fontWeight: "bold", fontSize: 15, color: "grey", textAlign: "center"}}>Don't have an account?
-            <Text style = {styles.link}> Sign up instead</Text>
+            <Text style = {styles.link}> Sign in instead</Text>
           </Text> 
             </View>
           </Spacer>
