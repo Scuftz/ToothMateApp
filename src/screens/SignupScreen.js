@@ -191,7 +191,9 @@ const SignupScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
           <Spacer>
             <View style={styles.link}>
-              <Text style={styles.link}> Already have an account, Sign in instead </Text>
+              <Text style={{fontWeight: "bold", fontSize: 15, color: "grey", textAlign: "center"}}>Don't have an account?
+            <Text style = {styles.link}> Sign up instead</Text>
+          </Text> 
             </View>
           </Spacer>
         </TouchableOpacity>
