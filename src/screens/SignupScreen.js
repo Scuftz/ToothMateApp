@@ -71,7 +71,7 @@ const SignupScreen = ({ navigation }) => {
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
         <Spacer>
-          <Text h3 style={{ marginBottom: 5 }}>
+          <Text style = {styles.header}>
             Sign Up for Tooth Mate
           </Text>
         </Spacer>
@@ -214,8 +214,6 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 40,
 
   },
   dateStyle: {
@@ -251,7 +249,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 12,
     color: "black",
-    marginBottom: 3
+    marginBottom: 3,
+    marginTop: 2
 
   },
   errorMessage: {
@@ -286,7 +285,16 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 10,
     backgroundColor: "#21cbff",
-  }
+  },
+  header: {
+    color: "dodgerblue",
+    fontWeight: 'bold',
+    fontSize: 30,
+    padding: 2,
+    justifyContent: 'center',
+    marginTop: 40
+  
+}
 });
 
 export default SignupScreen;
