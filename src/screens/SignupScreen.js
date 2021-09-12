@@ -77,6 +77,7 @@ const SignupScreen = ({ navigation }) => {
         </Spacer>
         <Input
           label="First Name"
+          placeholder = " Your First name"
           leftIcon={{ type: "font-awesome", name: "user" }}
           value={firstname}
           onChangeText={setFirstName}
@@ -88,7 +89,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
-          leftIcon={{ type: "font-awesome", name: "user" }}
+          placeholder = " Your last name"
+          leftIcon={{ type: "font-awesome", name: "user-plus" }}
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
@@ -99,6 +101,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
+          placeholder = " Email address"
           leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
@@ -110,6 +113,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
+          placeholder = " Mobile number"
           leftIcon={{ type: "font-awesome", name: "mobile" , size: 35}}
           value={mobile}
           onChangeText={setMobile}
@@ -121,6 +125,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Password"
+          placeholder = " Choose a strong Password"
           leftIcon={{ type: "font-awesome", name: "lock" }}
           value={password}
           onChangeText={setPassword}
@@ -243,6 +248,8 @@ const styles = StyleSheet.create({
   },
   textStyle: { //This is for the box
     fontSize: 16,
+    fontFamily: 'Georgia'
+
 
   },
   labelStyle: { //This is for the text
