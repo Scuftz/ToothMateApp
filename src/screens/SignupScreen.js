@@ -110,7 +110,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
-          leftIcon={{ type: "font-awesome", name: "mobile" }}
+          leftIcon={{ type: "font-awesome", name: "mobile" , size: 35}}
           value={mobile}
           onChangeText={setMobile}
           autoCapitalize="none"
@@ -191,7 +191,7 @@ const SignupScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
           <Spacer>
             <View style={styles.link}>
-              <Text style={{fontWeight: "bold", fontSize: 15, color: "grey", textAlign: "center"}}>Don't have an account?
+              <Text style={{fontWeight: "bold", fontSize: 15, color: "black", textAlign: "center"}}>Don't have an account?
             <Text style = {styles.link}> Sign in instead</Text>
           </Text> 
             </View>
@@ -210,8 +210,8 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: "#4e6822",
-    backgroundColor: "lightblue",
+    backgroundColor: "#92a65f",
+    //backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
 
