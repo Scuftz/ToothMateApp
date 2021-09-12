@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#21cbff",
   },
   header: {
-    color: "dodgerblue",
+    color: "#2B510C",
     fontWeight: 'bold',
     fontSize: 30,
     padding: 2,
