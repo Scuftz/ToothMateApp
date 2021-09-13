@@ -116,7 +116,7 @@ const DentalChartScreen = ({ navigation }) => {
         <View style={styles.imageContainer}>
           <Image //Dental Chart Image
             style={styles.image}
-            source={require("../components/dental_mouth.png")}
+            source={require("../components/adult_dental_chart.png")}
           />
 
           <View style={styles.centeredView}>
