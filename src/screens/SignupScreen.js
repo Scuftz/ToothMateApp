@@ -71,13 +71,14 @@ const SignupScreen = ({ navigation }) => {
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
         <Spacer>
-          <Text h3 style={{ marginBottom: 5 }}>
-            Sign Up for ToothMate
+          <Text style = {styles.header}>
+            Sign Up for Tooth Mate
           </Text>
         </Spacer>
-        <Spacer />
         <Input
           label="First Name"
+          placeholder = " Your First name"
+          leftIcon={{ type: "font-awesome", name: "user" }}
           value={firstname}
           onChangeText={setFirstName}
           autoCapitalize="none"
@@ -88,6 +89,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
+          placeholder = " Your last name"
+          leftIcon={{ type: "font-awesome", name: "user-plus" }}
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
@@ -98,6 +101,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
+          placeholder = " Email address"
+          leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -108,6 +113,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
+          placeholder = " Mobile number"
+          leftIcon={{ type: "font-awesome", name: "mobile" , size: 35}}
           value={mobile}
           onChangeText={setMobile}
           autoCapitalize="none"
@@ -118,6 +125,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Password"
+          placeholder = " Choose a strong Password"
+          leftIcon={{ type: "font-awesome", name: "lock" }}
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
@@ -167,9 +176,10 @@ const SignupScreen = ({ navigation }) => {
             return null;
           })()}
         </View>
-        <Spacer />
         <Spacer>
           <Button
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
             title="Next"
             onPress={() =>
               navigation.navigate("SelectClinic", {
@@ -185,9 +195,11 @@ const SignupScreen = ({ navigation }) => {
         </Spacer>
         <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
           <Spacer>
-            <Text style={styles.link}>
-              Already have an account? Sign in instead
-            </Text>
+            <View style={styles.link}>
+              <Text style={{fontWeight: "bold", fontSize: 15, color: "black", textAlign: "center"}}>Already have an account?
+            <Text style = {styles.link}> Sign in instead</Text>
+          </Text> 
+            </View>
           </Spacer>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
@@ -203,10 +215,11 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#92a65f",
+    //backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 50,
+
   },
   dateStyle: {
     fontSize: 18,
@@ -224,14 +237,28 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   inputContainerStyle: {
-    height: 30,
-    marginBottom: 0,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#dedede",
+    width: "95%",
+    paddingLeft: 15,
+    backgroundColor: "#ebebeb",
+    marginLeft: "2.25%",
+     
   },
-  textStyle: {
+  textStyle: { //This is for the box
     fontSize: 16,
+    fontFamily: 'Georgia'
+
+
   },
-  labelStyle: {
+  labelStyle: { //This is for the text
     fontSize: 14,
+    marginLeft: 12,
+    color: "black",
+    marginBottom: 3,
+    marginTop: 2
+
   },
   errorMessage: {
     fontSize: 16,
@@ -240,17 +267,41 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "blue",
-  },
+    flexDirection: "row",
+    justifyContent: "center",
+    },
+
   dropdownContainer: {
     padding: 10,
     paddingBottom: 20,
   },
-  clinicTextStyle: {
-    marginLeft: 10,
+  clinicTextStyle: { //Enter Date of Birth Styling
+    marginLeft: 20,
     fontSize: 14,
-    color: "#86939e",
+    //color: "#86939e",
+    color: "black",
     fontWeight: "bold",
   },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#21cbff",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "#21cbff",
+  },
+  header: {
+    color: "#2B510C",
+    fontWeight: 'bold',
+    fontSize: 30,
+    padding: 2,
+    justifyContent: 'center',
+    marginTop: 40
+  
+}
 });
 
 export default SignupScreen;
