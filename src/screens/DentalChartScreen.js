@@ -5,16 +5,12 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  Dimensions,
-  Alert,
   Modal,
   Pressable,
 } from "react-native";
-import { CheckBox, Button } from "react-native-elements";
+import { CheckBox } from "react-native-elements";
 import SwitchToggle from "react-native-switch-toggle";
-import ChartInstanceClass from "../components/ChartInstanceClass";
 import ChartEntryList from "../components/ChartEntryList";
-import Spacer from "../components/Spacer";
 
 const DentalChartScreen = ({ navigation }) => {
   const appointments = navigation.getParam("appointments");
@@ -22,16 +18,11 @@ const DentalChartScreen = ({ navigation }) => {
   const [chart, setChart] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [toothName, setToothName] = useState("");
-  const [toothCodes, setToothCodes] = useState("");
   const [toothCodeArray, setToothCodeArray] = useState([]);
   const [hasWisdomTooth, setHasWisdomTooth] = useState(true);
-  const [imageSource, setImageSource] = useState(
-    "../components/child_dental_chart.png"
-  );
 
-  function toothTappedAlert(name, codes, arr) {
+  function toothTappedAlert(name, arr) {
     setToothName(name);
-    setToothCodes(codes);
     setToothCodeArray(arr);
     setModalVisible(!modalVisible);
   }
@@ -114,6 +105,8 @@ const DentalChartScreen = ({ navigation }) => {
       >
         <View>
           <Text style={styles.headingFont}>
+            {" "}
+            {/* Heading Text */}
             Tap on any tooth to see your dental history!
           </Text>
         </View>
@@ -130,11 +123,6 @@ const DentalChartScreen = ({ navigation }) => {
             />
           )}
 
-          {/* <Image //Dental Chart Image
-            style={styles.image}
-            source={require("../components/child_dental_chart.png")}
-          /> */}
-
           <View style={styles.centeredView}>
             <Modal //Pop-Up for when user taps on a tooth
               animationType="slide"
@@ -146,10 +134,11 @@ const DentalChartScreen = ({ navigation }) => {
             >
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
+                  {/* Tooth Name Displayed */}
                   <Text style={styles.modalHeading}>{toothName}</Text>
-                  {/* <Text style={styles.modalText}>{toothCodes}</Text> */}
                   {(() => {
                     let dentalTreatment = [];
+                    // Storing every dental treatment on tooth in an array to display
                     dentalTreatment = toothCodeArray.map((treatment) => (
                       <View key={treatment} style={styles.modalBox}>
                         <View style={styles.leftBox}>
@@ -179,7 +168,7 @@ const DentalChartScreen = ({ navigation }) => {
           </View>
 
           {(() => {
-            //setting up checkbox's using information from each ChartInstance in the ChartEntry
+            //setting up checkbox's using information from each ChartInstance in the ChartEntryList
             let checkBox = [];
             checkBox = chart.allEntries.map((tooth) => {
               if (!hasWisdomTooth && tooth.name.includes("Third Molar")) {
@@ -193,52 +182,25 @@ const DentalChartScreen = ({ navigation }) => {
                       right: tooth.right,
                     }}
                     uncheckedIcon="circle-o"
-                    uncheckedColor="#ff0000"
-                    onPress={() =>
-                      toothTappedAlert(tooth.name, tooth.output, tooth.values)
-                    }
+                    uncheckedColor="#00ff0000"
+                    onPress={() => toothTappedAlert(tooth.name, tooth.values)}
                   ></CheckBox>
                 );
               }
             });
             return <>{checkBox}</>;
           })()}
-
-          {/* {(() => {
-            //setting up checkbox's using information from each ChartInstance in the ChartEntry
-            let checkBox = [];
-            if(hasWisdomTooth) {
-              
-            } else {
-
-            }
-            checkBox = chart.allEntries.map((tooth) => (
-              <CheckBox
-                key={tooth.id}
-                containerStyle={{
-                  position: "absolute",
-                  top: tooth.top,
-                  right: tooth.right,
-                }}
-                uncheckedIcon="circle-o"
-                uncheckedColor="#ff0000"
-                onPress={() =>
-                  toothTappedAlert(tooth.name, tooth.output, tooth.values)
-                }
-              ></CheckBox>
-            ));
-            return <>{checkBox}</>;
-          })()} */}
         </View>
+        {/* Wisdom Tooth toggle button to switch between dental charts */}
         <View style={styles.toggle}>
           <Text style={styles.toggleText}>Wisdom Tooth</Text>
           <SwitchToggle
             switchOn={hasWisdomTooth}
             onPress={() => setHasWisdomTooth(!hasWisdomTooth)}
-            circleColorOff="#00D9D5"
-            circleColorOn="#00D9D5"
-            backgroundColorOn="#6D6D6D"
-            backgroundColorOff="#C4C4C4"
+            circleColorOff="#94ffb6"
+            circleColorOn="#00d641"
+            backgroundColorOn="#e6fced"
+            backgroundColorOff="#e6fced"
           />
         </View>
       </ScrollView>
@@ -250,7 +212,7 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Dental Chart",
     headerStyle: {
-      backgroundColor: "#00BAFF",
+      backgroundColor: "#fff",
     },
     cardStyle: {
       backgroundColor: "white",
@@ -259,16 +221,25 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "#92e8ac",
+  },
   toggle: {
     flexDirection: "row",
     borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 20,
+    paddingRight: 10,
+    paddingBottom: 10,
+    marginTop: 10,
+    backgroundColor: "#fff",
   },
   toggleText: {
     fontSize: 18,
     alignSelf: "center",
-    paddingRight: 10,
-    paddingTop: 10,
+    padding: 10,
+    paddingHorizontal: 25,
+    marginTop: 10,
   },
   content: {
     flex: 1,
@@ -287,6 +258,8 @@ const styles = StyleSheet.create({
   },
   headingFont: {
     fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   centeredView: {
     flex: 1,
