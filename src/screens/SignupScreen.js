@@ -19,6 +19,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -67,6 +68,7 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
+    <LinearGradient colors={["#667154", "#8d9a77", "#667154"]} style = {styles.container}>
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
@@ -77,7 +79,7 @@ const SignupScreen = ({ navigation }) => {
         </Spacer>
         <Input
           label="First Name"
-          placeholder = " Your First name"
+          placeholder = "First name"
           leftIcon={{ type: "font-awesome", name: "user" }}
           value={firstname}
           onChangeText={setFirstName}
@@ -89,7 +91,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
-          placeholder = " Your last name"
+          placeholder = "Last name"
           leftIcon={{ type: "font-awesome", name: "user-plus" }}
           value={lastname}
           onChangeText={setLastName}
@@ -204,6 +206,8 @@ const SignupScreen = ({ navigation }) => {
         </TouchableOpacity>
       </KeyboardAwareScrollView>
     </View>
+
+</LinearGradient>
   );
 };
 
@@ -215,7 +219,7 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#8FBC8B",
+    //backgroundColor: "#8FBC8B",
     //backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
