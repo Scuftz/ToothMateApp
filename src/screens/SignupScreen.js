@@ -7,6 +7,7 @@ import {
   FlatList,
   LogBox,
   Platform,
+  Image
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
@@ -20,6 +21,7 @@ import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { LinearGradient } from "expo-linear-gradient";
+
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -68,19 +70,23 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient colors={["#667154", "#8d9a77", "#667154"]} style = {styles.container}>
+    <LinearGradient colors={["#97ff78", "#AFE69E", "#AFE69E"]} style = {styles.container}>
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Spacer>
-          <Text style = {styles.header}>
+          {/* <Text style = {styles.header}>
             Sign Up for Tooth Mate
-          </Text>
-        </Spacer>
+          </Text> */}
+          <Image 
+            source = {require("../components/tm_white_logo.png")}
+            style = {{alignSelf: 'center', justifyContent: 'center', width: 150, height: 90, resizeMode: 'contain',
+            marginTop: 25 
+          }}
+          />
         <Input
           label="First Name"
           placeholder = "First name"
-          leftIcon={{ type: "font-awesome", name: "user" }}
+          leftIcon={{ type: "feather", name: "user"}}
           value={firstname}
           onChangeText={setFirstName}
           autoCapitalize="none"
@@ -92,7 +98,7 @@ const SignupScreen = ({ navigation }) => {
         <Input
           label="Last Name"
           placeholder = "Last name"
-          leftIcon={{ type: "font-awesome", name: "user-plus" }}
+          leftIcon={{ type: "feather", name: "user" }}
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
@@ -103,7 +109,7 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
-          placeholder = " Email address"
+          placeholder = "Email"
           leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
@@ -115,8 +121,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
-          placeholder = " Mobile number"
-          leftIcon={{ type: "font-awesome", name: "mobile" , size: 35}}
+          placeholder = "Mobile"
+          leftIcon={{ type: "entypo", name: "mobile" }}
           value={mobile}
           onChangeText={setMobile}
           autoCapitalize="none"
@@ -127,8 +133,8 @@ const SignupScreen = ({ navigation }) => {
         />
         <Input
           label="Password"
-          placeholder = " Choose a strong Password"
-          leftIcon={{ type: "font-awesome", name: "lock" }}
+          placeholder = "Password"
+          leftIcon={{ type: "fontawesome5", name: "lock" }}
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
@@ -183,6 +189,7 @@ const SignupScreen = ({ navigation }) => {
             buttonStyle={styles.button}
             containerStyle={styles.buttonContainer}
             title="Next"
+            titleStyle = {styles.buttonText}
             onPress={() =>
               navigation.navigate("SelectClinic", {
                 firstname,
@@ -252,7 +259,7 @@ const styles = StyleSheet.create({
   },
   textStyle: { //This is for the box
     fontSize: 16,
-    fontFamily: 'Georgia'
+    //fontFamily: 'Helvetica'
 
 
   },
@@ -289,13 +296,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderWidth: 1,
     borderRadius: 20,
-    borderColor: "#21cbff",
+    borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#21cbff",
+    backgroundColor: "green",
   },
   header: {
     color: "#2B510C",
@@ -305,6 +312,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 40
   
+},
+buttonText:{
+  color: "white"
+
 }
 });
 
