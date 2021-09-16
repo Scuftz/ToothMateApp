@@ -5,15 +5,12 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  Dimensions,
-  Alert,
   Modal,
   Pressable,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
-import ChartInstanceClass from "../components/ChartInstanceClass";
+import SwitchToggle from "react-native-switch-toggle";
 import ChartEntryList from "../components/ChartEntryList";
-import Spacer from "../components/Spacer";
 
 const DentalChartScreen = ({ navigation }) => {
   const appointments = navigation.getParam("appointments");
@@ -21,21 +18,20 @@ const DentalChartScreen = ({ navigation }) => {
   const [chart, setChart] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [toothName, setToothName] = useState("");
-  const [toothCodes, setToothCodes] = useState("");
   const [toothCodeArray, setToothCodeArray] = useState([]);
+  const [hasWisdomTooth, setHasWisdomTooth] = useState(true);
 
-  function toothTappedAlert(name, codes, arr) {
+  function toothTappedAlert(name, arr) {
     setToothName(name);
-    setToothCodes(codes);
     setToothCodeArray(arr);
     setModalVisible(!modalVisible);
   }
 
   function getAllDentalData() {
+    //for each appointment
     appointments.forEach((app) => {
-      //for each appointment
+      //for each dental treatment in appointment
       app.dentalData.forEach((element) => {
-        //for each dental treatment in appointment
         //index number of tooth from dental data
         let index = parseInt(element.substring(3, 5)) - 1; // - 1 to align index starting at 0
         //converting code to full dental treatment name
@@ -70,8 +66,8 @@ const DentalChartScreen = ({ navigation }) => {
             code = element.substring(5);
             break;
         }
-        let codeDateString = code + " " + convertDate(app.date);
-        allChartEntries.updateValue(index, codeDateString);
+        let codeDateString = code + " " + convertDate(app.date); //create dental treatment with treatment date
+        allChartEntries.updateValue(index, codeDateString); //put dental treatment in array
       });
     });
   }
@@ -109,15 +105,23 @@ const DentalChartScreen = ({ navigation }) => {
       >
         <View>
           <Text style={styles.headingFont}>
+            {" "}
+            {/* Heading Text */}
             Tap on any tooth to see your dental history!
           </Text>
         </View>
-        <Spacer />
         <View style={styles.imageContainer}>
-          <Image //Dental Chart Image
-            style={styles.image}
-            source={require("../components/dental_mouth.png")}
-          />
+          {hasWisdomTooth ? (
+            <Image
+              style={styles.image}
+              source={require("../components/adult_dental_chart.png")}
+            />
+          ) : (
+            <Image
+              style={styles.image}
+              source={require("../components/child_dental_chart.png")}
+            />
+          )}
 
           <View style={styles.centeredView}>
             <Modal //Pop-Up for when user taps on a tooth
@@ -130,10 +134,11 @@ const DentalChartScreen = ({ navigation }) => {
             >
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
+                  {/* Tooth Name Displayed */}
                   <Text style={styles.modalHeading}>{toothName}</Text>
-                  {/* <Text style={styles.modalText}>{toothCodes}</Text> */}
                   {(() => {
                     let dentalTreatment = [];
+                    // Storing every dental treatment on tooth in an array to display
                     dentalTreatment = toothCodeArray.map((treatment) => (
                       <View key={treatment} style={styles.modalBox}>
                         <View style={styles.leftBox}>
@@ -163,25 +168,40 @@ const DentalChartScreen = ({ navigation }) => {
           </View>
 
           {(() => {
-            //setting up checkbox's using information from each ChartInstance in the ChartEntry
+            //setting up checkbox's using information from each ChartInstance in the ChartEntryList
             let checkBox = [];
-            checkBox = chart.allEntries.map((tooth) => (
-              <CheckBox
-                key={tooth.id}
-                containerStyle={{
-                  position: "absolute",
-                  top: tooth.top,
-                  right: tooth.right,
-                }}
-                uncheckedIcon="circle-o"
-                uncheckedColor="#00ff0000"
-                onPress={() =>
-                  toothTappedAlert(tooth.name, tooth.output, tooth.values)
-                }
-              ></CheckBox>
-            ));
+            checkBox = chart.allEntries.map((tooth) => {
+              if (!hasWisdomTooth && tooth.name.includes("Third Molar")) {
+              } else {
+                return (
+                  <CheckBox
+                    key={tooth.id}
+                    containerStyle={{
+                      position: "absolute",
+                      top: tooth.top,
+                      right: tooth.right,
+                    }}
+                    uncheckedIcon="circle-o"
+                    uncheckedColor="#00ff0000"
+                    onPress={() => toothTappedAlert(tooth.name, tooth.values)}
+                  ></CheckBox>
+                );
+              }
+            });
             return <>{checkBox}</>;
           })()}
+        </View>
+        {/* Wisdom Tooth toggle button to switch between dental charts */}
+        <View style={styles.toggle}>
+          <Text style={styles.toggleText}>Wisdom Tooth</Text>
+          <SwitchToggle
+            switchOn={hasWisdomTooth}
+            onPress={() => setHasWisdomTooth(!hasWisdomTooth)}
+            circleColorOff="#94ffb6"
+            circleColorOn="#00d641"
+            backgroundColorOn="#e6fced"
+            backgroundColorOff="#e6fced"
+          />
         </View>
       </ScrollView>
     );
@@ -192,7 +212,7 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Dental Chart",
     headerStyle: {
-      backgroundColor: "#00BAFF",
+      backgroundColor: "#fff",
     },
     cardStyle: {
       backgroundColor: "white",
@@ -202,8 +222,24 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
-    marginVertical: 10,
+    backgroundColor: "#92e8ac",
+  },
+  toggle: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 20,
+    paddingRight: 10,
+    paddingBottom: 10,
+    marginTop: 10,
+    backgroundColor: "#fff",
+  },
+  toggleText: {
+    fontSize: 18,
+    alignSelf: "center",
+    padding: 10,
+    paddingHorizontal: 25,
+    marginTop: 10,
   },
   content: {
     flex: 1,
@@ -222,6 +258,8 @@ const styles = StyleSheet.create({
   },
   headingFont: {
     fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   centeredView: {
     flex: 1,
