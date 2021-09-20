@@ -5,21 +5,16 @@ import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
+import { Context as UserContext } from "../context/UserContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SelectClinicScreen = ({ navigation }) => {
-  const { state, signup, signupchild } = useContext(AuthContext);
-
-  let firstname = navigation.getParam("firstname");
-  let lastname = navigation.getParam("lastname");
-  let email = navigation.getParam("email");
-  let mobile = navigation.getParam("mobile");
-  let password = navigation.getParam("password");
-  let dob = navigation.getParam("dob");
-
+const UpdateClinicScreen = ({ navigation }) => {
+  const { state, updateUserClinic } = useContext(AuthContext);
   const cc = useContext(ClinicContext);
-  const [clinic, setClinic] = useState({ name: "Clinic" });
+  const uc = useContext(UserContext);
+
+  const [clinic, setClinic] = useState({ id: uc.state.clinic._id, name: uc.state.clinic.name });
 
   useEffect(() => {
     cc.getClinicNames();
@@ -59,17 +54,9 @@ const SelectClinicScreen = ({ navigation }) => {
       ) : null}
       <Spacer>
         <Button
-          title="Sign Up"
+          title="Change Clinic"
           onPress={() => {
-            signup({
-              firstname,
-              lastname,
-              email,
-              mobile,
-              password,
-              dob,
-              clinic: clinic.id,
-            });
+            updateUserClinic({ clinic: clinic.id })
           }}
         />
       </Spacer>
@@ -77,10 +64,9 @@ const SelectClinicScreen = ({ navigation }) => {
   );
 };
 
-SelectClinicScreen.navigationOptions = () => {
+UpdateClinicScreen.navigationOptions = () => {
   return {
     // headerShown: false,
-    headerTitle: "Back to Sign Up",
   };
 };
 
@@ -121,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectClinicScreen;
+export default UpdateClinicScreen;

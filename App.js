@@ -18,8 +18,13 @@ import EducationScreen from "./src/screens/EducationScreen";
 import EducationContentScreen from "./src/screens/EducationContentScreen";
 import AppointmentScreen from "./src/screens/AppointmentScreen";
 import SelectClinicScreen from "./src/screens/SelectClinicScreen";
+import UserScreen from "./src/screens/UserScreen";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import UpdateClinicScreen from "./src/screens/UpdateClinicScreen";
+import PasswordChangeScreen from "./src/screens/PasswordChangeScreen";
+import UserAccountScreen from "./src/screens/UserAccountScreen";
 import DentalChartScreen from "./src/screens/DentalChartScreen";
+
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -35,6 +40,10 @@ const switchNavigator = createSwitchNavigator({
         Account: AccountScreen,
         Signupchild: SignupChildScreen,
         SelectClinic: SelectClinicScreen,
+        User: UserScreen,
+        UpdateClinic: UpdateClinicScreen,
+        Password: PasswordChangeScreen,
+        UserAccount: UserAccountScreen,
       },
       {
         initialRouteName: "Account",
