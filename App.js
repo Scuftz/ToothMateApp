@@ -23,6 +23,8 @@ import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import UpdateClinicScreen from "./src/screens/UpdateClinicScreen";
 import PasswordChangeScreen from "./src/screens/PasswordChangeScreen";
 import UserAccountScreen from "./src/screens/UserAccountScreen";
+import DentalChartScreen from "./src/screens/DentalChartScreen";
+
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -65,13 +67,14 @@ const switchNavigator = createSwitchNavigator({
       }
     ),
     // Clinic: ClinicScreen,
-    Clinic: createStackNavigator(
+    ClinicFlow: createStackNavigator(
       {
-        list: ClinicScreen,
-        content: AppointmentScreen,
+        clinic: ClinicScreen,
+        chart: DentalChartScreen,
+        appointment: AppointmentScreen,
       },
       {
-        initialRouteName: "list",
+        initialRouteName: "clinic",
         navigationOptions: {
           title: "Clinic",
           tabBarIcon: (

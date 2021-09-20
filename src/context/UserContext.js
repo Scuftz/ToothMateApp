@@ -36,13 +36,8 @@ const getDentalClinic = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
     const userClinic = await axiosApi.get("/getUserClinic/" + id);
-
     const clinicID = userClinic.data.clinic;
     const response = await axiosApi.get("/getDentalClinic/" + clinicID);
-
-    console.log("clinic name: " + response.data.clinic.name);
-    console.log("clinic phone: " + response.data.clinic.phone);
-    console.log("clinic email: " + response.data.clinic.email);
 
     dispatch({ type: "get_clinic", payload: response.data.clinic });
   };
@@ -55,11 +50,9 @@ const getEmailAndAppointments = (dispatch) => {
     const email = emailResponse.data.email;
     const response = await axiosApi.get("/Appointment/" + email);
 
-    console.log("Email: " + emailResponse.data.email);
-
     const temp = []
       .concat(response.data)
-      .sort((a, b) => (a.date > b.date ? 1 : -1));
+      .sort((a, b) => (a.date < b.date ? 1 : -1));
 
     dispatch({ type: "get_user_appointment", payload: temp });
   };

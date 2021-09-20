@@ -1,10 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { Button } from "react-native-elements";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Caller from "../components/Caller";
+import Spacer from "../components/Spacer";
 import { Context as UserContext } from "../context/UserContext";
 import "intl";
 import "intl/locale-data/jsonp/en";
@@ -54,6 +61,13 @@ const ClinicScreen = ({ navigation }) => {
           email={clinic.email}
           url={clinic.bookingURL}
         />
+        <Button
+          title="View Your Dental Chart"
+          onPress={() =>
+            navigation.navigate("chart", { appointments: appointments })
+          }
+        />
+        <Spacer />
 
         <Text>Your appointments</Text>
         <FlatList
@@ -63,7 +77,7 @@ const ClinicScreen = ({ navigation }) => {
             return (
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("content", { id: item.item._id })
+                  navigation.navigate("appointment", { appointment: item.item })
                 }
               >
                 <View style={styles.topicStyle}>
