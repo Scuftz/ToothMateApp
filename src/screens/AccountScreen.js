@@ -32,24 +32,11 @@ const AccountScreen = ({ navigation }) => {
           textContent={'loading...'}
           animation="fade"
       />
+      
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <ChildAccountButtons navigation={navigation} />
-      <Spacer>
-        <Button title="Sign Out" onPress={signout} />
-        <Button title="User" onPress={async () => {
-          setSpinner(true)
-          await getUser();
-          navigation.navigate("User")
-          }} />
-        <Button title="Clinic" onPress={async () => {
-          setSpinner(true)
-          await getDentalClinic();
-          navigation.navigate("UpdateClinic")
-          }} />
-        <Button title="Change Your Password" onPress={() => {
-          navigation.navigate("Password")
-          }} />
-      </Spacer>
+      <Button title="You" onPress={()=> navigation.navigate("UserAccount")} />
+      <Button title="Sign Out" onPress={signout} />
     </SafeAreaView>
   );
 };

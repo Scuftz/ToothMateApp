@@ -55,7 +55,9 @@ const UpdateClinicScreen = ({ navigation }) => {
       <Spacer>
         <Button
           title="Change Clinic"
-          onPress={() => {updateUserClinic({ clinic: clinic.id })}}
+          onPress={() => {
+            updateUserClinic({ clinic: clinic.id })
+          }}
         />
       </Spacer>
     </View>

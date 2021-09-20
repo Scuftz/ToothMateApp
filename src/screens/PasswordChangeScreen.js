@@ -7,9 +7,9 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Context as ClinicContext } from "../context/ClinicContext";
 import { Context as UserContext } from "../context/UserContext";
 
-const PasswordChangeScreen = () => {
+const PasswordChangeScreen = ({ navigation }) => {
 
-    const { changePassword } = useContext(AuthContext);
+    const { state, changePassword } = useContext(AuthContext);
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
@@ -39,12 +39,18 @@ const PasswordChangeScreen = () => {
                 inputStyle={styles.textStyle}
                 labelStyle={styles.labelStyle}
             />
-            <Button
-                title="Change Password"
-                onPress={() =>
-                {changePassword({oldPassword, newPassword})}
-                }
-            />
+            {state.errorMessage ? (
+                <Text style={styles.errorMessage}>{state.errorMessage}</Text>
+            ) : null}
+            <Spacer>
+                    <Button
+                    title="Change Password"
+                    onPress={() => {
+                        changePassword({oldPassword, newPassword})
+                       
+                    }}
+                /> 
+            </Spacer>
         </KeyboardAwareScrollView>
     );
 };
@@ -60,6 +66,11 @@ const styles = StyleSheet.create({
         labelStyle: {
         fontSize: 14,
     },
+    errorMessage: {
+        fontSize: 16,
+        color: "red",
+        marginLeft: 15,
+      },
 });
 
 export default PasswordChangeScreen;

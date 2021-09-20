@@ -54,7 +54,6 @@ const SignupChildScreen = ({ navigation }) => {
     setShow(Platform.OS === "ios");
     setDob(currentDate);
     convertDate(currentDate);
-    console.log("State Date: " + dob);
   };
 
   const showMode = (currentMode) => {

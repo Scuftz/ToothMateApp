@@ -18,6 +18,8 @@ const authReducer = (state, action) => {
       };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
+    case "change_password":
+      return {...state, errorMessage: action.payload};
     case "signout":
       return { token: null, errorMessage: "" };
     case "user":
@@ -182,26 +184,57 @@ const signin =
   
   const updateUser = (dispatch) => {
     return async ({firstname, lastname, email, mobile, dob}) => {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
+      try { 
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
 
-      dispatch({ type: "updateUser", payload: response.data.error })}
+        dispatch({ type: "clear_error_message" })
+        navigate("UserAccount")
+      }
+      catch(err) {
+        console.log(err)
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your details",
+        });
+      }
+    }
   }
 
   const updateUserClinic = (dispatch) => {
     return async ({ clinic }) => {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/updateUserClinic/" + id, { clinic })
+      try {
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/updateUserClinic/" + id, { clinic })
 
-      dispatch({ type: "updateUser", payload: response.data.error })}
+        dispatch({ type: "clear_error_message" })
+        navigate("UserAccount")
+      }
+      catch(err) {
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your clinic",
+        });
+      }
+    }
   }
   
   const changePassword = (dispatch) => {
     return async ({ oldPassword, newPassword }) => {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/changePassword/" + id, { oldPassword, newPassword })
+      try {
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/changePassword/" + id, { oldPassword, newPassword })
 
-      dispatch({ type: "change_password", payload: response.data })
+        dispatch({ type: "clear_error_message"})
+        navigate("UserAccount")
+      }
+      catch(err)
+      {
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your password",
+        });
+      }
     }
   }
 

@@ -18,9 +18,6 @@ const SelectClinicScreen = ({ navigation }) => {
   let password = navigation.getParam("password");
   let dob = navigation.getParam("dob");
 
-  console.log("FN: " + navigation.getParam("firstname"));
-  console.log("DOB: " + dob);
-
   const cc = useContext(ClinicContext);
   const [clinic, setClinic] = useState({ name: "Clinic" });
 

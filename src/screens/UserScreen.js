@@ -11,6 +11,7 @@ import { Context as authContext } from '../context/AuthContext';
 const UserScreen = ({navigation}) => {
     const {state, getUser} = useContext(userContext);
     const { updateUser } = useContext(authContext)
+    const authState = useContext(authContext)
   const [firstname, setFirstName] = useState(state.details.firstname);
   const [lastname, setLastName] = useState(state.details.lastname);
   const [email, setEmail] = useState(state.details.email);
@@ -33,15 +34,12 @@ const UserScreen = ({navigation}) => {
   }, []);  
 
     const userinfo = () => {
-      console.log("ENTER")
       getUser();
       let i = 1
-      console.log("Loop")
     //    while (state.details.length == 0){
     //      console.log("i")
     //     i++;
     //  }
-    console.log(state.details)
     }
 
   function convertDate(inputDate) {
@@ -60,7 +58,6 @@ const UserScreen = ({navigation}) => {
     setShow(Platform.OS === "ios");
     setDob(currentDate);
     convertDate(currentDate);
-    console.log("State Date: " + dob);
   };
 
   const showMode = (currentMode) => {
@@ -162,6 +159,9 @@ const UserScreen = ({navigation}) => {
           })()}
         </View>
         <Spacer />
+          {authState.errorMessage ? (
+            <Text style={styles.errorMessage}>{authState.errorMessage}</Text>
+          ) : null}
         <Spacer>
           <Button
             title="Change Details"

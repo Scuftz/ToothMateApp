@@ -22,6 +22,7 @@ import UserScreen from "./src/screens/UserScreen";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import UpdateClinicScreen from "./src/screens/UpdateClinicScreen";
 import PasswordChangeScreen from "./src/screens/PasswordChangeScreen";
+import UserAccountScreen from "./src/screens/UserAccountScreen";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -40,6 +41,7 @@ const switchNavigator = createSwitchNavigator({
         User: UserScreen,
         UpdateClinic: UpdateClinicScreen,
         Password: PasswordChangeScreen,
+        UserAccount: UserAccountScreen,
       },
       {
         initialRouteName: "Account",
