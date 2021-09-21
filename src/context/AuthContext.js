@@ -22,6 +22,11 @@ const authReducer = (state, action) => {
       return { token: null, errorMessage: "" };
     case "user":
       return { errorMessage: "Hello", token: action.payload };
+    case "getchildaccounts":
+      return {
+        errorMessage: "",
+        children: action.payload.children,
+      };
     default:
       return state;
   }
@@ -110,6 +115,19 @@ const signup =
     }
   };
 
+const getchildaccounts = (dispatch) => async () => {
+  try {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.get("/getchildaccounts/" + id);
+    dispatch({
+      type: "getchildaccounts",
+      payload: { children: response.data },
+    });
+  } catch (err) {
+    console.log("Error retrieving child accounts");
+  }
+};
+
 const signupchild =
   (dispatch) =>
   async ({
@@ -187,6 +205,7 @@ const signin =
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
+  await AsyncStorage.removeItem("parentid");
   dispatch({ type: "signout" });
   navigate("loginFlow");
 };
@@ -201,6 +220,7 @@ export const { Provider, Context } = createDataContext(
     tryLocalSignin,
     user,
     signupchild,
+    getchildaccounts,
   },
   { token: null, errorMessage: "", id: null }
 );

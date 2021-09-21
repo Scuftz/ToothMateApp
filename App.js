@@ -32,14 +32,14 @@ const switchNavigator = createSwitchNavigator({
     AccountFlow: createStackNavigator(
       {
         Account: AccountScreen,
-        Signupchild: SignupChildScreen,
+        SignUpChild: SignupChildScreen,
         SelectClinic: SelectClinicScreen,
       },
       {
         initialRouteName: "Account",
         navigationOptions: {
-          title: "Account",
-          tabBarIcon: () => <Ionicons name="person" size={25} />,
+          title: "Home",
+          tabBarIcon: () => <Entypo name="home" size={25} />,
         },
       }
     ),
