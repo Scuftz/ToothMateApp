@@ -104,7 +104,7 @@ const signup =
         });
         //await AsyncStorage.setItem("token", response.data.token);
         //dispatch({ type: "signin", payload: response.data.token });
-        navigate("Account");
+        navigate("AccountFlow");
         console.log("sign up child here");
       }
     } catch (err) {

@@ -7,6 +7,7 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import ClinicScreen from "./src/screens/ClinicScreen";
 import SignupChildScreen from "./src/screens/SignupChildScreen";
+import ChildAccountScreen from "./src/screens/ChildAccountScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { Provider as AppointmentProvider } from "./src/context/AppointmentContext";
@@ -32,8 +33,8 @@ const switchNavigator = createSwitchNavigator({
     AccountFlow: createStackNavigator(
       {
         Account: AccountScreen,
-        SignUpChild: SignupChildScreen,
-        SelectClinic: SelectClinicScreen,
+        //SignUpChild: SignupChildScreen,
+        //SelectClinic: SelectClinicScreen,
       },
       {
         initialRouteName: "Account",
@@ -72,6 +73,53 @@ const switchNavigator = createSwitchNavigator({
         },
       }
     ),
+  }),
+  childFlow: createBottomTabNavigator({
+    AccountFlow: createStackNavigator(
+      {
+        Account: ChildAccountScreen,
+      },
+      {
+        initialRouteName: "Account",
+        navigationOptions: {
+          title: "Home",
+          tabBarIcon: () => <Entypo name="home" size={25} />,
+        },
+      }
+    ),
+    Education: createStackNavigator(
+      {
+        list: EducationScreen,
+        content: EducationContentScreen,
+      },
+      {
+        initialRouteName: "list",
+        navigationOptions: {
+          title: "Education",
+          tabBarIcon: <Entypo name="open-book" size={25} />,
+        },
+      }
+    ),
+    // Clinic: ClinicScreen,
+    Clinic: createStackNavigator(
+      {
+        list: ClinicScreen,
+        content: AppointmentScreen,
+      },
+      {
+        initialRouteName: "list",
+        navigationOptions: {
+          title: "Clinic",
+          tabBarIcon: (
+            <MaterialCommunityIcons name="toothbrush-paste" size={25} />
+          ),
+        },
+      }
+    ),
+  }),
+  signUpChildFlow: createStackNavigator({
+    Signupchild: SignupChildScreen,
+    SelectClinic: SelectClinicScreen,
   }),
 });
 

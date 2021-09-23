@@ -10,7 +10,7 @@ const AccountScreen = ({ navigation }) => {
   const { state, signout, getchildaccounts } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [parent, setParent] = useState(null);
-  const [isFocused, setFocused] = useState(navigation.isFocused());
+  //const [isFocused, setFocused] = useState(navigation.isFocused());
 
   const getParent = async () => {
     let parentValue = parent;
@@ -27,23 +27,26 @@ const AccountScreen = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
+    setLoading(true);
     getParent();
-
-    const focusListener = navigation.addListener("didFocus", () => {
-      setFocused(true);
-    });
-    const blurListener = navigation.addListener("didBlur", () => {
+    const didBlur = () => {
       setFocused(false);
-    });
+    };
+    const didFocus = () => {
+      setFocused(true);
+    };
+
+    const blurSubscription = navigation.addListener("didBlur", didBlur);
+    const focusSubscription = navigation.addListener("didFocus", didFocus);
 
     return () => {
-      focusListener.remove();
-      blurListener.remove();
+      blurSubscription.remove();
+      focusSubscription.remove();
     };
-  }, [isFocused]);
+  }, [isFocused]);*/
 
-  const childButtons = () => {
+  /*const childButtons = () => {
     const buttons = [];
     state.children
       ? state.children.map((element, key) => {
@@ -58,16 +61,16 @@ const AccountScreen = ({ navigation }) => {
                   await AsyncStorage.getItem("id")
                 );
                 await AsyncStorage.setItem("id", element._id);
-                navigation.navigate("childFlow");
+                navigation.push("Account");
               }}
             />
           );
         })
       : null;
     return buttons;
-  };
+  };*/
 
-  if (loading) {
+  /*if (loading) {
     return (
       <View
         style={{
@@ -80,20 +83,26 @@ const AccountScreen = ({ navigation }) => {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
-  }
+  }*/
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <Spacer>
-        <Button title="Sign Out" onPress={signout} />
-        <Button title="test" onPress={() => console.log(state.children)} />
         <Button
-          title="Sign up child"
-          onPress={() => navigation.navigate("signUpChildFlow")}
+          title="Back to Parent Account"
+          onPress={async () => {
+            navigation.navigate("mainFlow");
+            setLoading(true);
+            await AsyncStorage.setItem(
+              "id",
+              await AsyncStorage.getItem("parentid")
+            );
+            await AsyncStorage.removeItem("parentid");
+          }}
         />
+        <Button title="test" onPress={() => console.log(state.children)} />
       </Spacer>
-      {childButtons()}
     </SafeAreaView>
   );
 };
