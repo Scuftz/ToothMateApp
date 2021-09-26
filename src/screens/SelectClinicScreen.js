@@ -59,7 +59,10 @@ const SelectClinicScreen = ({ navigation }) => {
       ) : null}
       <Spacer>
         <Button
-          title="Sign Up"
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Sign Up"
+        titleStyle={styles.buttonText}
           onPress={() => {
             signup({
               firstname,
@@ -118,6 +121,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#86939e",
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "green",
+  },
+  buttonText: {
+    color: "white",
   },
 });
 
