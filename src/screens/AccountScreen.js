@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, ActivityIndicator, View } from "react-native";
+=======
+import React, { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
+<<<<<<< HEAD
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AccountScreen = ({ navigation }) => {
@@ -81,10 +87,38 @@ const AccountScreen = ({ navigation }) => {
       </View>
     );
   }
+=======
+import { Context as UserContext } from "../context/UserContext";
+import { Ionicons } from "@expo/vector-icons";
+import Caller from "../components/Caller";
+import ChildAccountButtons from "../components/ChildAccountButtons";
+import Spinner from "react-native-loading-spinner-overlay";
+
+const AccountScreen = ({ navigation }) => {
+  const { state, signout } = useContext(AuthContext);
+  const { getUser, getDentalClinic } = useContext(UserContext)
+  const [ spinner, setSpinner ] = useState(false)
+
+  useEffect(() => {
+    const listener = navigation.addListener("didFocus", () => {
+      setSpinner(false)
+    });
+    return () => {
+      listener.remove();
+    }
+  }, [])
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
+      <Spinner  
+          visible={spinner}
+          textContent={'loading...'}
+          animation="fade"
+      />
+      
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
+<<<<<<< HEAD
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
         <Button title="test" onPress={() => console.log(state.children)} />
@@ -94,6 +128,11 @@ const AccountScreen = ({ navigation }) => {
         />
       </Spacer>
       {childButtons()}
+=======
+      <ChildAccountButtons navigation={navigation} />
+      <Button title="You" onPress={()=> navigation.navigate("UserAccount")} />
+      <Button title="Sign Out" onPress={signout} />
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
     </SafeAreaView>
   );
 };

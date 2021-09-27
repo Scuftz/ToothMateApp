@@ -1,43 +1,46 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  LogBox,
-  Platform,
-} from "react-native";
-import { NavigationEvents } from "react-navigation";
-import { HeaderBackButton } from "react-navigation-stack";
-import { Text, Input, Button } from "react-native-elements";
-import Spacer from "../components/Spacer";
-import { Context as AuthContext } from "../context/AuthContext";
-// import { Context as ClinicContext } from "../context/ClinicContext";
-import SearchableDropdown from "react-native-searchable-dropdown";
-import { InteractionManager } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAvoidingView } from "react-native";
+import React, {useState, useEffect, useContext} from 'react';
+import { View, StyleSheet, Text, Platform, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { NavigationEvents } from "react-navigation";
+import { Input, Button } from "react-native-elements";
+import Spacer from "../components/Spacer";
+import { Context as userContext } from '../context/UserContext';
+import { Context as authContext } from '../context/AuthContext';
 
-const SignupChildScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage } = useContext(AuthContext);
-  //   const cc = useContext(ClinicContext);
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState("");
+const UserScreen = ({navigation}) => {
+    const {state, getUser} = useContext(userContext);
+    const { updateUser } = useContext(authContext)
+    const authState = useContext(authContext)
+  const [firstname, setFirstName] = useState(state.details.firstname);
+  const [lastname, setLastName] = useState(state.details.lastname);
+  const [email, setEmail] = useState(state.details.email);
+  const [mobile, setMobile] = useState(state.details.mobile);
 
-  const [dob, setDob] = useState(new Date(946700000000));
+  const [dob, setDob] = useState(new Date(state.details.dob));
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    convertDate(dob);
-  }, []);
+    convertDate(dob)
+
+    const listener = navigation.addListener("didFocus", () => {
+    convertDate(dob)
+    });
+    return () => {
+      listener.remove();
+    };
+  }, []);  
+
+    const userinfo = () => {
+      getUser();
+      let i = 1
+    //    while (state.details.length == 0){
+    //      console.log("i")
+    //     i++;
+    //  }
+    }
 
   function convertDate(inputDate) {
     let date = new Date(inputDate);
@@ -65,14 +68,14 @@ const SignupChildScreen = ({ navigation }) => {
   const showDatepicker = () => {
     showMode("date");
   };
-
-  return (
-    <View style={styles.container}>
+    
+    return (
+        <View style={styles.container}>
       <KeyboardAwareScrollView>
-        <NavigationEvents onWillFocus={clearErrorMessage} />
+      <NavigationEvents />
         <Spacer>
           <Text h3 style={{ marginBottom: 5 }}>
-            Sign Up for ToothMate
+            Change your details
           </Text>
         </Spacer>
         <Spacer />
@@ -116,18 +119,6 @@ const SignupChildScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        <Input
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-
         <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
         <View>
           {(() => {
@@ -164,90 +155,76 @@ const SignupChildScreen = ({ navigation }) => {
                 </>
               );
             }
-            //return null;
+            return null;
           })()}
         </View>
         <Spacer />
+          {authState.errorMessage ? (
+            <Text style={styles.errorMessage}>{authState.errorMessage}</Text>
+          ) : null}
         <Spacer>
           <Button
-            title="Next"
-            onPress={() =>
-              navigation.navigate("SelectClinic", {
-                firstname,
-                lastname,
-                email,
-                mobile,
-                password,
-                dob,
-              })
-            }
+            title="Change Details"
+            onPress={() => {
+              updateUser({firstname, lastname, email, mobile, dob})
+            }}
           />
         </Spacer>
       </KeyboardAwareScrollView>
     </View>
-  );
-};
-
-SignupChildScreen.navigationOptions = ({ navigation }) => {
-  return {
-    headerShown: true,
-    headerTitle: "Back to Account",
-    headerLeft: () => (
-      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
-    ),
-  };
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 50,
-  },
-  dateStyle: {
-    fontSize: 18,
-    padding: 10,
-    backgroundColor: "#f2f2f2",
-  },
-  dobButton: {
-    backgroundColor: "#f2f2f2",
-    justifyContent: "flex-start",
-    paddingLeft: 10,
-  },
-  dobText: {
-    color: "#000000",
-    paddingLeft: 0,
-    textAlign: "left",
-  },
-  inputContainerStyle: {
-    height: 30,
-    marginBottom: 0,
-  },
-  textStyle: {
-    fontSize: 16,
-  },
-  labelStyle: {
-    fontSize: 14,
-  },
-  errorMessage: {
-    fontSize: 16,
-    color: "red",
-    marginLeft: 15,
-  },
-  link: {
-    color: "blue",
-  },
-  dropdownContainer: {
-    padding: 10,
-    paddingBottom: 20,
-  },
-  clinicTextStyle: {
-    marginLeft: 10,
-    fontSize: 14,
-    color: "#86939e",
-    fontWeight: "bold",
-  },
-});
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      marginBottom: 30,
+      marginTop: 50,
+    },
+    dateStyle: {
+      fontSize: 18,
+      padding: 10,
+      backgroundColor: "#f2f2f2",
+    },
+    dobButton: {
+      backgroundColor: "#f2f2f2",
+      justifyContent: "flex-start",
+      paddingLeft: 10,
+    },
+    dobText: {
+      color: "#000000",
+      paddingLeft: 0,
+      textAlign: "left",
+    },
+    inputContainerStyle: {
+      height: 30,
+      marginBottom: 0,
+    },
+    textStyle: {
+      fontSize: 16,
+    },
+    labelStyle: {
+      fontSize: 14,
+    },
+    errorMessage: {
+      fontSize: 16,
+      color: "red",
+      marginLeft: 15,
+    },
+    link: {
+      color: "blue",
+    },
+    dropdownContainer: {
+      padding: 10,
+      paddingBottom: 20,
+    },
+    clinicTextStyle: {
+      marginLeft: 10,
+      fontSize: 14,
+      color: "#86939e",
+      fontWeight: "bold",
+    },
+  });
 
-export default SignupChildScreen;
+export default UserScreen;

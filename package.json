@@ -30,7 +30,10 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-loading-spinner-overlay": "^2.0.0",
+<<<<<<< HEAD
     "react-native-progress": "^5.0.0",
+=======
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",

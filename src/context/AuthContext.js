@@ -18,6 +18,8 @@ const authReducer = (state, action) => {
       };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
+    case "change_password":
+      return {...state, errorMessage: action.payload};
     case "signout":
       return { token: null, errorMessage: "" };
     case "user":
@@ -35,9 +37,7 @@ const authReducer = (state, action) => {
 const user = (dispatch) => async () => {
   try {
     const token = await AsyncStorage.getItem("token");
-    console.log(token);
     const response = await axiosApi.post("/user", { token });
-    //console.log(response.data.user);
     dispatch({ type: "user", payload: response.data.user });
   } catch (err) {}
 };
@@ -45,8 +45,6 @@ const user = (dispatch) => async () => {
 const tryLocalSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem("token");
   const id = await AsyncStorage.getItem("id");
-  console.log(id);
-  console.log(token);
   if (token) {
     if (id) {
       /*
@@ -201,12 +199,72 @@ const signin =
       });
     }
   };*/
+  
+  const updateUser = (dispatch) => {
+    return async ({firstname, lastname, email, mobile, dob}) => {
+      try { 
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
+
+        dispatch({ type: "clear_error_message" })
+        navigate("UserAccount")
+      }
+      catch(err) {
+        console.log(err)
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your details",
+        });
+      }
+    }
+  }
+
+  const updateUserClinic = (dispatch) => {
+    return async ({ clinic }) => {
+      try {
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/updateUserClinic/" + id, { clinic })
+
+        dispatch({ type: "clear_error_message" })
+        navigate("UserAccount")
+      }
+      catch(err) {
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your clinic",
+        });
+      }
+    }
+  }
+  
+  const changePassword = (dispatch) => {
+    return async ({ oldPassword, newPassword }) => {
+      try {
+        const id = await AsyncStorage.getItem("id");
+        response = await axiosApi.put("/changePassword/" + id, { oldPassword, newPassword })
+
+        dispatch({ type: "clear_error_message"})
+        navigate("UserAccount")
+      }
+      catch(err)
+      {
+        dispatch({
+          type: "add_error",
+          payload: "Something went wrong when changing your password",
+        });
+      }
+    }
+  }
 
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
+<<<<<<< HEAD
   await AsyncStorage.removeItem("parentid");
   dispatch({ type: "signout" });
+=======
+  dispatch({ type: "signout" }); 
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
   navigate("loginFlow");
 };
 
@@ -220,7 +278,13 @@ export const { Provider, Context } = createDataContext(
     tryLocalSignin,
     user,
     signupchild,
+<<<<<<< HEAD
     getchildaccounts,
+=======
+    updateUser,
+    updateUserClinic,
+    changePassword,
+>>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
   },
   { token: null, errorMessage: "", id: null }
 );

@@ -7,6 +7,7 @@ import {
   FlatList,
   LogBox,
   Platform,
+  Image,
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
@@ -19,6 +20,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -54,7 +56,6 @@ const SignupScreen = ({ navigation }) => {
     setShow(Platform.OS === "ios");
     setDob(currentDate);
     convertDate(currentDate);
-    console.log("State Date: " + dob);
   };
 
   const showMode = (currentMode) => {
@@ -67,131 +68,171 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView>
-        <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Spacer>
-          <Text h3 style={{ marginBottom: 5 }}>
-            Sign Up for ToothMate
-          </Text>
-        </Spacer>
-        <Spacer />
-        <Input
-          label="First Name"
-          value={firstname}
-          onChangeText={setFirstName}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Last Name"
-          value={lastname}
-          onChangeText={setLastName}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Mobile"
-          value={mobile}
-          onChangeText={setMobile}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
+    <LinearGradient
+      colors={["#97ff78", "#AFE69E", "#AFE69E"]}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <KeyboardAwareScrollView>
+          <NavigationEvents onWillFocus={clearErrorMessage} />
+          {/* <Text style = {styles.header}>
+            Sign Up for Tooth Mate
+          </Text> */}
+          <Image
+            source={require("../components/tm_white_logo.png")}
+            style={{
+              alignSelf: "center",
+              justifyContent: "center",
+              width: 150,
+              height: 90,
+              resizeMode: "contain",
+              marginTop: 25,
+            }}
+          />
+          <Input
+            label="First Name"
+            placeholder="First name"
+            leftIcon={{ type: "feather", name: "user" }}
+            value={firstname}
+            onChangeText={setFirstName}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Last Name"
+            placeholder="Last name"
+            leftIcon={{ type: "feather", name: "user" }}
+            value={lastname}
+            onChangeText={setLastName}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Email"
+            placeholder="Email"
+            leftIcon={{ type: "material-icons", name: "email" }}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Mobile"
+            placeholder="Mobile"
+            leftIcon={{ type: "entypo", name: "mobile" }}
+            value={mobile}
+            onChangeText={setMobile}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Password"
+            placeholder="Password"
+            leftIcon={{ type: "fontawesome5", name: "lock" }}
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
 
-        <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
-        <View>
-          {(() => {
-            if (Platform.OS === "android") {
-              return (
-                <>
-                  <TouchableOpacity onPress={showDatepicker}>
-                    <Text style={styles.dateStyle}>{stringDate}</Text>
-                  </TouchableOpacity>
-                  {show && (
+          <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
+          <View>
+            {(() => {
+              if (Platform.OS === "android") {
+                return (
+                  <View
+                    style={{
+                      width: "90%",
+                      marginLeft: "5%",
+                    }}
+                  >
+                    <TouchableOpacity onPress={showDatepicker}>
+                      <Text style={styles.dateStyle}>{stringDate}</Text>
+                    </TouchableOpacity>
+                    {show && (
+                      <DateTimePicker
+                        testID="dateTimePicker"
+                        value={dob}
+                        mode={mode}
+                        is24Hour={true}
+                        display="spinner"
+                        onChange={onChange}
+                      />
+                    )}
+                  </View>
+                );
+              } else {
+                return (
+                  <>
                     <DateTimePicker
                       testID="dateTimePicker"
                       value={dob}
                       mode={mode}
                       is24Hour={true}
                       display="spinner"
+                      style={{ height: 150 }}
                       onChange={onChange}
                     />
-                  )}
-                </>
-              );
-            } else {
-              return (
-                <>
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={dob}
-                    mode={mode}
-                    is24Hour={true}
-                    display="spinner"
-                    style={{ height: 150 }}
-                    onChange={onChange}
-                  />
-                </>
-              );
-            }
-            return null;
-          })()}
-        </View>
-        <Spacer />
-        <Spacer>
-          <Button
-            title="Next"
-            onPress={() =>
-              navigation.navigate("SelectClinic", {
-                firstname,
-                lastname,
-                email,
-                mobile,
-                password,
-                dob,
-              })
-            }
-          />
-        </Spacer>
-        <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+                  </>
+                );
+              }
+              return null;
+            })()}
+          </View>
           <Spacer>
-            <Text style={styles.link}>
-              Already have an account? Sign in instead
-            </Text>
+            <Button
+              buttonStyle={styles.button}
+              containerStyle={styles.buttonContainer}
+              title="Next"
+              titleStyle={styles.buttonText}
+              onPress={() =>
+                navigation.navigate("SelectClinic", {
+                  firstname,
+                  lastname,
+                  email,
+                  mobile,
+                  password,
+                  dob,
+                })
+              }
+            />
           </Spacer>
-        </TouchableOpacity>
-      </KeyboardAwareScrollView>
-    </View>
+          <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
+            <Spacer>
+              <View style={styles.link}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 15,
+                    color: "black",
+                    textAlign: "center",
+                  }}
+                >
+                  Already have an account?
+                  <Text style={styles.link}> Sign in instead</Text>
+                </Text>
+              </View>
+            </Spacer>
+          </TouchableOpacity>
+        </KeyboardAwareScrollView>
+      </View>
+    </LinearGradient>
   );
 };
 
@@ -203,10 +244,10 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
+    //backgroundColor: "#8FBC8B",
+    //backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 50,
   },
   dateStyle: {
     fontSize: 18,
@@ -224,14 +265,26 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   inputContainerStyle: {
-    height: 30,
-    marginBottom: 0,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#dedede",
+    width: "95%",
+    paddingLeft: 15,
+    backgroundColor: "#ebebeb",
+    marginLeft: "2.25%",
   },
   textStyle: {
+    //This is for the box
     fontSize: 16,
+    //fontFamily: 'Helvetica'
   },
   labelStyle: {
+    //This is for the text
     fontSize: 14,
+    marginLeft: 18,
+    color: "black",
+    marginBottom: 3,
+    marginTop: 2,
   },
   errorMessage: {
     fontSize: 16,
@@ -240,16 +293,43 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "blue",
+    flexDirection: "row",
+    justifyContent: "center",
   },
+
   dropdownContainer: {
     padding: 10,
     paddingBottom: 20,
   },
   clinicTextStyle: {
-    marginLeft: 10,
+    //Enter Date of Birth Styling
+    marginLeft: 20,
     fontSize: 14,
-    color: "#86939e",
+    //color: "#86939e",
+    color: "black",
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "green",
+  },
+  header: {
+    color: "#2B510C",
+    fontWeight: "bold",
+    fontSize: 30,
+    padding: 2,
+    justifyContent: "center",
+    marginTop: 40,
+  },
+  buttonText: {
+    color: "white",
   },
 });
 
