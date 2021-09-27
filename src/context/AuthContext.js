@@ -24,6 +24,11 @@ const authReducer = (state, action) => {
       return { token: null, errorMessage: "" };
     case "user":
       return { errorMessage: "Hello", token: action.payload };
+    case "getchildaccounts":
+      return {
+        errorMessage: "",
+        children: action.payload.children,
+      };
     default:
       return state;
   }
@@ -97,7 +102,7 @@ const signup =
         });
         //await AsyncStorage.setItem("token", response.data.token);
         //dispatch({ type: "signin", payload: response.data.token });
-        navigate("Account");
+        navigate("AccountFlow");
         console.log("sign up child here");
       }
     } catch (err) {
@@ -107,6 +112,19 @@ const signup =
       });
     }
   };
+
+const getchildaccounts = (dispatch) => async () => {
+  try {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.get("/getchildaccounts/" + id);
+    dispatch({
+      type: "getchildaccounts",
+      payload: { children: response.data },
+    });
+  } catch (err) {
+    console.log("Error retrieving child accounts");
+  }
+};
 
 const signupchild =
   (dispatch) =>
@@ -241,15 +259,8 @@ const signin =
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
-<<<<<<< HEAD
-<<<<<<< HEAD
   await AsyncStorage.removeItem("parentid");
-=======
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
   dispatch({ type: "signout" });
-=======
-  dispatch({ type: "signout" }); 
->>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
   navigate("loginFlow");
 };
 
@@ -262,17 +273,11 @@ export const { Provider, Context } = createDataContext(
     clearErrorMessage,
     tryLocalSignin,
     user,
-    signupchild,
-<<<<<<< HEAD
-<<<<<<< HEAD
     getchildaccounts,
-=======
+    signupchild,
     updateUser,
     updateUserClinic,
     changePassword,
->>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
-=======
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
   },
   { token: null, errorMessage: "", id: null }
 );
