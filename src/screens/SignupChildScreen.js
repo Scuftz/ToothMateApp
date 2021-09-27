@@ -9,7 +9,6 @@ import {
   Platform,
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
-import { HeaderBackButton } from "react-navigation-stack";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -164,7 +163,7 @@ const SignupChildScreen = ({ navigation }) => {
                 </>
               );
             }
-            //return null;
+            return null;
           })()}
         </View>
         <Spacer />
@@ -188,13 +187,10 @@ const SignupChildScreen = ({ navigation }) => {
   );
 };
 
-SignupChildScreen.navigationOptions = ({ navigation }) => {
+SignupChildScreen.navigationOptions = () => {
   return {
     headerShown: true,
     headerTitle: "Back to Account",
-    headerLeft: () => (
-      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
-    ),
   };
 };
 

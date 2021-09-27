@@ -7,7 +7,6 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import ClinicScreen from "./src/screens/ClinicScreen";
 import SignupChildScreen from "./src/screens/SignupChildScreen";
-import ChildAccountScreen from "./src/screens/ChildAccountScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as EducationProvider } from "./src/context/EducationContext";
 import { Provider as AppointmentProvider } from "./src/context/AppointmentContext";
@@ -40,6 +39,7 @@ const switchNavigator = createSwitchNavigator({
       {
         Account: AccountScreen,
 <<<<<<< HEAD
+<<<<<<< HEAD
         //SignUpChild: SignupChildScreen,
         //SelectClinic: SelectClinicScreen,
 =======
@@ -50,12 +50,16 @@ const switchNavigator = createSwitchNavigator({
         Password: PasswordChangeScreen,
         UserAccount: UserAccountScreen,
 >>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
+=======
+        Signupchild: SignupChildScreen,
+        SelectClinic: SelectClinicScreen,
+>>>>>>> parent of c71b04f (Merge branch 'childaccountview')
       },
       {
         initialRouteName: "Account",
         navigationOptions: {
-          title: "Home",
-          tabBarIcon: () => <Entypo name="home" size={25} />,
+          title: "Account",
+          tabBarIcon: () => <Ionicons name="person" size={25} />,
         },
       }
     ),
@@ -89,53 +93,6 @@ const switchNavigator = createSwitchNavigator({
         },
       }
     ),
-  }),
-  childFlow: createBottomTabNavigator({
-    AccountFlow: createStackNavigator(
-      {
-        Account: ChildAccountScreen,
-      },
-      {
-        initialRouteName: "Account",
-        navigationOptions: {
-          title: "Home",
-          tabBarIcon: () => <Entypo name="home" size={25} />,
-        },
-      }
-    ),
-    Education: createStackNavigator(
-      {
-        list: EducationScreen,
-        content: EducationContentScreen,
-      },
-      {
-        initialRouteName: "list",
-        navigationOptions: {
-          title: "Education",
-          tabBarIcon: <Entypo name="open-book" size={25} />,
-        },
-      }
-    ),
-    // Clinic: ClinicScreen,
-    Clinic: createStackNavigator(
-      {
-        list: ClinicScreen,
-        content: AppointmentScreen,
-      },
-      {
-        initialRouteName: "list",
-        navigationOptions: {
-          title: "Clinic",
-          tabBarIcon: (
-            <MaterialCommunityIcons name="toothbrush-paste" size={25} />
-          ),
-        },
-      }
-    ),
-  }),
-  signUpChildFlow: createStackNavigator({
-    Signupchild: SignupChildScreen,
-    SelectClinic: SelectClinicScreen,
   }),
 });
 

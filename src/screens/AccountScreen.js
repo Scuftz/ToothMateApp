@@ -1,14 +1,21 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, ActivityIndicator, View } from "react-native";
 =======
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 >>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
+=======
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
+>>>>>>> parent of c71b04f (Merge branch 'childaccountview')
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
+import { Context as AccountContext } from "../context/AccountContext";
 import { Context as AuthContext } from "../context/AuthContext";
+<<<<<<< HEAD
 <<<<<<< HEAD
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -108,6 +115,14 @@ const AccountScreen = ({ navigation }) => {
     }
   }, [])
 >>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
+=======
+import { Ionicons } from "@expo/vector-icons";
+import Caller from "../components/Caller";
+import ChildAccountButtons from "../components/ChildAccountButtons";
+
+const AccountScreen = ({ navigation }) => {
+  const { state, signout } = useContext(AuthContext);
+>>>>>>> parent of c71b04f (Merge branch 'childaccountview')
 
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
@@ -119,20 +134,23 @@ const AccountScreen = ({ navigation }) => {
       
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      <ChildAccountButtons navigation={navigation} />
+>>>>>>> parent of c71b04f (Merge branch 'childaccountview')
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
-        <Button title="test" onPress={() => console.log(state.children)} />
-        <Button
-          title="Sign up child"
-          onPress={() => navigation.navigate("signUpChildFlow")}
-        />
+        <Button title="User" />
       </Spacer>
+<<<<<<< HEAD
       {childButtons()}
 =======
       <ChildAccountButtons navigation={navigation} />
       <Button title="You" onPress={()=> navigation.navigate("UserAccount")} />
       <Button title="Sign Out" onPress={signout} />
 >>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
+=======
+>>>>>>> parent of c71b04f (Merge branch 'childaccountview')
     </SafeAreaView>
   );
 };
