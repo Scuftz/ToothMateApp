@@ -26,7 +26,6 @@ import PasswordChangeScreen from "./src/screens/PasswordChangeScreen";
 import UserAccountScreen from "./src/screens/UserAccountScreen";
 import DentalChartScreen from "./src/screens/DentalChartScreen";
 
-
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
 
@@ -113,6 +112,7 @@ const switchNavigator = createSwitchNavigator({
     Clinic: createStackNavigator(
       {
         list: ClinicScreen,
+        chart: DentalChartScreen,
         content: AppointmentScreen,
       },
       {
