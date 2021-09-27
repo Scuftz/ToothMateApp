@@ -1,26 +1,15 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, { useContext, useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, ActivityIndicator, View } from "react-native";
-=======
-import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
->>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
-=======
-import React, { useContext, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
-import { Context as AccountContext } from "../context/AccountContext";
 import { Context as AuthContext } from "../context/AuthContext";
-<<<<<<< HEAD
-<<<<<<< HEAD
+import { Context as UserContext } from "../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout, getchildaccounts } = useContext(AuthContext);
+  const { getUser, getDentalClinic } = useContext(UserContext)
   const [loading, setLoading] = useState(true);
   const [parent, setParent] = useState(null);
   const [isFocused, setFocused] = useState(navigation.isFocused());
@@ -94,63 +83,20 @@ const AccountScreen = ({ navigation }) => {
       </View>
     );
   }
-=======
-import { Context as UserContext } from "../context/UserContext";
-import { Ionicons } from "@expo/vector-icons";
-import Caller from "../components/Caller";
-import ChildAccountButtons from "../components/ChildAccountButtons";
-import Spinner from "react-native-loading-spinner-overlay";
-
-const AccountScreen = ({ navigation }) => {
-  const { state, signout } = useContext(AuthContext);
-  const { getUser, getDentalClinic } = useContext(UserContext)
-  const [ spinner, setSpinner ] = useState(false)
-
-  useEffect(() => {
-    const listener = navigation.addListener("didFocus", () => {
-      setSpinner(false)
-    });
-    return () => {
-      listener.remove();
-    }
-  }, [])
->>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
-=======
-import { Ionicons } from "@expo/vector-icons";
-import Caller from "../components/Caller";
-import ChildAccountButtons from "../components/ChildAccountButtons";
-
-const AccountScreen = ({ navigation }) => {
-  const { state, signout } = useContext(AuthContext);
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
 
   return (
-    <SafeAreaView forceInset={{ top: "always" }}>
-      <Spinner  
-          visible={spinner}
-          textContent={'loading...'}
-          animation="fade"
-      />
-      
+    <SafeAreaView forceInset={{ top: "always" }}>     
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      <ChildAccountButtons navigation={navigation} />
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
-        <Button title="User" />
+        <Button title="test" onPress={() => console.log(state.children)} />
+        <Button
+          title="Sign up child"
+          onPress={() => navigation.navigate("signUpChildFlow")}
+        />
+        <Button title="You" onPress={()=> navigation.navigate("UserAccount")} />
       </Spacer>
-<<<<<<< HEAD
       {childButtons()}
-=======
-      <ChildAccountButtons navigation={navigation} />
-      <Button title="You" onPress={()=> navigation.navigate("UserAccount")} />
-      <Button title="Sign Out" onPress={signout} />
->>>>>>> ea8f0a034098f46e1a71757ab25b457a705a7de3
-=======
->>>>>>> parent of c71b04f (Merge branch 'childaccountview')
     </SafeAreaView>
   );
 };
