@@ -175,7 +175,6 @@ const SignupChildScreen = ({ navigation }) => {
                 firstname,
                 lastname,
                 email,
-                mobile,
                 password,
                 dob,
               })

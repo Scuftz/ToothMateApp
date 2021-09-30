@@ -14,7 +14,6 @@ const SelectClinicScreen = ({ navigation }) => {
   let firstname = navigation.getParam("firstname");
   let lastname = navigation.getParam("lastname");
   let email = navigation.getParam("email");
-  let mobile = navigation.getParam("mobile");
   let password = navigation.getParam("password");
   let dob = navigation.getParam("dob");
 
@@ -65,7 +64,6 @@ const SelectClinicScreen = ({ navigation }) => {
               firstname,
               lastname,
               email,
-              mobile,
               password,
               dob,
               clinic: clinic.id,
