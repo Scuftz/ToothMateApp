@@ -206,7 +206,6 @@ const SignupScreen = ({ navigation }) => {
                   firstname,
                   lastname,
                   email,
-                  mobile,
                   password,
                   dob,
                 })
