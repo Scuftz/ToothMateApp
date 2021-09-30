@@ -19,11 +19,16 @@ const authReducer = (state, action) => {
     case "clear_error_message":
       return { ...state, errorMessage: "" };
     case "change_password":
-      return {...state, errorMessage: action.payload};
+      return { ...state, errorMessage: action.payload };
     case "signout":
       return { token: null, errorMessage: "" };
     case "user":
       return { errorMessage: "Hello", token: action.payload };
+    case "getchildaccounts":
+      return {
+        errorMessage: "",
+        children: action.payload.children,
+      };
     default:
       return state;
   }
@@ -95,7 +100,7 @@ const signup =
         });
         //await AsyncStorage.setItem("token", response.data.token);
         //dispatch({ type: "signin", payload: response.data.token });
-        navigate("Account");
+        navigate("AccountFlow");
         console.log("sign up child here");
       }
     } catch (err) {
@@ -105,6 +110,19 @@ const signup =
       });
     }
   };
+
+const getchildaccounts = (dispatch) => async () => {
+  try {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.get("/getchildaccounts/" + id);
+    dispatch({
+      type: "getchildaccounts",
+      payload: { children: response.data },
+    });
+  } catch (err) {
+    console.log("Error retrieving child accounts");
+  }
+};
 
 const signupchild =
   (dispatch) =>
@@ -179,67 +197,73 @@ const signin =
       });
     }
   };*/
-  
-  const updateUser = (dispatch) => {
-    return async ({firstname, lastname, email, mobile, dob}) => {
-      try { 
-        const id = await AsyncStorage.getItem("id");
-        response = await axiosApi.put("/updateUser/" + id, {firstname, lastname, email, mobile, dob})
 
-        dispatch({ type: "clear_error_message" })
-        navigate("UserAccount")
-      }
-      catch(err) {
-        console.log(err)
-        dispatch({
-          type: "add_error",
-          payload: "Something went wrong when changing your details",
-        });
-      }
+const updateUser = (dispatch) => {
+  return async ({ firstname, lastname, email, mobile, dob }) => {
+    try {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/updateUser/" + id, {
+        firstname,
+        lastname,
+        email,
+        mobile,
+        dob,
+      });
+
+      dispatch({ type: "clear_error_message" });
+      navigate("UserAccount");
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong when changing your details",
+      });
     }
-  }
+  };
+};
 
-  const updateUserClinic = (dispatch) => {
-    return async ({ clinic }) => {
-      try {
-        const id = await AsyncStorage.getItem("id");
-        response = await axiosApi.put("/updateUserClinic/" + id, { clinic })
+const updateUserClinic = (dispatch) => {
+  return async ({ clinic }) => {
+    try {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/updateUserClinic/" + id, { clinic });
 
-        dispatch({ type: "clear_error_message" })
-        navigate("UserAccount")
-      }
-      catch(err) {
-        dispatch({
-          type: "add_error",
-          payload: "Something went wrong when changing your clinic",
-        });
-      }
+      dispatch({ type: "clear_error_message" });
+      navigate("UserAccount");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong when changing your clinic",
+      });
     }
-  }
-  
-  const changePassword = (dispatch) => {
-    return async ({ oldPassword, newPassword }) => {
-      try {
-        const id = await AsyncStorage.getItem("id");
-        response = await axiosApi.put("/changePassword/" + id, { oldPassword, newPassword })
+  };
+};
 
-        dispatch({ type: "clear_error_message"})
-        navigate("UserAccount")
-      }
-      catch(err)
-      {
-        dispatch({
-          type: "add_error",
-          payload: "Something went wrong when changing your password",
-        });
-      }
+const changePassword = (dispatch) => {
+  return async ({ oldPassword, newPassword }) => {
+    try {
+      const id = await AsyncStorage.getItem("id");
+      response = await axiosApi.put("/changePassword/" + id, {
+        oldPassword,
+        newPassword,
+      });
+
+      dispatch({ type: "clear_error_message" });
+      navigate("UserAccount");
+    } catch (err) {
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong when changing your password",
+      });
     }
-  }
+  };
+};
 
 const signout = (dispatch) => async () => {
   await AsyncStorage.removeItem("token");
   await AsyncStorage.removeItem("id");
-  dispatch({ type: "signout" }); 
+  await AsyncStorage.removeItem("parentid");
+  dispatch({ type: "signout" });
   navigate("loginFlow");
 };
 
@@ -252,6 +276,7 @@ export const { Provider, Context } = createDataContext(
     clearErrorMessage,
     tryLocalSignin,
     user,
+    getchildaccounts,
     signupchild,
     updateUser,
     updateUserClinic,
