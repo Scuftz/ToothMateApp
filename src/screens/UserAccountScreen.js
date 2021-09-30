@@ -11,43 +11,61 @@ import Caller from "../components/Caller";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const UserAccountScreen = ({ navigation }) => {
-    const { getUser, getDentalClinic } = useContext(UserContext)
-    const { clearErrorMessage } = useContext(AuthContext)
-    const [ spinner, setSpinner ] = useState(false)
+  const { getUser, getDentalClinic, getUserDOB, state } =
+    useContext(UserContext);
+  const { clearErrorMessage } = useContext(AuthContext);
+  const [spinner, setSpinner] = useState(false);
 
-    useEffect(() => {
-        clearErrorMessage();
+  const getDOB = async () => {
+    await getUserDOB();
+  };
+
+  useEffect(() => {
+    clearErrorMessage();
+    getDOB();
+    console.log(state);
     const listener = navigation.addListener("didFocus", () => {
       setSpinner(false);
       clearErrorMessage();
     });
     return () => {
       listener.remove();
-    }
-  }, [])
+    };
+  }, []);
 
-    return (
-        <Spacer>
-            <Spinner  
-                visible={spinner}
-                textContent={'loading...'}
-                animation="fade"
-            />
-            <Button title="User" onPress={async () => {
-                setSpinner(true)
-                await getUser();
-                navigation.navigate("User")
-            }} />
-            <Button title="Clinic" onPress={async () => {
-                setSpinner(true)
-                await getDentalClinic();
-                navigation.navigate("UpdateClinic")
-            }} />
-            <Button title="Change Your Password" onPress={() => {
-                navigation.navigate("Password")
-            }} />
-        </Spacer>
-    );
-}
+  return (
+    <Spacer>
+      <Spinner visible={spinner} textContent={"loading..."} animation="fade" />
+      <Button
+        title="User"
+        onPress={async () => {
+          setSpinner(true);
+          await getUser();
+          navigation.navigate("User");
+        }}
+      />
+      <Button
+        title="Clinic"
+        onPress={async () => {
+          setSpinner(true);
+          await getDentalClinic();
+          navigation.navigate("UpdateClinic");
+        }}
+      />
+      <Button
+        title="Change Your Password"
+        onPress={() => {
+          navigation.navigate("Password");
+        }}
+      />
+      <Button
+        title="Print state"
+        onPress={() => {
+          console.log(state);
+        }}
+      />
+    </Spacer>
+  );
+};
 
-export default UserAccountScreen
+export default UserAccountScreen;

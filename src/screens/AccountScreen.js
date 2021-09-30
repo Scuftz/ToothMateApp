@@ -31,7 +31,6 @@ const AccountScreen = ({ navigation }) => {
 
   useEffect(() => {
     getParent();
-
     const focusListener = navigation.addListener("didFocus", () => {
       setFocused(true);
     });
