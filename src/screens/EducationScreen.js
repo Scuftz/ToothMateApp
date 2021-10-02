@@ -47,12 +47,14 @@ EducationScreen.navigationOptions = () => {
     return {
         title: "Education",
         headerStyle: {
-            backgroundColor: '#00BAFF'
+            backgroundColor: 'lightgrey',
+            
         }
     }
 }
 
 const styles = StyleSheet.create({
+    //Topic Style
     topicStyle: {
         borderColor: 'black',
         borderBottomWidth: 1,
@@ -61,15 +63,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingVertical: 10
     },
+    //Topic Text Styling
     topicText: {
         flex: 1,
         marginLeft: 10,
         fontSize: 20,
         alignSelf: 'flex-start',
     },
+    //Screen Styling
     screenStyle: {
         flex: 1,
-        backgroundColor: '#6AC9F1'
+        backgroundColor: 'lightgrey',
+        padding: 3
     }
 });
 

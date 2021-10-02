@@ -40,25 +40,29 @@ const SelectClinicScreen = ({ navigation }) => {
             borderWidth: 1,
             borderColor: "#ccc",
             borderRadius: 5,
+            backgroundColor: "white"
           },
         }}
         containerStyle={styles.dropdownContainer}
         itemStyle={{
           padding: 5,
           marginTop: 3,
-          backgroundColor: "white",
+          backgroundColor: "lightblue",
           borderColor: "#bbb",
-          borderWidth: 1,
-          borderRadius: 2,
+          borderWidth: 3,
+          borderRadius: 20,
         }}
-        itemTextStyle={{ color: "#222" }}
+        itemTextStyle={{ color: "#222" , marginLeft: 15}}
       />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Spacer>
         <Button
-          title="Sign Up"
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Sign Up"
+        titleStyle={styles.buttonText}
           onPress={() => {
             signup({
               firstname,
@@ -86,8 +90,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    marginBottom: 30,
-    marginTop: 50,
+    //marginBottom: 30,
+    //marginTop: 50,
+    backgroundColor: "lightgrey",
   },
   inputContainerStyle: {
     height: 30,
@@ -113,9 +118,23 @@ const styles = StyleSheet.create({
   },
   clinicTextStyle: {
     marginLeft: 10,
-    fontSize: 14,
-    color: "#86939e",
+    fontSize: 17,
+    color: "black",
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "green",
+  },
+  buttonText: {
+    color: "white",
   },
 });
 

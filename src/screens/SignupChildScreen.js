@@ -70,14 +70,16 @@ const SignupChildScreen = ({ navigation }) => {
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
         <Spacer>
-          <Text h3 style={{ marginBottom: 5 }}>
-            Sign Up for ToothMate
+          <Text h3 style>
+            Child Account Sign Up
           </Text>
         </Spacer>
         <Spacer />
         <Input
           label="First Name"
+          placeholder="First name"
           value={firstname}
+          leftIcon={{ type: "feather", name: "user" }}
           onChangeText={setFirstName}
           autoCapitalize="none"
           autoCorrect={false}
@@ -87,6 +89,8 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
+          placeholder="Last name"
+          leftIcon={{ type: "feather", name: "user" }}
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
@@ -97,6 +101,8 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
+          placeholder="Email"
+          leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -107,6 +113,8 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
+          placeholder="Mobile"
+          leftIcon={{ type: "entypo", name: "mobile" }}
           value={mobile}
           onChangeText={setMobile}
           autoCapitalize="none"
@@ -117,6 +125,8 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Password"
+          placeholder="Password"
+          leftIcon={{ type: "fontawesome5", name: "lock" }}
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
@@ -169,8 +179,11 @@ const SignupChildScreen = ({ navigation }) => {
         <Spacer />
         <Spacer>
           <Button
-            title="Next"
-            onPress={() =>
+              buttonStyle={styles.button}
+              containerStyle={styles.buttonContainer}
+              title="Next"
+              titleStyle={styles.buttonText}            
+              onPress={() =>
               navigation.navigate("SelectClinic", {
                 firstname,
                 lastname,
@@ -197,8 +210,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 50,
+    backgroundColor: 'lightgreen'
+    //marginBottom: 30,
+    //marginTop: 50,
   },
   dateStyle: {
     fontSize: 18,
@@ -215,16 +229,6 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     textAlign: "left",
   },
-  inputContainerStyle: {
-    height: 30,
-    marginBottom: 0,
-  },
-  textStyle: {
-    fontSize: 16,
-  },
-  labelStyle: {
-    fontSize: 14,
-  },
   errorMessage: {
     fontSize: 16,
     color: "red",
@@ -238,11 +242,50 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   clinicTextStyle: {
-    marginLeft: 10,
-    fontSize: 14,
-    color: "#86939e",
-    fontWeight: "bold",
+     //Enter Date of Birth Styling
+     marginLeft: 20,
+     fontSize: 14,
+     //color: "#86939e",
+     color: "black",
+     fontWeight: "bold",
   },
+  //Container Style
+  inputContainerStyle: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#dedede",
+    width: "95%",
+    paddingLeft: 15,
+    backgroundColor: "#ebebeb",
+    marginLeft: "2.25%",
+  },
+  //This is for the box
+  textStyle: {
+    fontSize: 16,
+  },
+  //This is for the text
+  labelStyle: {
+    fontSize: 14,
+    marginLeft: 18,
+    color: "black",
+    marginBottom: 3,
+    marginTop: 2,
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "green",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  buttonText: {
+    color: "white",
+  },
+
 });
 
 export default SignupChildScreen;
