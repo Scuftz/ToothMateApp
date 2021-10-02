@@ -206,7 +206,6 @@ const SignupScreen = ({ navigation }) => {
                   firstname,
                   lastname,
                   email,
-                  mobile,
                   password,
                   dob,
                 })
@@ -292,7 +291,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   link: {
-    color: "blue",
+    color: "white",
     flexDirection: "row",
     justifyContent: "center",
   },
