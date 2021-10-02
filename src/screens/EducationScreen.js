@@ -47,7 +47,7 @@ EducationScreen.navigationOptions = () => {
     return {
         title: "Education",
         headerStyle: {
-            backgroundColor: 'lightgreen',
+            backgroundColor: 'lightgrey',
             
         }
     }
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     //Screen Styling
     screenStyle: {
         flex: 1,
-        backgroundColor: 'lightgreen',
+        backgroundColor: 'lightgrey',
         padding: 3
     }
 });
