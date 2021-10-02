@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   link: {
-    color: "blue",
+    color: "white",
     flexDirection: "row",
     justifyContent: "center",
   },
