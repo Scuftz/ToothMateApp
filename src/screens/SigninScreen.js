@@ -24,40 +24,61 @@ const SigninScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   return (
-    <LinearGradient colors={["#97ff78", "#AFE69E", "#AFE69E"]} style = {styles.container}>
-      <ImageBackground
-        ImageBackground source={require("../components/tooth.png")} styles={styles.container}
+    // Gradient background 
+    <LinearGradient colors={["#f54284", "white", "#f54284"]} style = {styles.container}>
+      <Spacer/>
+      {/* Tooth background image */}
+    <ImageBackground
+        ImageBackground source={require("../components/t_logo1.png")} styles={styles.container}
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
+            top: '-5%',
+            left: '-7%',
             bottom: 0,
             right: 0,
-            opacity: 0.2,
+            opacity: 1,
+            width: '110%',
+            height: '100%',
+            // borderWidth: 1,
           }}
         />
+
     <View style={styles.container}>
       <KeyboardAwareScrollView>
-     
         <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Image
-            source={require("../components/tm_white_logo.png")}
+        {/* Tooth mate Text Image */}
+        {/* <Image
+            source={require("../components/tm_logo6.png")}
             style={{
-            width: 150,
-            height: 90,
+            width: 340,
+            height: 120,
             alignSelf: 'center',
             justifyContent: 'center',
             resizeMode: 'contain',
-            marginTop: 25
+            marginTop: 15,
           }}
-        />
-      <Spacer/> 
-       <Spacer/>
-       <Spacer/> 
-        <Spacer>
-          <Text style={styles.containerHeading}>  Login </Text>
-        </Spacer>
-        <Spacer />
+        /> */}
+        <Spacer/>
+        <Spacer/>
+      <Spacer/>
+        {/* <Spacer> */}
+          {/* Login image text */}
+        {/* <Image
+            source={require("../components/tm_login2.png")}
+            style={{
+            width: 150,
+            height: 100,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            resizeMode: 'contain',
+            marginTop: -25,
+          }}
+        /> */}
+          {/* <Text style={styles.containerHeading}>  Login </Text> */}
+        {/* </Spacer> */}
+        {/* Email address label button */}
+        <Spacer/>
+        <Spacer/>
         <Input
           label="EMAIL ADDRESS"
           leftIcon={{ type: "material-icons", name: "email" }}
@@ -69,6 +90,7 @@ const SigninScreen = ({ navigation }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
+        {/* Password label button */}
         <Input
           label="PASSWORD"
           inputContainerStyle={styles.inputContainer}
@@ -84,15 +106,24 @@ const SigninScreen = ({ navigation }) => {
         {state.errorMessage ? (
           <Text style={styles.errorMessage}>{state.errorMessage}</Text>
         ) : null}
+        {/* Log in button */}
+        <Spacer/>
+        <Spacer/>
+        <Spacer/>
+        <Spacer/>
+        <Spacer/>
+        <Spacer/>
+        <Spacer/>
         <Spacer>
           <Button
             buttonStyle={styles.button}
             containerStyle={styles.buttonContainer}
-            //raised = "true"
             title="Log In"
             onPress={() => signin({ email, password })}
+            titleStyle={{color: 'black'}}
           />
         </Spacer>
+        {/* Create a new account button touchable opacity function*/}
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Spacer>
             <View style={styles.link}>
@@ -124,7 +155,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "green",
+    backgroundColor: "white",
   },
   inputStyle: {
     paddingVertical: 8,
@@ -137,31 +168,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     borderColor: "#dedede",
-    // width: "103%",
     paddingLeft: 13,
-    backgroundColor: "#ebebeb",
+    backgroundColor: "#f8f8ff",
     marginLeft: "2.20%",
   },
   labelStyles: {
     marginLeft: 15,
+    color: "black",
   },
   containerHeading: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
     alignSelf: "center",
-    //padding: 24,
     fontSize: 48,
     fontWeight: "bold",
     color: "black",
   },
   container: {
     flex: 1,
-    //justifyContent: "center",
     padding: 24,
     fontWeight: "bold",
     color: "black",
-    //flexDirection: 'column',
   },
   errorMessage: {
     fontSize: 16,
