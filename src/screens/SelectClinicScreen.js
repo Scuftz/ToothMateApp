@@ -7,6 +7,8 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const SelectClinicScreen = ({ navigation }) => {
   const { state, signup, signupchild } = useContext(AuthContext);
@@ -26,8 +28,12 @@ const SelectClinicScreen = ({ navigation }) => {
   const items = cc.state;
 
   return (
+    <LinearGradient
+    colors={["#f54284", "white", "#f54284"]}
+    style={styles.container}
+  >
     <View style={styles.container}>
-      <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
+      <Text style={styles.clinicTextStyle}>Select or type a clinic</Text>
       <SearchableDropdown
         items={items}
         onItemSelect={(item) => {
@@ -40,19 +46,20 @@ const SelectClinicScreen = ({ navigation }) => {
             borderWidth: 1,
             borderColor: "#ccc",
             borderRadius: 5,
-            backgroundColor: "white"
+            backgroundColor: "white",
+            fontWeight: "bold",
           },
         }}
         containerStyle={styles.dropdownContainer}
         itemStyle={{
-          padding: 5,
+          padding: 8,
           marginTop: 3,
-          backgroundColor: "lightblue",
+          backgroundColor: "white",
           borderColor: "#bbb",
           borderWidth: 3,
           borderRadius: 20,
         }}
-        itemTextStyle={{ color: "#222" , marginLeft: 15}}
+        itemTextStyle={{ color: "#222" , marginLeft: 2, fontSize: 15, fontWeight: "bold"}}
       />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
@@ -76,6 +83,8 @@ const SelectClinicScreen = ({ navigation }) => {
         />
       </Spacer>
     </View>
+    </LinearGradient>
+
   );
 };
 
@@ -83,6 +92,11 @@ SelectClinicScreen.navigationOptions = () => {
   return {
     // headerShown: false,
     headerTitle: "Back to Sign Up",
+    headerStyle: {
+      backgroundColor: '#f54284'
+      
+  }
+    
   };
 };
 
@@ -90,9 +104,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    //marginBottom: 30,
-    //marginTop: 50,
-    backgroundColor: "lightgrey",
   },
   inputContainerStyle: {
     height: 30,
@@ -121,6 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "black",
     fontWeight: "bold",
+    paddingTop: 10
   },
   buttonContainer: {
     borderWidth: 1,
@@ -131,11 +143,13 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "green",
+    backgroundColor: "white",
   },
   buttonText: {
-    color: "white",
+    color: "black",
+    fontWeight: "bold"
   },
+
 });
 
 export default SelectClinicScreen;
