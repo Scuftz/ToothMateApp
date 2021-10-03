@@ -19,6 +19,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const SignupChildScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -66,6 +68,10 @@ const SignupChildScreen = ({ navigation }) => {
   };
 
   return (
+    <LinearGradient
+      colors={["#f54284", "white", "#f54284"]}
+      style={styles.container}
+    >
     <View style={styles.container}>
       <KeyboardAwareScrollView>
         <NavigationEvents onWillFocus={clearErrorMessage} />
@@ -74,10 +80,9 @@ const SignupChildScreen = ({ navigation }) => {
             Child Account Sign Up
           </Text>
         </Spacer>
-        <Spacer />
         <Input
           label="First Name"
-          placeholder="First name"
+          //placeholder="First name"
           value={firstname}
           leftIcon={{ type: "feather", name: "user" }}
           onChangeText={setFirstName}
@@ -89,7 +94,7 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
-          placeholder="Last name"
+          //placeholder="Last name"
           leftIcon={{ type: "feather", name: "user" }}
           value={lastname}
           onChangeText={setLastName}
@@ -101,7 +106,7 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
-          placeholder="Email"
+          //placeholder="Email"
           leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
@@ -113,7 +118,7 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
-          placeholder="Mobile"
+          //placeholder="Mobile"
           leftIcon={{ type: "entypo", name: "mobile" }}
           value={mobile}
           onChangeText={setMobile}
@@ -125,7 +130,7 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Password"
-          placeholder="Password"
+          //placeholder="Password"
           leftIcon={{ type: "fontawesome5", name: "lock" }}
           value={password}
           onChangeText={setPassword}
@@ -196,6 +201,8 @@ const SignupChildScreen = ({ navigation }) => {
         </Spacer>
       </KeyboardAwareScrollView>
     </View>
+    </LinearGradient>
+
   );
 };
 
@@ -203,6 +210,9 @@ SignupChildScreen.navigationOptions = () => {
   return {
     headerShown: true,
     headerTitle: "Back to Account",
+    headerStyle: {
+      backgroundColor: '#f54284'
+    }
   };
 };
 
@@ -210,9 +220,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: 'lightgreen'
-    //marginBottom: 30,
-    //marginTop: 50,
   },
   dateStyle: {
     fontSize: 18,
@@ -245,7 +252,6 @@ const styles = StyleSheet.create({
      //Enter Date of Birth Styling
      marginLeft: 20,
      fontSize: 14,
-     //color: "#86939e",
      color: "black",
      fontWeight: "bold",
   },
@@ -273,7 +279,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "green",
+    backgroundColor: "white",
   },
   buttonContainer: {
     borderWidth: 1,
@@ -283,7 +289,8 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
   },
   buttonText: {
-    color: "white",
+    color: "black",
+    fontWeight: "bold"
   },
 
 });
