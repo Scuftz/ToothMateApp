@@ -69,7 +69,7 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={["#97ff78", "#AFE69E", "#AFE69E"]}
+      colors={["#f54284", "white", "#f54284"]}
       style={styles.container}
     >
       <View style={styles.container}>
@@ -78,7 +78,7 @@ const SignupScreen = ({ navigation }) => {
           {/* <Text style = {styles.header}>
             Sign Up for Tooth Mate
           </Text> */}
-          <Image
+        {/*   <Image
             source={require("../components/tm_white_logo.png")}
             style={{
               alignSelf: "center",
@@ -88,10 +88,12 @@ const SignupScreen = ({ navigation }) => {
               resizeMode: "contain",
               marginTop: 25,
             }}
-          />
+          /> */}
+          <Spacer/>
+          <Spacer/>
           <Input
             label="First Name"
-            placeholder="First name"
+            //placeholder="First name"
             leftIcon={{ type: "feather", name: "user" }}
             value={firstname}
             onChangeText={setFirstName}
@@ -103,7 +105,7 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Last Name"
-            placeholder="Last name"
+            //placeholder="Last name"
             leftIcon={{ type: "feather", name: "user" }}
             value={lastname}
             onChangeText={setLastName}
@@ -115,7 +117,7 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Email"
-            placeholder="Email"
+            //placeholder="Email"
             leftIcon={{ type: "material-icons", name: "email" }}
             value={email}
             onChangeText={setEmail}
@@ -127,7 +129,7 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Mobile"
-            placeholder="Mobile"
+            //placeholder="Mobile"
             leftIcon={{ type: "entypo", name: "mobile" }}
             value={mobile}
             onChangeText={setMobile}
@@ -139,7 +141,7 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Password"
-            placeholder="Password"
+            //placeholder="Password"
             leftIcon={{ type: "fontawesome5", name: "lock" }}
             value={password}
             onChangeText={setPassword}
@@ -206,7 +208,6 @@ const SignupScreen = ({ navigation }) => {
                   firstname,
                   lastname,
                   email,
-                  mobile,
                   password,
                   dob,
                 })
@@ -244,10 +245,10 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: "#8FBC8B",
-    //backgroundColor: "lightblue",
     flex: 1,
     justifyContent: "center",
+    //marginTop: 15,
+
   },
   dateStyle: {
     fontSize: 18,
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   link: {
-    color: "blue",
+    color: "white",
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -318,7 +319,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "green",
+    backgroundColor: "white",
   },
   header: {
     color: "#2B510C",
@@ -329,7 +330,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   buttonText: {
-    color: "white",
+    color: "black",
+    fontWeight: "bold"
   },
 });
 
