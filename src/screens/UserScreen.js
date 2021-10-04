@@ -1,17 +1,23 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { View, StyleSheet, Text, Platform, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NavigationEvents } from "react-navigation";
 import { Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
-import { Context as userContext } from '../context/UserContext';
-import { Context as authContext } from '../context/AuthContext';
+import { Context as userContext } from "../context/UserContext";
+import { Context as authContext } from "../context/AuthContext";
 
-const UserScreen = ({navigation}) => {
-    const {state, getUser} = useContext(userContext);
-    const { updateUser } = useContext(authContext)
-    const authState = useContext(authContext)
+const UserScreen = ({ navigation }) => {
+  const { state, getUser } = useContext(userContext);
+  const { updateUser } = useContext(authContext);
+  const authState = useContext(authContext);
   const [firstname, setFirstName] = useState(state.details.firstname);
   const [lastname, setLastName] = useState(state.details.lastname);
   const [email, setEmail] = useState(state.details.email);
@@ -23,24 +29,24 @@ const UserScreen = ({navigation}) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    convertDate(dob)
+    convertDate(dob);
 
     const listener = navigation.addListener("didFocus", () => {
-    convertDate(dob)
+      convertDate(dob);
     });
     return () => {
       listener.remove();
     };
-  }, []);  
+  }, []);
 
-    const userinfo = () => {
-      getUser();
-      let i = 1
+  const userinfo = () => {
+    getUser();
+    let i = 1;
     //    while (state.details.length == 0){
     //      console.log("i")
     //     i++;
     //  }
-    }
+  };
 
   function convertDate(inputDate) {
     let date = new Date(inputDate);
@@ -65,14 +71,12 @@ const UserScreen = ({navigation}) => {
     setMode(currentMode);
   };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
-    
-    return (
-        <View style={styles.container}>
+  p;
+
+  return (
+    <View style={styles.container}>
       <KeyboardAwareScrollView>
-      <NavigationEvents />
+        <NavigationEvents />
         <Spacer>
           <Text h3 style={{ marginBottom: 5 }}>
             Change your details
@@ -159,72 +163,72 @@ const UserScreen = ({navigation}) => {
           })()}
         </View>
         <Spacer />
-          {authState.errorMessage ? (
-            <Text style={styles.errorMessage}>{authState.errorMessage}</Text>
-          ) : null}
+        {authState.errorMessage ? (
+          <Text style={styles.errorMessage}>{authState.errorMessage}</Text>
+        ) : null}
         <Spacer>
           <Button
             title="Change Details"
             onPress={() => {
-              updateUser({firstname, lastname, email, mobile, dob})
+              updateUser({ firstname, lastname, email, mobile, dob });
             }}
           />
         </Spacer>
       </KeyboardAwareScrollView>
     </View>
-    );
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      marginBottom: 30,
-      marginTop: 50,
-    },
-    dateStyle: {
-      fontSize: 18,
-      padding: 10,
-      backgroundColor: "#f2f2f2",
-    },
-    dobButton: {
-      backgroundColor: "#f2f2f2",
-      justifyContent: "flex-start",
-      paddingLeft: 10,
-    },
-    dobText: {
-      color: "#000000",
-      paddingLeft: 0,
-      textAlign: "left",
-    },
-    inputContainerStyle: {
-      height: 30,
-      marginBottom: 0,
-    },
-    textStyle: {
-      fontSize: 16,
-    },
-    labelStyle: {
-      fontSize: 14,
-    },
-    errorMessage: {
-      fontSize: 16,
-      color: "red",
-      marginLeft: 15,
-    },
-    link: {
-      color: "blue",
-    },
-    dropdownContainer: {
-      padding: 10,
-      paddingBottom: 20,
-    },
-    clinicTextStyle: {
-      marginLeft: 10,
-      fontSize: 14,
-      color: "#86939e",
-      fontWeight: "bold",
-    },
-  });
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    marginBottom: 30,
+    marginTop: 50,
+  },
+  dateStyle: {
+    fontSize: 18,
+    padding: 10,
+    backgroundColor: "#f2f2f2",
+  },
+  dobButton: {
+    backgroundColor: "#f2f2f2",
+    justifyContent: "flex-start",
+    paddingLeft: 10,
+  },
+  dobText: {
+    color: "#000000",
+    paddingLeft: 0,
+    textAlign: "left",
+  },
+  inputContainerStyle: {
+    height: 30,
+    marginBottom: 0,
+  },
+  textStyle: {
+    fontSize: 16,
+  },
+  labelStyle: {
+    fontSize: 14,
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: "red",
+    marginLeft: 15,
+  },
+  link: {
+    color: "blue",
+  },
+  dropdownContainer: {
+    padding: 10,
+    paddingBottom: 20,
+  },
+  clinicTextStyle: {
+    marginLeft: 10,
+    fontSize: 14,
+    color: "#86939e",
+    fontWeight: "bold",
+  },
+});
 
 export default UserScreen;

@@ -19,8 +19,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { HeaderBackButton } from "react-navigation-stack";
 import { LinearGradient } from "expo-linear-gradient";
-
 
 const SignupChildScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -206,10 +206,13 @@ const SignupChildScreen = ({ navigation }) => {
   );
 };
 
-SignupChildScreen.navigationOptions = () => {
+SignupChildScreen.navigationOptions = ({ navigation }) => {
   return {
     headerShown: true,
     headerTitle: "Back to Account",
+    headerLeft: () => (
+      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
+    ),
     headerStyle: {
       backgroundColor: '#f54284'
     }

@@ -12,7 +12,40 @@ const UserReducer = (state, action) => {
       return { ...state, appointments: action.payload };
     case "get_clinic":
       return { ...state, clinic: action.payload };
+    case "get_DOB":
+      return { ...state, dob: action.payload };
+    case "can_disconnect":
+      return { ...state, canDisconnect: action.payload };
   }
+};
+
+const canDisconnect = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const dobResponse = await axiosApi.get("/getDOB/" + id);
+    const isChild = await axiosApi.get("/isChild/" + id);
+    console.log("Is Child: ");
+    console.log(isChild.data.isChild);
+    const date1 = new Date();
+    console.log(date1);
+    const date2 = new Date(dobResponse.data.dob);
+    console.log(date2);
+    const dateDiff = Math.abs(date1 - date2) / (1000 * 60 * 60 * 24 * 365);
+    console.log(dateDiff);
+    let canDisconnect = false;
+    if (dateDiff > 18 && isChild.data.isChild != null) {
+      canDisconnect = true;
+    }
+
+    dispatch({ type: "can_disconnect", payload: canDisconnect });
+  };
+};
+
+const disconnectChild = () => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.post("/disconnectchild", { id });
+  };
 };
 
 const getUserDOB = (dispatch) => {
@@ -28,9 +61,9 @@ const getUser = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
     const response = await axiosApi.get("/user/" + id);
-    dispatch({ type: "get_user", payload: response.data})
-  }
-}
+    dispatch({ type: "get_user", payload: response.data });
+  };
+};
 
 const getDentalClinic = (dispatch) => {
   return async () => {
@@ -60,6 +93,19 @@ const getEmailAndAppointments = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
   UserReducer,
-  { getUserDOB, getEmailAndAppointments, getDentalClinic, getUser },
-  { appointments: [], clinic: null, test: "testx", details: {} }
+  {
+    getUserDOB,
+    getEmailAndAppointments,
+    getDentalClinic,
+    getUser,
+    canDisconnect,
+    disconnectChild,
+  },
+  {
+    appointments: [],
+    clinic: null,
+    test: "testx",
+    details: {},
+    canDisconnect: null,
+  }
 );
