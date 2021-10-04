@@ -9,21 +9,15 @@ import { Context as UserContext } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
 import Caller from "../components/Caller";
 import Spinner from "react-native-loading-spinner-overlay";
+import { navigate } from "../navigationRef";
 
 const UserAccountScreen = ({ navigation }) => {
-  const { getUser, getDentalClinic, getUserDOB, state } =
-    useContext(UserContext);
+  const { getUser, getDentalClinic } = useContext(UserContext);
   const { clearErrorMessage } = useContext(AuthContext);
   const [spinner, setSpinner] = useState(false);
 
-  const getDOB = async () => {
-    await getUserDOB();
-  };
-
   useEffect(() => {
     clearErrorMessage();
-    getDOB();
-    console.log(state);
     const listener = navigation.addListener("didFocus", () => {
       setSpinner(false);
       clearErrorMessage();
@@ -59,9 +53,9 @@ const UserAccountScreen = ({ navigation }) => {
         }}
       />
       <Button
-        title="Print state"
+        title="Disconnect from parent"
         onPress={() => {
-          console.log(state);
+          navigation.push("DisconnectChild");
         }}
       />
     </Spacer>
