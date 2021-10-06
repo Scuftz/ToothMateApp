@@ -71,8 +71,6 @@ const UserScreen = ({ navigation }) => {
     setMode(currentMode);
   };
 
-  p;
-
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
