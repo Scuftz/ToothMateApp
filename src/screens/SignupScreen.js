@@ -91,6 +91,7 @@ const SignupScreen = ({ navigation }) => {
           /> */}
           <Spacer/>
           <Spacer/>
+          <Spacer/>
           <Input
             label="First Name"
             //placeholder="First name"
@@ -128,18 +129,6 @@ const SignupScreen = ({ navigation }) => {
             labelStyle={styles.labelStyle}
           />
           <Input
-            label="Mobile"
-            //placeholder="Mobile"
-            leftIcon={{ type: "entypo", name: "mobile" }}
-            value={mobile}
-            onChangeText={setMobile}
-            autoCapitalize="none"
-            autoCorrect={false}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.textStyle}
-            labelStyle={styles.labelStyle}
-          />
-          <Input
             label="Password"
             //placeholder="Password"
             leftIcon={{ type: "fontawesome5", name: "lock" }}
@@ -152,7 +141,6 @@ const SignupScreen = ({ navigation }) => {
             inputStyle={styles.textStyle}
             labelStyle={styles.labelStyle}
           />
-
           <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
           <View>
             {(() => {
@@ -198,6 +186,7 @@ const SignupScreen = ({ navigation }) => {
             })()}
           </View>
           <Spacer>
+          <Spacer/><Spacer/>
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
