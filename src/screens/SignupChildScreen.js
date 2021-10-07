@@ -209,12 +209,18 @@ const SignupChildScreen = ({ navigation }) => {
 SignupChildScreen.navigationOptions = ({ navigation }) => {
   return {
     headerShown: true,
-    headerTitle: "Back to Account",
+    headerTitle: "",
+    headerTintColor: 'black',
+
     headerLeft: () => (
       <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
     ),
     headerStyle: {
-      backgroundColor: '#f54284'
+      backgroundColor: '#f54284',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+      
     }
   };
 };
