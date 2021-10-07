@@ -18,7 +18,6 @@ const AppointmentScreen = ({ navigation }) => {
   const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString("base64");
   // console.log("B64pdf: " + base64pdf)
 
-
   function convertDate(mongoDate) {
     let date = new Date(mongoDate);
     let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
@@ -32,14 +31,23 @@ const AppointmentScreen = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
+
         <View style={styles.heading}>
           <Text style={styles.headingFont}>Appointment Date</Text>
         </View>
         <Text style={styles.title}>{convertDate(appointment.date)}</Text>
+
         <Spacer />
         <Button title="Invoice" onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}/>
         <Spacer />
         <Button title="Images" onPress={() => navigation.navigate("images", { img: base64image })}/>
+        <Spacer />
+
+        <View style={styles.heading}>
+          <Text style={styles.headingFont}>Dentist's Notes</Text>
+        </View>
+        <Text style={styles.title}>{appointment.notes}</Text>
+
       </View>
     </ScrollView>
   );
