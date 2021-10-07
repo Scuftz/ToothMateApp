@@ -54,6 +54,7 @@ EducationScreen.navigationOptions = () => {
         title: "Education",
         headerStyle: {
             backgroundColor: '#f54284',
+
             
         }
     }
@@ -64,26 +65,29 @@ const styles = StyleSheet.create({
     topicStyle: {
         borderColor: 'grey',
         borderBottomWidth: 9,
-        borderRadius: 10,
+        borderRadius: 11,
         justifyContent: 'flex-end',
         flexDirection: 'row',
         backgroundColor: 'white',
         paddingVertical: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 2
 
     },
     //Topic Text Styling
     topicText: {
         flex: 1,
-        //marginLeft: 10,
         fontSize: 25,
+        fontWeight: 'bold',
         alignSelf: 'flex-start',
-        marginLeft: 15
+        marginLeft: 15,
     },
     //Screen Styling
     screenStyle: {
         flex: 1,
         //padding: 1,
-        justifyContent: "center"
+        justifyContent: "center",
 
     }
 });
