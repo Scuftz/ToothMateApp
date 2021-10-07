@@ -1,18 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   Dimensions,
-  Alert,
 } from "react-native";
 import { Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 
+global.Buffer = global.Buffer || require('buffer').Buffer
+
 const AppointmentScreen = ({ navigation }) => {
   const appointment = navigation.getParam("appointment");
+  const base64image = Buffer.from(appointment.imgs[0].img.data.data).toString("base64");
+  // console.log("B64: " + base64image);
+  const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString("base64");
+  // console.log("B64pdf: " + base64pdf)
+
 
   function convertDate(mongoDate) {
     let date = new Date(mongoDate);
@@ -28,14 +33,13 @@ const AppointmentScreen = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.headingFont}>Date</Text>
+          <Text style={styles.headingFont}>Appointment Date</Text>
         </View>
         <Text style={styles.title}>{convertDate(appointment.date)}</Text>
         <Spacer />
-
-        <Button title="Invoice" />
+        <Button title="Invoice" onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}/>
         <Spacer />
-        <Button title="X-Rays" />
+        <Button title="Images" onPress={() => navigation.navigate("images", { img: base64image })}/>
       </View>
     </ScrollView>
   );

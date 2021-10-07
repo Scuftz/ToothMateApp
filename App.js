@@ -20,6 +20,8 @@ import AppointmentScreen from "./src/screens/AppointmentScreen";
 import SelectClinicScreen from "./src/screens/SelectClinicScreen";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import DentalChartScreen from "./src/screens/DentalChartScreen";
+import InvoiceScreen from "./src/screens/InvoiceScreen";
+import ImagesScreen from "./src/screens/ImagesScreen";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -63,6 +65,8 @@ const switchNavigator = createSwitchNavigator({
         clinic: ClinicScreen,
         chart: DentalChartScreen,
         appointment: AppointmentScreen,
+        invoice: InvoiceScreen,
+        images: ImagesScreen,
       },
       {
         initialRouteName: "clinic",
