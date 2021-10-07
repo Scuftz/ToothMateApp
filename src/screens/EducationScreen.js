@@ -6,6 +6,8 @@ import { Context as UserContext } from '../context/UserContext';
 import { Context as EducationContext } from '../context/EducationContext';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
@@ -24,6 +26,9 @@ const EducationScreen = ({ navigation }) => {
 
 
     return (
+        <LinearGradient
+      colors={["#f54284", "white", "#f54284"]}
+      style={styles.screenStyle}>
         <View style={styles.screenStyle}>
             <FlatList
                 data={state}
@@ -40,6 +45,7 @@ const EducationScreen = ({ navigation }) => {
                 }}
             />
         </View>
+    </LinearGradient>
     );
 };
 
@@ -47,29 +53,45 @@ EducationScreen.navigationOptions = () => {
     return {
         title: "Education",
         headerStyle: {
-            backgroundColor: '#00BAFF'
+            backgroundColor: '#f54284',
+            borderBottomWidth: 0,
+            shadowOpacity: 0,
+            elevation: 0,
+
+            
         }
     }
 }
 
 const styles = StyleSheet.create({
+    //Topic Style
     topicStyle: {
-        borderColor: 'black',
-        borderBottomWidth: 1,
+        borderColor: 'grey',
+        borderBottomWidth: 9,
+        borderRadius: 11,
         justifyContent: 'flex-end',
         flexDirection: 'row',
         backgroundColor: 'white',
-        paddingVertical: 10
+        paddingVertical: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 2
+
     },
+    //Topic Text Styling
     topicText: {
         flex: 1,
-        marginLeft: 10,
-        fontSize: 20,
+        fontSize: 25,
+        fontWeight: 'bold',
         alignSelf: 'flex-start',
+        marginLeft: 15,
     },
+    //Screen Styling
     screenStyle: {
         flex: 1,
-        backgroundColor: '#6AC9F1'
+        //padding: 1,
+        justifyContent: "center",
+
     }
 });
 

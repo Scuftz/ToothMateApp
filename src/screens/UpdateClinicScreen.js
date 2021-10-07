@@ -5,22 +5,16 @@ import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
+import { Context as UserContext } from "../context/UserContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LinearGradient } from "expo-linear-gradient";
 
-
-const SelectClinicScreen = ({ navigation }) => {
-  const { state, signup, signupchild } = useContext(AuthContext);
-
-  let firstname = navigation.getParam("firstname");
-  let lastname = navigation.getParam("lastname");
-  let email = navigation.getParam("email");
-  let password = navigation.getParam("password");
-  let dob = navigation.getParam("dob");
-
+const UpdateClinicScreen = ({ navigation }) => {
+  const { state, updateUserClinic } = useContext(AuthContext);
   const cc = useContext(ClinicContext);
-  const [clinic, setClinic] = useState({ name: "Clinic" });
+  const uc = useContext(UserContext);
+
+  const [clinic, setClinic] = useState({ id: uc.state.clinic._id, name: uc.state.clinic.name });
 
   useEffect(() => {
     cc.getClinicNames();
@@ -28,12 +22,8 @@ const SelectClinicScreen = ({ navigation }) => {
   const items = cc.state;
 
   return (
-    <LinearGradient
-    colors={["#f54284", "white", "#f54284"]}
-    style={styles.container}
-  >
     <View style={styles.container}>
-      <Text style={styles.clinicTextStyle}>Select or type a clinic</Text>
+      <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
       <SearchableDropdown
         items={items}
         onItemSelect={(item) => {
@@ -46,64 +36,37 @@ const SelectClinicScreen = ({ navigation }) => {
             borderWidth: 1,
             borderColor: "#ccc",
             borderRadius: 5,
-            backgroundColor: "white",
-            fontWeight: "bold",
           },
         }}
         containerStyle={styles.dropdownContainer}
         itemStyle={{
-          padding: 8,
+          padding: 5,
           marginTop: 3,
           backgroundColor: "white",
           borderColor: "#bbb",
-          borderWidth: 3,
-          borderRadius: 20,
+          borderWidth: 1,
+          borderRadius: 2,
         }}
-        itemTextStyle={{ color: "#222" , marginLeft: 2, fontSize: 15, fontWeight: "bold"}}
+        itemTextStyle={{ color: "#222" }}
       />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Spacer>
         <Button
-        buttonStyle={styles.button}
-        containerStyle={styles.buttonContainer}
-        title="Sign Up"
-        titleStyle={styles.buttonText}
+          title="Change Clinic"
           onPress={() => {
-            signup({
-              firstname,
-              lastname,
-              email,
-              password,
-              dob,
-              clinic: clinic.id,
-            });
+            updateUserClinic({ clinic: clinic.id })
           }}
         />
       </Spacer>
     </View>
-    </LinearGradient>
-
   );
 };
 
-SelectClinicScreen.navigationOptions = () => {
+UpdateClinicScreen.navigationOptions = () => {
   return {
     // headerShown: false,
-    headerTitle: "",
-    headerTintColor: 'black',
-
-    
-    headerStyle: {
-      backgroundColor: '#f54284',
-      borderBottomWidth: 0,
-      shadowOpacity: 0,
-      elevation: 0,
-      
-      
-  }
-    
   };
 };
 
@@ -111,6 +74,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
+    marginBottom: 30,
+    marginTop: 50,
   },
   inputContainerStyle: {
     height: 30,
@@ -136,27 +101,10 @@ const styles = StyleSheet.create({
   },
   clinicTextStyle: {
     marginLeft: 10,
-    fontSize: 17,
-    color: "black",
+    fontSize: 14,
+    color: "#86939e",
     fontWeight: "bold",
-    paddingTop: 10
   },
-  buttonContainer: {
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "white",
-    width: "90%",
-    marginLeft: "5%",
-  },
-  button: {
-    paddingVertical: 10,
-    backgroundColor: "white",
-  },
-  buttonText: {
-    color: "black",
-    fontWeight: "bold"
-  },
-
 });
 
-export default SelectClinicScreen;
+export default UpdateClinicScreen;

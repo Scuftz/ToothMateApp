@@ -1,44 +1,52 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  LogBox,
+  Text,
   Platform,
+  TouchableOpacity,
 } from "react-native";
-import { NavigationEvents } from "react-navigation";
-import { Text, Input, Button } from "react-native-elements";
-import Spacer from "../components/Spacer";
-import { Context as AuthContext } from "../context/AuthContext";
-// import { Context as ClinicContext } from "../context/ClinicContext";
-import SearchableDropdown from "react-native-searchable-dropdown";
-import { InteractionManager } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { HeaderBackButton } from "react-navigation-stack";
-import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { NavigationEvents } from "react-navigation";
+import { Input, Button } from "react-native-elements";
+import Spacer from "../components/Spacer";
+import { Context as userContext } from "../context/UserContext";
+import { Context as authContext } from "../context/AuthContext";
 
-const SignupChildScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage } = useContext(AuthContext);
-  //   const cc = useContext(ClinicContext);
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState("");
+const UserScreen = ({ navigation }) => {
+  const { state, getUser } = useContext(userContext);
+  const { updateUser } = useContext(authContext);
+  const authState = useContext(authContext);
+  const [firstname, setFirstName] = useState(state.details.firstname);
+  const [lastname, setLastName] = useState(state.details.lastname);
+  const [email, setEmail] = useState(state.details.email);
+  const [mobile, setMobile] = useState(state.details.mobile);
 
-  const [dob, setDob] = useState(new Date(946700000000));
+  const [dob, setDob] = useState(new Date(state.details.dob));
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     convertDate(dob);
+
+    const listener = navigation.addListener("didFocus", () => {
+      convertDate(dob);
+    });
+    return () => {
+      listener.remove();
+    };
   }, []);
+
+  const userinfo = () => {
+    getUser();
+    let i = 1;
+    //    while (state.details.length == 0){
+    //      console.log("i")
+    //     i++;
+    //  }
+  };
 
   function convertDate(inputDate) {
     let date = new Date(inputDate);
@@ -63,28 +71,19 @@ const SignupChildScreen = ({ navigation }) => {
     setMode(currentMode);
   };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
-
   return (
-    <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
-      style={styles.container}
-    >
     <View style={styles.container}>
       <KeyboardAwareScrollView>
-        <NavigationEvents onWillFocus={clearErrorMessage} />
+        <NavigationEvents />
         <Spacer>
-          <Text h3 style>
-            Child Account Sign Up
+          <Text h3 style={{ marginBottom: 5 }}>
+            Change your details
           </Text>
         </Spacer>
+        <Spacer />
         <Input
           label="First Name"
-          //placeholder="First name"
           value={firstname}
-          leftIcon={{ type: "feather", name: "user" }}
           onChangeText={setFirstName}
           autoCapitalize="none"
           autoCorrect={false}
@@ -94,8 +93,6 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
-          //placeholder="Last name"
-          leftIcon={{ type: "feather", name: "user" }}
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
@@ -106,8 +103,6 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
-          //placeholder="Email"
-          leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -118,8 +113,6 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Mobile"
-          //placeholder="Mobile"
-          leftIcon={{ type: "entypo", name: "mobile" }}
           value={mobile}
           onChangeText={setMobile}
           autoCapitalize="none"
@@ -128,20 +121,6 @@ const SignupChildScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        <Input
-          label="Password"
-          //placeholder="Password"
-          leftIcon={{ type: "fontawesome5", name: "lock" }}
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-
         <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
         <View>
           {(() => {
@@ -182,53 +161,28 @@ const SignupChildScreen = ({ navigation }) => {
           })()}
         </View>
         <Spacer />
+        {authState.errorMessage ? (
+          <Text style={styles.errorMessage}>{authState.errorMessage}</Text>
+        ) : null}
         <Spacer>
           <Button
-              buttonStyle={styles.button}
-              containerStyle={styles.buttonContainer}
-              title="Next"
-              titleStyle={styles.buttonText}            
-              onPress={() =>
-              navigation.navigate("SelectClinic", {
-                firstname,
-                lastname,
-                email,
-                password,
-                dob,
-              })
-            }
+            title="Change Details"
+            onPress={() => {
+              updateUser({ firstname, lastname, email, mobile, dob });
+            }}
           />
         </Spacer>
       </KeyboardAwareScrollView>
     </View>
-    </LinearGradient>
-
   );
-};
-
-SignupChildScreen.navigationOptions = ({ navigation }) => {
-  return {
-    headerShown: true,
-    headerTitle: "",
-    headerTintColor: 'black',
-
-    headerLeft: () => (
-      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
-    ),
-    headerStyle: {
-      backgroundColor: '#f54284',
-      borderBottomWidth: 0,
-      shadowOpacity: 0,
-      elevation: 0,
-      
-    }
-  };
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    marginBottom: 30,
+    marginTop: 50,
   },
   dateStyle: {
     fontSize: 18,
@@ -245,6 +199,16 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     textAlign: "left",
   },
+  inputContainerStyle: {
+    height: 30,
+    marginBottom: 0,
+  },
+  textStyle: {
+    fontSize: 16,
+  },
+  labelStyle: {
+    fontSize: 14,
+  },
   errorMessage: {
     fontSize: 16,
     color: "red",
@@ -258,50 +222,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   clinicTextStyle: {
-     //Enter Date of Birth Styling
-     marginLeft: 20,
-     fontSize: 14,
-     color: "black",
-     fontWeight: "bold",
-  },
-  //Container Style
-  inputContainerStyle: {
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "#dedede",
-    width: "95%",
-    paddingLeft: 15,
-    backgroundColor: "#ebebeb",
-    marginLeft: "2.25%",
-  },
-  //This is for the box
-  textStyle: {
-    fontSize: 16,
-  },
-  //This is for the text
-  labelStyle: {
+    marginLeft: 10,
     fontSize: 14,
-    marginLeft: 18,
-    color: "black",
-    marginBottom: 3,
-    marginTop: 2,
+    color: "#86939e",
+    fontWeight: "bold",
   },
-  button: {
-    paddingVertical: 10,
-    backgroundColor: "white",
-  },
-  buttonContainer: {
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "white",
-    width: "90%",
-    marginLeft: "5%",
-  },
-  buttonText: {
-    color: "black",
-    fontWeight: "bold"
-  },
-
 });
 
-export default SignupChildScreen;
+export default UserScreen;
