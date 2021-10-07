@@ -14,7 +14,9 @@ const EducationContentScreen = ({navigation}) => {
             colors={["#f54284", "white", "#f54284"]}
             style={styles.container}>
         <View style={styles.container}>
+            <View style = {{backgroundColor: 'white'}}>
             <Text style={styles.title}>{content.topic}</Text>
+            </View>
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
                 <Text style={styles.contentStyle}>{content.content}</Text>
             </ScrollView>
@@ -26,7 +28,9 @@ const EducationContentScreen = ({navigation}) => {
 
 EducationContentScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "Education",
+        title: "",
+        headerBackTitleVisible: false,
+        headerTintColor: 'black',
         headerStyle: {
             backgroundColor: '#f54284'
         },
@@ -42,7 +46,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderBottomWidth: 1,
         borderColor: 'black',
-        paddingLeft: 10
+        paddingLeft: 10,
+
     },
     contentStyle: {
         fontSize: 18,
@@ -54,8 +59,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     scroll: {
-        marginTop: 15,
-        marginBottom: 5
+        //marginTop: 15,
+        //marginBottom: 5,
+        backgroundColor: 'white'
         
     }
 });
