@@ -25,6 +25,8 @@ import UpdateClinicScreen from "./src/screens/UpdateClinicScreen";
 import PasswordChangeScreen from "./src/screens/PasswordChangeScreen";
 import UserAccountScreen from "./src/screens/UserAccountScreen";
 import DentalChartScreen from "./src/screens/DentalChartScreen";
+import InvoiceScreen from "./src/screens/InvoiceScreen";
+import ImagesScreen from "./src/screens/ImagesScreen";
 import DisconnectChildScreen from "./src/screens/DisconnectChildScreen";
 
 const switchNavigator = createSwitchNavigator({
@@ -72,6 +74,8 @@ const switchNavigator = createSwitchNavigator({
         clinic: ClinicScreen,
         chart: DentalChartScreen,
         appointment: AppointmentScreen,
+        invoice: InvoiceScreen,
+        images: ImagesScreen,
       },
       {
         initialRouteName: "clinic",
