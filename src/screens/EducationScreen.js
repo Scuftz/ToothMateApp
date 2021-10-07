@@ -54,6 +54,9 @@ EducationScreen.navigationOptions = () => {
         title: "Education",
         headerStyle: {
             backgroundColor: '#f54284',
+            borderBottomWidth: 0,
+            shadowOpacity: 0,
+            elevation: 0,
 
             
         }

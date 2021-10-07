@@ -91,9 +91,16 @@ const SelectClinicScreen = ({ navigation }) => {
 SelectClinicScreen.navigationOptions = () => {
   return {
     // headerShown: false,
-    headerTitle: "Back to Sign Up",
+    headerTitle: "",
+    headerTintColor: 'black',
+
+    
     headerStyle: {
-      backgroundColor: '#f54284'
+      backgroundColor: '#f54284',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+      
       
   }
     
