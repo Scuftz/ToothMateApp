@@ -120,7 +120,7 @@ const SigninScreen = ({ navigation }) => {
             containerStyle={styles.buttonContainer}
             title="Log In"
             onPress={() => signin({ email, password })}
-            titleStyle={{color: 'black'}}
+            titleStyle={styles.titleContainer}
           />
         </Spacer>
         {/* Create a new account button touchable opacity function*/}
@@ -163,6 +163,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "black",
+  },
+  titleContainer: {
+    color: 'black',
   },
   inputContainer: {
     borderWidth: 1,
