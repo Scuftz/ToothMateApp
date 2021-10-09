@@ -15,6 +15,8 @@ import Spacer from "../components/Spacer";
 import { Context as UserContext } from "../context/UserContext";
 import "intl";
 import "intl/locale-data/jsonp/en";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const ClinicScreen = ({ navigation }) => {
   const {
@@ -47,14 +49,22 @@ const ClinicScreen = ({ navigation }) => {
 
   if (clinic === null) {
     return (
-      <View>
-        <Text> Loading... </Text>
+      <LinearGradient
+      colors={["#f54284", "white", "#f54284"]}
+      style={styles.container}>
+      <View style = {styles.container}>
+                <Text style = {styles.titleTextStyle}> Loading... </Text>
       </View>
+      </LinearGradient>
     );
   } else {
     return (
-      <View style={styles.screenStyle}>
-        <Text>{clinic.name}</Text>
+    <LinearGradient
+      colors={["#f54284", "white", "#f54284"]}
+      style={styles.container}>
+      <View style={styles.container}>
+        <View style = {styles.insideContainer}>
+        <Text style = {styles.titleTextStyle}>{clinic.name}</Text>
 
         <Caller
           phone={clinic.phone}
@@ -62,6 +72,9 @@ const ClinicScreen = ({ navigation }) => {
           url={clinic.bookingURL}
         />
         <Button
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonText}
           title="View Your Dental Chart"
           onPress={() =>
             navigation.navigate("chart", { appointments: appointments })
@@ -69,7 +82,7 @@ const ClinicScreen = ({ navigation }) => {
         />
         <Spacer />
 
-        <Text>Your appointments</Text>
+        <Text style = {styles.titleTextStyle}>Your appointments</Text>
         <FlatList
           data={appointments}
           keyExtractor={(appointment) => appointment._id}
@@ -90,7 +103,9 @@ const ClinicScreen = ({ navigation }) => {
             );
           }}
         />
+        </View>
       </View>
+      </LinearGradient>
     );
   }
 };
@@ -103,9 +118,16 @@ ClinicScreen.navigationOptions = {
 ClinicScreen.navigationOptions = () => {
   return {
     title: "Clinic",
+    // headerShown: false,
+    headerTitle: "",
+    headerTintColor: 'black',
+ 
     headerStyle: {
-      backgroundColor: "#00BAFF",
-    },
+      backgroundColor: '#f54284',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,    
+    }
   };
 };
 
@@ -114,23 +136,61 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   topicStyle: {
-    borderColor: "black",
-    borderBottomWidth: 1,
+    borderColor: "grey",
+    borderBottomWidth: 5,
     justifyContent: "flex-end",
     flexDirection: "row",
     backgroundColor: "white",
     paddingVertical: 10,
+    borderRadius: 20,
+
+
   },
   topicText: {
     flex: 1,
     marginLeft: 10,
     fontSize: 20,
+    marginTop: 4,
     alignSelf: "flex-start",
   },
-  screenStyle: {
+  container: {
     flex: 1,
-    backgroundColor: "#6AC9F1",
+    justifyContent: "flex-start",
+    //marginLeft: 2,
+    //marginRight: 2
+
   },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "lightgreen",
+  },
+  buttonText: {
+    color: "black",
+    fontWeight: "bold"
+  },
+  titleTextStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 2,
+    marginBottom: 2,
+    marginLeft: 4
+
+  },
+  insideContainer:{
+    flex: 1,
+    justifyContent: "flex-start",
+    marginLeft: 4,
+    marginRight: 4
+
+
+  }
 });
 
 export default ClinicScreen;

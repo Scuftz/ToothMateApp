@@ -208,20 +208,22 @@ const SignupChildScreen = ({ navigation }) => {
 
 SignupChildScreen.navigationOptions = ({ navigation }) => {
   return {
-    headerShown: true,
+    //headerShown: true,
     headerTitle: "",
     headerTintColor: 'black',
 
-    headerLeft: () => (
-      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
-    ),
     headerStyle: {
       backgroundColor: '#f54284',
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
       
-    }
+    },
+
+    headerLeft: () => (
+      <HeaderBackButton onPress={() => navigation.navigate("AccountFlow")} />
+    ),
+
   };
 };
 
