@@ -87,7 +87,6 @@ const AccountScreen = ({ navigation }) => {
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <Spacer>
         <Button title="Sign Out" onPress={signout} />
-        <Button title="test" onPress={() => console.log(state.children)} />
         <Button
           title="Sign up child"
           onPress={() => navigation.navigate("signUpChildFlow")}

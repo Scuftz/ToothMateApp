@@ -6,6 +6,8 @@ import { Context as AuthContext } from "../context/AuthContext";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Context as ClinicContext } from "../context/ClinicContext";
 import { Context as UserContext } from "../context/UserContext";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const PasswordChangeScreen = ({ navigation }) => {
 
@@ -16,9 +18,15 @@ const PasswordChangeScreen = ({ navigation }) => {
 
 
     return (
+        <LinearGradient
+            colors={["#f54284", "white", "#f54284"]}
+            style={styles.container}>
+    <View style={styles.container}>
+
         <KeyboardAwareScrollView>
             <Input 
                 label="Current Password"
+                leftIcon={{ type: "fontawesome5", name: "lock" }}
                 value={oldPassword}
                 onChangeText={setOldPassword}
                 autoCapitalize="none"
@@ -30,6 +38,7 @@ const PasswordChangeScreen = ({ navigation }) => {
             />
             <Input 
                 label="New Password"
+                leftIcon={{ type: "fontawesome5", name: "lock" }}
                 value={newPassword}
                 onChangeText={setNewPassword}
                 autoCapitalize="none"
@@ -44,7 +53,10 @@ const PasswordChangeScreen = ({ navigation }) => {
             ) : null}
             <Spacer>
                     <Button
+                    buttonStyle={styles.button}
+                    containerStyle={styles.buttonContainer}
                     title="Change Password"
+                    titleStyle={styles.buttonText}
                     onPress={() => {
                         changePassword({oldPassword, newPassword})
                        
@@ -52,24 +64,72 @@ const PasswordChangeScreen = ({ navigation }) => {
                 /> 
             </Spacer>
         </KeyboardAwareScrollView>
+</View>
+        </LinearGradient>
     );
 };
 
+PasswordChangeScreen.navigationOptions = () => {
+    return {
+      // headerShown: false,
+      headerTitle: "",
+      headerTintColor: 'black',
+  
+      
+      headerStyle: {
+        backgroundColor: '#f54284',
+        borderBottomWidth: 0,
+        shadowOpacity: 0,
+        elevation: 0, 
+    }
+      
+    };
+  };
+
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+    
+      },
     inputContainerStyle: {
-        height: 30,
-        marginBottom: 0,
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: "#dedede",
+        width: "95%",
+        paddingLeft: 15,
+        backgroundColor: "#ebebeb",
+        marginLeft: "2.25%",
     },
     textStyle: {
         fontSize: 16,
     },
-        labelStyle: {
+    labelStyle: {
         fontSize: 14,
+        marginLeft: 18,
+        color: "black",
+        marginBottom: 3,
+        marginTop: 2,
     },
     errorMessage: {
         fontSize: 16,
         color: "red",
         marginLeft: 15,
+      },
+      buttonContainer: {
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: "white",
+        width: "90%",
+        marginLeft: "5%",
+      },
+      button: {
+        paddingVertical: 10,
+        backgroundColor: "lightgreen",
+      },
+      buttonText: {
+        color: "black",
+        fontWeight: "bold"
       },
 });
 
