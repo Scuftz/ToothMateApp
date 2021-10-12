@@ -27,64 +27,6 @@ const AccountScreen = ({ navigation }) => {
     }
   };
 
-  /*useEffect(() => {
-    setLoading(true);
-    getParent();
-    const didBlur = () => {
-      setFocused(false);
-    };
-    const didFocus = () => {
-      setFocused(true);
-    };
-
-    const blurSubscription = navigation.addListener("didBlur", didBlur);
-    const focusSubscription = navigation.addListener("didFocus", didFocus);
-
-    return () => {
-      blurSubscription.remove();
-      focusSubscription.remove();
-    };
-  }, [isFocused]);*/
-
-  /*const childButtons = () => {
-    const buttons = [];
-    state.children
-      ? state.children.map((element, key) => {
-          console.log(element.firstname);
-          buttons.push(
-            <Button
-              key={key}
-              title={element.firstname}
-              onPress={async () => {
-                await AsyncStorage.setItem(
-                  "parentid",
-                  await AsyncStorage.getItem("id")
-                );
-                await AsyncStorage.setItem("id", element._id);
-                navigation.push("Account");
-              }}
-            />
-          );
-        })
-      : null;
-    return buttons;
-  };*/
-
-  /*if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          padding: 10,
-        }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }*/
-
   return (
     <SafeAreaView forceInset={{ top: "always" }}>
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
@@ -101,7 +43,10 @@ const AccountScreen = ({ navigation }) => {
             await AsyncStorage.removeItem("parentid");
           }}
         />
-        <Button title="test" onPress={() => console.log(state.children)} />
+        <Button
+          title="You"
+          onPress={() => navigation.navigate("UserAccount")}
+        />
       </Spacer>
     </SafeAreaView>
   );

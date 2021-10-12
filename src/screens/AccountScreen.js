@@ -19,19 +19,17 @@ const AccountScreen = ({ navigation }) => {
     try {
       setLoading(true);
       parentValue = await AsyncStorage.getItem("parentid");
-      await getchildaccounts();
+      getchildaccounts();
     } catch (err) {
       console.log("ERROR");
     } finally {
       setParent(parentValue);
-      console.log(state.chilren);
       setLoading(false);
     }
   };
 
   useEffect(() => {
     getParent();
-
     const focusListener = navigation.addListener("didFocus", () => {
       setFocused(true);
     });
@@ -49,7 +47,7 @@ const AccountScreen = ({ navigation }) => {
     const buttons = [];
     state.children
       ? state.children.map((element, key) => {
-          console.log(element.firstname);
+          console.log(element.firstname + " HELLO");
           buttons.push(
             <Button
               key={key}

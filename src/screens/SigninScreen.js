@@ -26,57 +26,30 @@ const SigninScreen = ({ navigation }) => {
   return (
     // Gradient background 
     <LinearGradient colors={["#f54284", "white", "#f54284"]} style = {styles.container}>
+      <View style={styles.container}>
+      <KeyboardAwareScrollView>
       <Spacer/>
       {/* Tooth background image */}
-    <ImageBackground
-        ImageBackground source={require("../components/t_logo1.png")} styles={styles.container}
+        <ImageBackground
+          source={require("../components/t_logo1.png")} styles={styles.container}
           style={{
             position: 'absolute',
             top: '-5%',
-            left: '-7%',
-            bottom: 0,
-            right: 0,
+            left: '-2.5%', //fix image crop so even on each side
             opacity: 1,
-            width: '110%',
+            width: '100%',
             height: '100%',
             // borderWidth: 1,
           }}
         />
 
-    <View style={styles.container}>
-      <KeyboardAwareScrollView>
+      {/* <View style={styles.container}>
+      <KeyboardAwareScrollView> */}
         <NavigationEvents onWillFocus={clearErrorMessage} />
-        {/* Tooth mate Text Image */}
-        {/* <Image
-            source={require("../components/tm_logo6.png")}
-            style={{
-            width: 340,
-            height: 120,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            resizeMode: 'contain',
-            marginTop: 15,
-          }}
-        /> */}
         <Spacer/>
         <Spacer/>
-      <Spacer/>
-        {/* <Spacer> */}
-          {/* Login image text */}
-        {/* <Image
-            source={require("../components/tm_login2.png")}
-            style={{
-            width: 150,
-            height: 100,
-            alignSelf: 'center',
-            justifyContent: 'center',
-            resizeMode: 'contain',
-            marginTop: -25,
-          }}
-        /> */}
-          {/* <Text style={styles.containerHeading}>  Login </Text> */}
-        {/* </Spacer> */}
-        {/* Email address label button */}
+        <Spacer/>
+        <Spacer/>
         <Spacer/>
         <Spacer/>
         <Input
@@ -114,7 +87,6 @@ const SigninScreen = ({ navigation }) => {
         <Spacer/>
         <Spacer/>
         <Spacer/>
-        <Spacer>
           <Button
             buttonStyle={styles.button}
             containerStyle={styles.buttonContainer}
@@ -122,7 +94,7 @@ const SigninScreen = ({ navigation }) => {
             onPress={() => signin({ email, password })}
             titleStyle={styles.titleContainer}
           />
-        </Spacer>
+
         {/* Create a new account button touchable opacity function*/}
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Spacer>
@@ -150,8 +122,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
-    width: "90%",
-    marginLeft: "5%",
+    width: "65%",
+    marginLeft: "18%",
   },
   button: {
     paddingVertical: 10,
@@ -170,13 +142,14 @@ const styles = StyleSheet.create({
   inputContainer: {
     borderWidth: 1,
     borderRadius: 30,
+    width: "65%",
     borderColor: "#dedede",
     paddingLeft: 13,
     backgroundColor: "#f8f8ff",
-    marginLeft: "2.20%",
+    marginLeft: "17.5%",
   },
   labelStyles: {
-    marginLeft: 15,
+    marginLeft: "21%",
     color: "black",
   },
   containerHeading: {
@@ -188,9 +161,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 24,
+    // padding: 24,
+    // paddingBottom: 15,
     fontWeight: "bold",
-    color: "black",
+    color: "black", 
   },
   errorMessage: {
     fontSize: 16,
