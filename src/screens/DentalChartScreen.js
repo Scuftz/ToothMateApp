@@ -211,12 +211,15 @@ const DentalChartScreen = ({ navigation }) => {
 DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Dental Chart",
+
+    headerTintColor: 'black',
+    
     headerStyle: {
-      backgroundColor: "#fff",
-    },
-    cardStyle: {
-      backgroundColor: "white",
-    },
+      backgroundColor: '#f54284',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+  }
   };
 };
 
