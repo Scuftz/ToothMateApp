@@ -71,6 +71,12 @@ const UserScreen = ({ navigation }) => {
     setMode(currentMode);
   };
 
+  const showDatepicker = () => {
+    p;
+      showMode("date");
+  
+    };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
