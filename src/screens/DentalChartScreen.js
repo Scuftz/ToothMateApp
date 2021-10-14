@@ -200,10 +200,10 @@ const DentalChartScreen = ({ navigation }) => {
           <SwitchToggle
             switchOn={hasWisdomTooth}
             onPress={() => setHasWisdomTooth(!hasWisdomTooth)}
-            circleColorOff="#94ffb6"
-            circleColorOn="#00d641"
-            backgroundColorOn="#e6fced"
-            backgroundColorOff="#e6fced"
+            circleColorOff="#9ad2d9"
+            circleColorOn="#00e5ff"
+            backgroundColorOn="#10334d"
+            backgroundColorOff="#10334d"
           />
         </View>
       </ScrollView>
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   toggle: {
     flexDirection: "row",
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#fff",
     borderRadius: 20,
     paddingRight: 10,
