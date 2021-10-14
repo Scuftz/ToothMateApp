@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import SwitchToggle from "react-native-switch-toggle";
+import { LinearGradient } from "expo-linear-gradient";
 import ChartEntryList from "../components/ChartEntryList";
 
 const DentalChartScreen = ({ navigation }) => {
@@ -99,6 +100,8 @@ const DentalChartScreen = ({ navigation }) => {
     );
   } else {
     return (
+      <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.content}
@@ -204,28 +207,34 @@ const DentalChartScreen = ({ navigation }) => {
           />
         </View>
       </ScrollView>
+      </LinearGradient>
     );
   }
 };
 
 DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
-    title: "Your Dental Chart",
+    title: "",
+    headerBackTitleVisible: false,
 
     headerTintColor: 'black',
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
     
     headerStyle: {
-      backgroundColor: '#f54284',
+      // height: 0,
+      backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
-  }
+    }
   };
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#92e8ac",
+    // backgroundColor: "#78d0f5",
+    flex: 1,
+    // justifyContent: "center",
   },
   toggle: {
     flexDirection: "row",

@@ -25,7 +25,7 @@ const SigninScreen = ({ navigation }) => {
 
   return (
     // Gradient background 
-    <LinearGradient colors={["#f54284", "white", "#f54284"]} style = {styles.container}>
+    <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
       <View style={styles.container}>
       <KeyboardAwareScrollView>
       <Spacer/>

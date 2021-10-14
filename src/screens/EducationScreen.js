@@ -80,9 +80,10 @@ const EducationScreen = ({ navigation }) => {
 
     return (
         <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
+      colors={["#78d0f5", "white", "#78d0f5"]}
       style={styles.screenStyle}>
         <View style={styles.screenStyle}>
+            <Text style = {styles.titleTextStyle}>Learn More About Dental Health!</Text>
             <FlatList
                 data={state}
                 keyExtractor={(education) => education._id}
@@ -104,14 +105,13 @@ const EducationScreen = ({ navigation }) => {
 
 EducationScreen.navigationOptions = () => {
     return {
-        title: "Education",
+        title: "",
+        safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
         headerStyle: {
-            backgroundColor: '#f54284',
+            backgroundColor: '#78d0f5',
             borderBottomWidth: 0,
             shadowOpacity: 0,
-            elevation: 0,
-
-            
+            elevation: 0,            
         }
     }
 }
@@ -121,15 +121,21 @@ const styles = StyleSheet.create({
     topicStyle: {
         borderColor: 'grey',
         borderBottomWidth: 9,
-        borderRadius: 11,
+        borderRadius: 11, //11 initial value
         justifyContent: 'flex-end',
         flexDirection: 'row',
         backgroundColor: 'white',
         paddingVertical: 10,
         marginLeft: 5,
         marginRight: 5,
-        marginTop: 2
-
+        marginTop: 2,
+    },
+    titleTextStyle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginLeft: "1.5%",
+        marginBottom: 20,
+        alignSelf: "center",
     },
     //Topic Text Styling
     topicText: {
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         // fontWeight: 'bold',
         // fontFamily: "NotoSans_400Regular",
-        fontFamily: "SourceSansPro_400Regular",
+        // fontFamily: "SourceSansPro_400Regular",
         // fontFamily: "RobotoCondensed_400Regular",
         // fontFamily: "Ubuntu_400Regular",
         // fontFamily: "Merriweather_400Regular",
@@ -146,30 +152,30 @@ const styles = StyleSheet.create({
         // fontFamily: "JosefinSans_400Regular",
         // fontFamily: "YanoneKaffeesatz_400Regular",
         // fontFamily: "VarelaRound_400Regular",
-        // fontFamily: "Kanit_400Regular",
+        // fontFamily: "Kanit_400Regular", //OK
         // fontFamily: "ArchitectsDaughter_400Regular",
         // fontFamily: "IndieFlower_400Regular",
         // fontFamily: "BalsamiqSans_400Regular",
         // fontFamily: "PermanentMarker_400Regular",
         // fontFamily: "Domine_400Regular",
         // fontFamily: "FredokaOne_400Regular",
-        // fontFamily: "Righteous_400Regular",
+        // fontFamily: "Righteous_400Regular", //GOOD
         // fontFamily: "Courgette_400Regular",
         // fontFamily: "Alegreya_400Regular",
         // fontFamily: "KaushanScript_400Regular",
-        // fontFamily: "ArchivoBlack_400Regular",
-        // fontFamily: "Kalam_400Regular",
-        // fontFamily: "Merienda_400Regular",
+        // fontFamily: "ArchivoBlack_400Regular", //OK
+        // fontFamily: "Kalam_400Regular", //GOOD
+        // fontFamily: "Merienda_400Regular", //GOOD
         // fontFamily: "AsapCondensed_400Regular",
         // fontFamily: "Yantramanav_400Regular",
         // fontFamily: "PathwayGothicOne_400Regular",
         // fontFamily: "GloriaHallelujah_400Regular",
-        // fontFamily: "Handlee_400Regular",
+        // fontFamily: "Handlee_400Regular", //OK
         // fontFamily: "BenchNine_400Regular",
-        // fontFamily: "ElMessiri_400Regular",
-        // fontFamily: "HammersmithOne_400Regular",
-        // fontFamily: "ArimaMadurai_400Regular",
-        // fontFamily: "CarterOne_400Regular",
+        // fontFamily: "ElMessiri_400Regular", //OK
+        // fontFamily: "HammersmithOne_400Regular", //GOOD
+        // fontFamily: "ArimaMadurai_400Regular", //OK
+        fontFamily: "CarterOne_400Regular", //good
         alignSelf: 'flex-start',
         marginLeft: 15,
     },

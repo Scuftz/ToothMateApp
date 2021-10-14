@@ -4,9 +4,11 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
+  Platform
 } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,6 +21,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 
 const ClinicScreen = ({ navigation }) => {
+
   const {
     state: { appointments, clinic },
     getEmailAndAppointments,
@@ -50,7 +53,7 @@ const ClinicScreen = ({ navigation }) => {
   if (clinic === null) {
     return (
       <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
+      colors={["#78d0f5", "white", "#78d0f5"]}
       style={styles.container}>
       <View style = {styles.container}>
                 <Text style = {styles.titleTextStyle}> Loading... </Text>
@@ -60,17 +63,20 @@ const ClinicScreen = ({ navigation }) => {
   } else {
     return (
     <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
+      colors={["#78d0f5", "white", "#78d0f5"]}
       style={styles.container}>
-      <View style={styles.container}>
+      <View>
         <View style = {styles.insideContainer}>
         <Text style = {styles.titleTextStyle}>{clinic.name}</Text>
 
-        <Caller
-          phone={clinic.phone}
-          email={clinic.email}
-          url={clinic.bookingURL}
-        />
+        <View style={styles.caller}>
+          <Caller
+            phone={clinic.phone}
+            email={clinic.email}
+            url={clinic.bookingURL}
+          />
+        </View>
+
         <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
@@ -82,7 +88,7 @@ const ClinicScreen = ({ navigation }) => {
         />
         <Spacer />
 
-        <Text style = {styles.titleTextStyle}>Your appointments</Text>
+        <Text style = {styles.appointmentTextStyle}>Your appointments</Text>
         <FlatList
           data={appointments}
           keyExtractor={(appointment) => appointment._id}
@@ -110,20 +116,19 @@ const ClinicScreen = ({ navigation }) => {
   }
 };
 
-ClinicScreen.navigationOptions = {
-  title: "Clinic",
-  tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
-};
+// ClinicScreen.navigationOptions = {
+//   title: "Clinic",
+// };
 
 ClinicScreen.navigationOptions = () => {
   return {
-    title: "Clinic",
-    // headerShown: false,
-    headerTitle: "",
+    title: "",
+    tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
     headerTintColor: 'black',
- 
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
+
     headerStyle: {
-      backgroundColor: '#f54284',
+      backgroundColor: '#78d0f5',//78d0f5
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,    
@@ -133,7 +138,22 @@ ClinicScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
   caller: {
-    marginTop: 0,
+    marginLeft: "-1.5%",
+    marginRight: "-1.5%",
+    marginBottom: "4%",
+  },
+  titleTextStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: "1.5%",
+    marginBottom: 5,
+    alignSelf: "center",
+  },
+  appointmentTextStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: "1.5%",
+    marginBottom: 5,
   },
   topicStyle: {
     borderColor: "grey",
@@ -143,8 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: 10,
     borderRadius: 20,
-
-
+    marginBottom: 2
   },
   topicText: {
     flex: 1,
@@ -156,41 +175,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    //marginLeft: 2,
-    //marginRight: 2
-
+  },
+  insideContainer:{
+    marginLeft: "1.5%",
+    marginRight: "1.5%",
   },
   buttonContainer: {
-    borderWidth: 1,
     borderRadius: 20,
-    borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "lightgreen",
+    backgroundColor: "#10334d", //00b3ff  005a80  
   },
   buttonText: {
-    color: "black",
+    color: "#fff",
     fontWeight: "bold"
   },
-  titleTextStyle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 2,
-    marginBottom: 2,
-    marginLeft: 4
-
-  },
-  insideContainer:{
-    flex: 1,
-    justifyContent: "flex-start",
-    marginLeft: 4,
-    marginRight: 4
-
-
-  }
 });
 
 export default ClinicScreen;

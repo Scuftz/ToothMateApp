@@ -69,7 +69,7 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
+      colors={["#78d0f5", "white", "#78d0f5"]}
       style={styles.container}
     >
       <View style={styles.container}>
