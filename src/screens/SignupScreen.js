@@ -282,7 +282,8 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   link: {
-    color: "white",
+    color: "#fff",
+    fontWeight: "bold",
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -300,15 +301,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 20,
-    borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#10334d",
   },
   header: {
     color: "#2B510C",
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   buttonText: {
-    color: "black",
+    color: "#fff",
     fontWeight: "bold"
   },
 });

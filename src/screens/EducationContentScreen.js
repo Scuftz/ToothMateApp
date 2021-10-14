@@ -66,55 +66,75 @@ const EducationContentScreen = ({navigation}) => {
 
     return (
         <LinearGradient
-            colors={["#f54284", "white", "#f54284"]}
+            colors={["#78d0f5", "white", "#78d0f5"]}
             style={styles.container}>
-        <View style={styles.container}>
-            <View style = {{backgroundColor: 'white'}}>
-            <Text style={styles.title}>{content.topic}</Text>
-            </View>
+
+            {/* <View style={styles.screenStyle}> */}
+                {/* <View style = {{backgroundColor: 'white'}}> */}
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+                <Text style={styles.title}>{content.topic}</Text>
+                {/* </View> */}
                 <Text style={styles.contentStyle}>{content.content}</Text>
             </ScrollView>
-        </View>
-
-    </LinearGradient>
+            {/* </View> */}
+        </LinearGradient>
     );
 };
 
 EducationContentScreen.navigationOptions = ({ navigation }) => {
     return {
         title: "Education",
-        headerBackTitleVisible: false,
         headerTintColor: 'black',
+        headerBackTitleVisible: false,
+        safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+    
         headerStyle: {
-            backgroundColor: '#78d0f5',
-            height: 100,
+          backgroundColor: "#78d0f5",
         },
         cardStyle: {
-            backgroundColor: 'white'
-        }
-    }
+          backgroundColor: "white",
+        },
+    };    
 }
 
 const styles = StyleSheet.create({
     title:{
         fontSize: 30,
-        fontWeight: 'bold',
-        borderBottomWidth: 1,
-        borderColor: 'black',
-        paddingLeft: 10,
+        // fontWeight: 'bold',
+        paddingVertical: 10,
+        fontFamily: "CarterOne_400Regular",
+        // borderWidth: 1,
+        // borderRadius: 20,
+        // marginLeft: "5%",
+        // marginRight: "5%",
+        marginBottom: "1.5%",
+        textAlign: "center",
+        backgroundColor: "#10334d",
+        overflow: "hidden",
+        color: "#fff",
+    },
+    screenStyle: {
+        flex: 1,
+        //padding: 1,
+        justifyContent: "center",
 
     },
     contentStyle: {
-        fontSize: 18,
-        paddingLeft: 14,
-        paddingRight: 5,
+        marginLeft: "1.5%",
+        marginRight: "1.5%",
+        fontSize: 22,
+        paddingLeft: "3%",
+        paddingRight: "1%",
+        paddingVertical: "2.5%",
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        // borderRadius: 20,
         // fontFamily: "NotoSans_400Regular",
         // fontFamily: "SourceSansPro_400Regular",
         // fontFamily: "RobotoCondensed_400Regular",
         // fontFamily: "Ubuntu_400Regular",
         // fontFamily: "Merriweather_400Regular",
-        fontFamily: "Rubik_400Regular",
+        // fontFamily: "Rubik_400Regular", //GOOD2
         // fontFamily: "SourceCodePro_400Regular",
         // fontFamily: "JosefinSans_400Regular",
         // fontFamily: "YanoneKaffeesatz_400Regular",
@@ -124,17 +144,17 @@ const styles = StyleSheet.create({
         // fontFamily: "IndieFlower_400Regular",
         // fontFamily: "BalsamiqSans_400Regular",
         // fontFamily: "PermanentMarker_400Regular",
-        // fontFamily: "Domine_400Regular",
+        // fontFamily: "Domine_400Regular", //GOOD2
         // fontFamily: "FredokaOne_400Regular",
         // fontFamily: "Righteous_400Regular", //GOOD
         // fontFamily: "Courgette_400Regular",
-        // fontFamily: "Alegreya_400Regular",
+        // fontFamily: "Alegreya_400Regular", //GOOD2
         // fontFamily: "KaushanScript_400Regular",
         // fontFamily: "ArchivoBlack_400Regular", //OK
         // fontFamily: "Kalam_400Regular", //GOOD
         // fontFamily: "Merienda_400Regular", //GOOD
-        // fontFamily: "AsapCondensed_400Regular",
-        // fontFamily: "Yantramanav_400Regular",
+        // fontFamily: "AsapCondensed_400Regular", //GOOD2
+        fontFamily: "Yantramanav_400Regular", //GOOD2
         // fontFamily: "PathwayGothicOne_400Regular",
         // fontFamily: "GloriaHallelujah_400Regular",
         // fontFamily: "Handlee_400Regular", //OK
@@ -151,7 +171,7 @@ const styles = StyleSheet.create({
     scroll: {
         //marginTop: 15,
         //marginBottom: 5,
-        backgroundColor: 'white'
+        // backgroundColor: 'white'
         
     }
 });

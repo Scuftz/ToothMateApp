@@ -26,23 +26,23 @@ import { BalsamiqSans_400Regular, BalsamiqSans_700Bold } from "@expo-google-font
 import { PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
 import { Domine_400Regular, Domine_700Bold } from "@expo-google-fonts/domine";
 import { Righteous_400Regular } from "@expo-google-fonts/righteous";
-import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
-import { Courgette_400Regular } from "@expo-google-fonts/courgette";
-import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
-import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
-import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
-import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
-import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
-import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
-import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
-import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
-import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
-import { Handlee_400Regular} from "@expo-google-fonts/handlee";
-import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
-import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
-import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
-import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
+// import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
+// import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
+// import { Courgette_400Regular } from "@expo-google-fonts/courgette";
+// import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
+// import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
+// import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
+// import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
+// import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
+// import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
+// import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
+// import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
+// import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
+// import { Handlee_400Regular} from "@expo-google-fonts/handlee";
+// import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
+// import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
+// import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
+// import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
 
 
@@ -50,19 +50,7 @@ const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
 
     let [fontsLoaded] = useFonts({ 
-        SourceSansPro_700Bold, SourceSansPro_400Regular,
-        NotoSans_400Regular, NotoSans_700Bold, SourceCodePro_400Regular, SourceCodePro_700Bold,
-        RobotoCondensed_400Regular, RobotoCondensed_700Bold, Ubuntu_400Regular, Ubuntu_700Bold,
-        Merriweather_400Regular, Merriweather_700Bold, Rubik_400Regular, Rubik_700Bold,
-        JosefinSans_400Regular, JosefinSans_700Bold, YanoneKaffeesatz_400Regular, YanoneKaffeesatz_700Bold,
-        VarelaRound_400Regular, Kanit_400Regular, Kanit_700Bold, ArchitectsDaughter_400Regular, IndieFlower_400Regular,
-        BalsamiqSans_700Bold, BalsamiqSans_400Regular, PermanentMarker_400Regular, Domine_700Bold, Domine_400Regular,
-        FredokaOne_400Regular, Righteous_400Regular, CreteRound_400Regular, Courgette_400Regular,
-        Alegreya_400Regular, Alegreya_700Bold, KaushanScript_400Regular, ArchivoBlack_400Regular,
-        Kalam_400Regular, Kalam_700Bold, Merienda_400Regular, Merienda_700Bold, AsapCondensed_400Regular,
-        AsapCondensed_700Bold, Yantramanav_700Bold, Yantramanav_400Regular, PathwayGothicOne_400Regular,
-        GloriaHallelujah_400Regular, Handlee_400Regular, BenchNine_400Regular, BenchNine_700Bold,
-        ElMessiri_400Regular, ElMessiri_700Bold, HammersmithOne_400Regular, ArimaMadurai_700Bold, ArimaMadurai_400Regular, CarterOne_400Regular
+        Righteous_400Regular, CarterOne_400Regular
     });
 
     useEffect(() => {
@@ -78,6 +66,14 @@ const EducationScreen = ({ navigation }) => {
     }, []);
 
 
+    if (!fontsLoaded) {
+        console.log("was not loaded");
+        return (
+            <View>
+                <Text style = {styles.titleTextStyle}> Loading... </Text>
+            </View>
+        );
+    } else {
     return (
         <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
@@ -101,6 +97,7 @@ const EducationScreen = ({ navigation }) => {
         </View>
     </LinearGradient>
     );
+    }
 };
 
 EducationScreen.navigationOptions = () => {
@@ -119,8 +116,8 @@ EducationScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     //Topic Style
     topicStyle: {
-        borderColor: 'grey',
-        borderBottomWidth: 9,
+        borderColor: '#10334d', //#10334d
+        borderBottomWidth: 6, //9
         borderRadius: 11, //11 initial value
         justifyContent: 'flex-end',
         flexDirection: 'row',
@@ -129,15 +126,19 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         marginTop: 2,
+        marginBottom: 2,
     },
     titleTextStyle: {
-        fontSize: 20,
-        fontWeight: "bold",
+        fontSize: 24,
         marginLeft: "1.5%",
         marginBottom: 20,
         alignSelf: "center",
+        // fontFamily: "CarterOne_400Regular", //good
+        // fontFamily: "Righteous_400Regular",
+        // fontFamily: "FredokaOne_400Regular",
+        // fontFamily: "VarelaRound_400Regular",
+        // fontFamily: "NotoSans_400Regular",
     },
-    //Topic Text Styling
     topicText: {
         flex: 1,
         fontSize: 25,
