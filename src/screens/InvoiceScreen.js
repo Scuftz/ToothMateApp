@@ -17,9 +17,12 @@ const InvoiceScreen = ({ navigation }) => {
 InvoiceScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Invoice",
+    headerTintColor: 'black',
     headerBackTitleVisible: false,
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+
     headerStyle: {
-      backgroundColor: "#00BAFF",
+      backgroundColor: "#78d0f5",
     },
     cardStyle: {
       backgroundColor: "white",

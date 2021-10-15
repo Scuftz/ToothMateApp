@@ -38,9 +38,18 @@ const AppointmentScreen = ({ navigation }) => {
         <Text style={styles.title}>{convertDate(appointment.date)}</Text>
 
         <Spacer />
-        <Button title="Invoice" onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}/>
+        <Button 
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonText}
+          title="Invoice" 
+          onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}/>
         <Spacer />
-        <Button title="Images" onPress={() => navigation.navigate("images", { img: base64image })}/>
+        <Button 
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonText}
+          title="Images" onPress={() => navigation.navigate("images", { img: base64image })}/>
         <Spacer />
 
         <View style={styles.heading}>
@@ -56,12 +65,17 @@ const AppointmentScreen = ({ navigation }) => {
 AppointmentScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Appointment",
+    headerTintColor: 'black',
+    headerBackTitleVisible: false,
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+
     headerStyle: {
-      backgroundColor: "#00BAFF",
-    },
-    cardStyle: {
-      backgroundColor: "white",
-    },
+      // height: 90,
+      backgroundColor: '#78d0f5',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+    }
   };
 };
 
@@ -91,11 +105,26 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   headingFont: {
-    fontSize: 16,
+    fontSize: 25,
+    fontWeight: "bold"
   },
   scroll: {
     marginTop: 15,
     marginBottom: 5,
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "#10334d",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold"
   },
 });
 

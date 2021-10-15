@@ -49,6 +49,7 @@ const UserAccountScreen = ({ navigation }) => {
           setSpinner(true);
           await getUser();
           navigation.navigate("User");
+          setSpinner(false)
         }}
       />
       <Button
@@ -60,6 +61,7 @@ const UserAccountScreen = ({ navigation }) => {
           setSpinner(true);
           await getDentalClinic();
           navigation.navigate("UpdateClinic");
+          setSpinner(false)
         }}
       />
       <Button

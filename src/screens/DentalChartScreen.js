@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import SwitchToggle from "react-native-switch-toggle";
+import { LinearGradient } from "expo-linear-gradient";
 import ChartEntryList from "../components/ChartEntryList";
+import AppLoading from "expo-app-loading";
 
 const DentalChartScreen = ({ navigation }) => {
   const appointments = navigation.getParam("appointments");
@@ -93,12 +95,15 @@ const DentalChartScreen = ({ navigation }) => {
   if (chart === null) {
     //if still gathering user data, display loading while data loads
     return (
-      <View>
-        <Text> Loading... </Text>
-      </View>
+      <AppLoading />
+      // <View>
+      //   <Text> Loading... </Text>
+      // </View>
     );
   } else {
     return (
+      <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.content}
@@ -197,36 +202,45 @@ const DentalChartScreen = ({ navigation }) => {
           <SwitchToggle
             switchOn={hasWisdomTooth}
             onPress={() => setHasWisdomTooth(!hasWisdomTooth)}
-            circleColorOff="#94ffb6"
-            circleColorOn="#00d641"
-            backgroundColorOn="#e6fced"
-            backgroundColorOff="#e6fced"
+            circleColorOff="#9ad2d9"
+            circleColorOn="#00e5ff"
+            backgroundColorOn="#10334d"
+            backgroundColorOff="#10334d"
           />
         </View>
       </ScrollView>
+      </LinearGradient>
     );
   }
 };
 
 DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
-    title: "Your Dental Chart",
+    title: "",
+    headerBackTitleVisible: false,
+
+    headerTintColor: 'black',
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+    
     headerStyle: {
-      backgroundColor: "#fff",
-    },
-    cardStyle: {
-      backgroundColor: "white",
-    },
+      // height: 0,
+      backgroundColor: '#78d0f5',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+    }
   };
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#92e8ac",
+    // backgroundColor: "#78d0f5",
+    flex: 1,
+    // justifyContent: "center",
   },
   toggle: {
     flexDirection: "row",
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#fff",
     borderRadius: 20,
     paddingRight: 10,
