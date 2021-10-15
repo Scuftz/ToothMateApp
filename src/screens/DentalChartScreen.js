@@ -12,6 +12,7 @@ import { CheckBox } from "react-native-elements";
 import SwitchToggle from "react-native-switch-toggle";
 import { LinearGradient } from "expo-linear-gradient";
 import ChartEntryList from "../components/ChartEntryList";
+import AppLoading from "expo-app-loading";
 
 const DentalChartScreen = ({ navigation }) => {
   const appointments = navigation.getParam("appointments");
@@ -94,9 +95,10 @@ const DentalChartScreen = ({ navigation }) => {
   if (chart === null) {
     //if still gathering user data, display loading while data loads
     return (
-      <View>
-        <Text> Loading... </Text>
-      </View>
+      <AppLoading />
+      // <View>
+      //   <Text> Loading... </Text>
+      // </View>
     );
   } else {
     return (

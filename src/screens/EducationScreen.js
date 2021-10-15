@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import AppLoading from 'expo-app-loading';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,23 +27,23 @@ import { BalsamiqSans_400Regular, BalsamiqSans_700Bold } from "@expo-google-font
 import { PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
 import { Domine_400Regular, Domine_700Bold } from "@expo-google-fonts/domine";
 import { Righteous_400Regular } from "@expo-google-fonts/righteous";
-// import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-// import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
-// import { Courgette_400Regular } from "@expo-google-fonts/courgette";
-// import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
-// import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
-// import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
-// import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
-// import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
-// import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
-// import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
-// import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
-// import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
-// import { Handlee_400Regular} from "@expo-google-fonts/handlee";
-// import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
-// import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
-// import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
-// import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
+import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
+import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
+import { Courgette_400Regular } from "@expo-google-fonts/courgette";
+import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
+import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
+import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
+import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
+import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
+import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
+import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
+import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
+import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
+import { Handlee_400Regular} from "@expo-google-fonts/handlee";
+import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
+import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
+import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
+import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
 
 
@@ -67,36 +68,40 @@ const EducationScreen = ({ navigation }) => {
 
 
     if (!fontsLoaded) {
-        console.log("was not loaded");
+        return <AppLoading />;
+        // while (!fontsLoaded) {
+            // console.log("was not loaded");
+            // return (
+            //     <View>
+            //         <Text style = {styles.titleTextStyle}> Loading... </Text>
+            //     </View>
+            // );
+        // }
+    }
+    else {
         return (
-            <View>
-                <Text style = {styles.titleTextStyle}> Loading... </Text>
+            <LinearGradient
+                colors={["#78d0f5", "white", "#78d0f5"]}
+                style={styles.screenStyle}>
+            <View style={styles.screenStyle}>
+                <Text style = {styles.titleTextStyle}>Learn More About Dental Health!</Text>
+                <FlatList
+                    data={state}
+                    keyExtractor={(education) => education._id}
+                    renderItem={(item) => {
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
+                                <View style={styles.topicStyle}>
+                                    <Text style={styles.topicText}>{item.item.topic}</Text>
+                                    <MaterialIcons name="keyboard-arrow-right" size={30} />
+                                </View>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
             </View>
+            </LinearGradient>
         );
-    } else {
-    return (
-        <LinearGradient
-      colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.screenStyle}>
-        <View style={styles.screenStyle}>
-            <Text style = {styles.titleTextStyle}>Learn More About Dental Health!</Text>
-            <FlatList
-                data={state}
-                keyExtractor={(education) => education._id}
-                renderItem={(item) => {
-                    return (
-                        <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
-                            <View style={styles.topicStyle}>
-                                <Text style={styles.topicText}>{item.item.topic}</Text>
-                                <MaterialIcons name="keyboard-arrow-right" size={30} />
-                            </View>
-                        </TouchableOpacity>
-                    );
-                }}
-            />
-        </View>
-    </LinearGradient>
-    );
     }
 };
 

@@ -41,6 +41,7 @@ import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-m
 import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
 import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
+import AppLoading from 'expo-app-loading';
 
 
 const EducationContentScreen = ({navigation}) => {
@@ -64,6 +65,11 @@ const EducationContentScreen = ({navigation}) => {
 
     const content = state.find((content) => content._id === navigation.getParam('id'));
 
+    if (!fontsLoaded) {
+        return (
+            <AppLoading />
+        )
+    } else {
     return (
         <LinearGradient
             colors={["#78d0f5", "white", "#78d0f5"]}
@@ -78,7 +84,8 @@ const EducationContentScreen = ({navigation}) => {
             </ScrollView>
             {/* </View> */}
         </LinearGradient>
-    );
+        );
+    }
 };
 
 EducationContentScreen.navigationOptions = ({ navigation }) => {

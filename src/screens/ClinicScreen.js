@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import AppLoading from "expo-app-loading";
 import { Button } from "react-native-elements";
 import {
   View,
@@ -105,13 +106,14 @@ const ClinicScreen = ({ navigation }) => {
 
   if (clinic === null || !fontsLoaded) {
     return (
-      <LinearGradient
-      colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.container}>
-      <View style = {styles.container}>
-                <Text style = {styles.titleTextStyle}> Loading... </Text>
-      </View>
-      </LinearGradient>
+      <AppLoading/>
+      // <LinearGradient
+      // colors={["#78d0f5", "white", "#78d0f5"]}
+      // style={styles.container}>
+      // <View style = {styles.container}>
+      //           <Text style = {styles.titleTextStyle}> Loading... </Text>
+      // </View>
+      // </LinearGradient>
     );
   } else {
     return (
