@@ -69,7 +69,7 @@ const SignupChildScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
+      colors={["#78d0f5", "white", "#78d0f5"]}
       style={styles.container}
     >
     <View style={styles.container}>
@@ -147,7 +147,12 @@ const SignupChildScreen = ({ navigation }) => {
           {(() => {
             if (Platform.OS === "android") {
               return (
-                <>
+                <View
+                    style={{
+                      width: "90%",
+                      marginLeft: "5%",
+                    }}
+                  >
                   <TouchableOpacity onPress={showDatepicker}>
                     <Text style={styles.dateStyle}>{stringDate}</Text>
                   </TouchableOpacity>
@@ -161,7 +166,7 @@ const SignupChildScreen = ({ navigation }) => {
                       onChange={onChange}
                     />
                   )}
-                </>
+                </View>
               );
             } else {
               return (
@@ -211,9 +216,9 @@ SignupChildScreen.navigationOptions = ({ navigation }) => {
     //headerShown: true,
     headerTitle: "",
     headerTintColor: 'black',
-
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
     headerStyle: {
-      backgroundColor: '#f54284',
+      backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
@@ -290,17 +295,17 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#10334d",
   },
   buttonContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold"
   },
 
