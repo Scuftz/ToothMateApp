@@ -50,7 +50,7 @@ const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
 
     let [fontsLoaded] = useFonts({ 
-        Righteous_400Regular, CarterOne_400Regular
+        Righteous_400Regular, CarterOne_400Regular, VarelaRound_400Regular
     });
 
     useEffect(() => {
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         // fontFamily: "CarterOne_400Regular", //good
         // fontFamily: "Righteous_400Regular",
         // fontFamily: "FredokaOne_400Regular",
-        // fontFamily: "VarelaRound_400Regular",
+        fontFamily: "VarelaRound_400Regular",
         // fontFamily: "NotoSans_400Regular",
     },
     topicText: {

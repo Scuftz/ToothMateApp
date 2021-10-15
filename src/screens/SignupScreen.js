@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     borderColor: "#dedede",
     width: "95%",
     paddingLeft: 15,
-    backgroundColor: "#ebebeb",
+    backgroundColor: "#f7f7f7", //#ebebeb
     marginLeft: "2.25%",
   },
   textStyle: {

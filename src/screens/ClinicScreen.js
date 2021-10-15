@@ -103,7 +103,7 @@ const ClinicScreen = ({ navigation }) => {
     return stringDate;
   }
 
-  if (clinic === null) {
+  if (clinic === null || !fontsLoaded) {
     return (
       <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}

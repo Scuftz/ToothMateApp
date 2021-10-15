@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         // fontFamily: "Kalam_400Regular", //GOOD
         // fontFamily: "Merienda_400Regular", //GOOD
         // fontFamily: "AsapCondensed_400Regular", //GOOD2
-        fontFamily: "Yantramanav_400Regular", //GOOD2
+        // fontFamily: "Yantramanav_400Regular", //GOOD2
         // fontFamily: "PathwayGothicOne_400Regular",
         // fontFamily: "GloriaHallelujah_400Regular",
         // fontFamily: "Handlee_400Regular", //OK
