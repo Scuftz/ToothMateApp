@@ -10,6 +10,8 @@ import { Ionicons } from "@expo/vector-icons";
 import Caller from "../components/Caller";
 import Spinner from "react-native-loading-spinner-overlay";
 import { navigate } from "../navigationRef";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { LinearGradient } from "expo-linear-gradient";
 
 const UserAccountScreen = ({ navigation }) => {
   const { getUser, getDentalClinic } = useContext(UserContext);
@@ -28,10 +30,21 @@ const UserAccountScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Spacer>
-      <Spinner visible={spinner} textContent={"loading..."} animation="fade" />
+    <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+      <Spinner visible={spinner} textContent={"Loading..."} animation="fade" />
       <Button
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
         title="User"
+        titleStyle={styles.titleContainer}
         onPress={async () => {
           setSpinner(true);
           await getUser();
@@ -39,7 +52,10 @@ const UserAccountScreen = ({ navigation }) => {
         }}
       />
       <Button
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
         title="Clinic"
+        titleStyle={styles.titleContainer}
         onPress={async () => {
           setSpinner(true);
           await getDentalClinic();
@@ -47,19 +63,47 @@ const UserAccountScreen = ({ navigation }) => {
         }}
       />
       <Button
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
         title="Change Your Password"
+        titleStyle={styles.titleContainer}
         onPress={() => {
           navigation.navigate("Password");
         }}
       />
       <Button
-        title="Disconnect from parent"
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Disconnect From Parent"
+        titleStyle={styles.titleContainer}
         onPress={() => {
           navigation.push("DisconnectChild");
         }}
       />
-    </Spacer>
+    </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    fontWeight: "bold",
+    color: "black", 
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "black",
+    width: "80%",
+    marginLeft: "11%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "white",
+  },
+  titleContainer: {
+    color: "black",
+  },
+});
 
 export default UserAccountScreen;

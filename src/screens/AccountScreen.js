@@ -6,6 +6,8 @@ import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as UserContext } from "../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout, getchildaccounts } = useContext(AuthContext);
@@ -83,29 +85,86 @@ const AccountScreen = ({ navigation }) => {
   }
 
   return (
+    <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
+    <View style={styles.container}>
+    <KeyboardAwareScrollView>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
+    <Spacer/>
     <SafeAreaView forceInset={{ top: "always" }}>
-      <Text style={{ fontSize: 48 }}>AccountScreen</Text>
-      <Spacer>
-        <Button title="Sign Out" onPress={signout} />
-        <Button title="test" onPress={() => console.log(state.children)} />
-        <Button
-          title="Sign up child"
-          onPress={() => navigation.navigate("signUpChildFlow")}
+      <Text style={styles.header}>Your Account</Text>
+      <Spacer/>
+      <Spacer/>
+      <Spacer/>
+        <Button 
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Sign Out" onPress={signout} 
+        titleStyle={styles.titleContainer}
+        />
+        <Button 
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Test?" onPress={() => console.log(state.children)} 
+        titleStyle={styles.titleContainer}
         />
         <Button
-          title="You"
-          onPress={() => navigation.navigate("UserAccount")}
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="Sign Up Child Account"
+        onPress={() => navigation.navigate("signUpChildFlow")}
+        titleStyle={styles.titleContainer}
         />
-      </Spacer>
+        <Button
+        buttonStyle={styles.button}
+        containerStyle={styles.buttonContainer}
+        title="User"
+        onPress={() => navigation.navigate("UserAccount")}
+        titleStyle={styles.titleContainer}
+        />
       {childButtons()}
     </SafeAreaView>
+
+  </KeyboardAwareScrollView>
+  </View>
+  </LinearGradient>
   );
 };
+
 
 AccountScreen.navigationOptions = {
   headerShown: false,
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    fontWeight: "bold",
+    color: "black",
+  },
+  header: {
+    flex: 1,
+    alignSelf: "center",
+    fontSize: 48,
+    fontWeight: "bold",
+    color: "black",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "black",
+    width: "80%",
+    marginLeft: "11%",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "white",
+  },
+  titleContainer: {
+    color: "black",
+  },
+
+});
 
 export default AccountScreen;

@@ -13,8 +13,6 @@ const PasswordChangeScreen = ({ navigation }) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
-
-
     return (
         <KeyboardAwareScrollView>
             <Input 
