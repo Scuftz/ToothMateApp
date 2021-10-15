@@ -51,6 +51,7 @@ const SigninScreen = ({ navigation }) => {
         <Spacer/>
         <Spacer/>
         <Spacer/>
+        <Spacer/>
         <Input
           label="EMAIL ADDRESS"
           leftIcon={{ type: "material-icons", name: "email" }}
@@ -86,6 +87,7 @@ const SigninScreen = ({ navigation }) => {
         <Spacer/>
         <Spacer/>
         <Spacer/>
+
         <Spacer>
         <Button
           buttonStyle={styles.button}
@@ -121,6 +123,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     // borderWidth: 1,
     borderRadius: 20,
+
     // borderColor: "white",
     width: "90%",
     marginLeft: "5%",
@@ -136,17 +139,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
   },
+  titleContainer: {
+    color: 'black',
+  },
   inputContainer: {
     borderWidth: 1,
     borderRadius: 30,
-    width: "75%",
+    width: "65%",
     borderColor: "#dedede",
     paddingLeft: 13,
     backgroundColor: "#f8f8ff",
-    marginLeft: "12.5%",
+    marginLeft: "17.5%",
   },
   labelStyles: {
-    marginLeft: "17.5%",
+    marginLeft: "21%",
     color: "black",
   },
   containerHeading: {

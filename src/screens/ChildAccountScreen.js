@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 
 const AccountScreen = ({ navigation }) => {
   const { state, signout, getchildaccounts } = useContext(AuthContext);
@@ -28,6 +29,7 @@ const AccountScreen = ({ navigation }) => {
   };
 
   return (
+    <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
     <SafeAreaView forceInset={{ top: "always" }}>
       <Text style={{ fontSize: 48 }}>AccountScreen</Text>
       <Spacer>
@@ -49,6 +51,7 @@ const AccountScreen = ({ navigation }) => {
         />
       </Spacer>
     </SafeAreaView>
+    </LinearGradient>
   );
 };
 
@@ -56,6 +59,12 @@ AccountScreen.navigationOptions = {
   headerShown: false,
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    fontWeight: "bold",
+    color: "black", 
+  },
+});
 
 export default AccountScreen;

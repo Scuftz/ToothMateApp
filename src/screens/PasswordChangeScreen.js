@@ -15,8 +15,6 @@ const PasswordChangeScreen = ({ navigation }) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
-
-
     return (
         <LinearGradient
             colors={["#f54284", "white", "#f54284"]}
