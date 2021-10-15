@@ -66,13 +66,16 @@ AppointmentScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Appointment",
     headerTintColor: 'black',
-    
+    headerBackTitleVisible: false,
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+
     headerStyle: {
-      backgroundColor: '#f54284',
+      // height: 90,
+      backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
-  }
+    }
   };
 };
 
@@ -103,13 +106,13 @@ const styles = StyleSheet.create({
   },
   headingFont: {
     fontSize: 25,
+    fontWeight: "bold"
   },
   scroll: {
     marginTop: 15,
     marginBottom: 5,
   },
   buttonContainer: {
-    borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",
@@ -117,10 +120,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "lightblue",
+    backgroundColor: "#10334d",
   },
   buttonText: {
-    color: "black",
+    color: "#fff",
     fontWeight: "bold"
   },
 });

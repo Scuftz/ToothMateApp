@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import AppLoading from 'expo-app-loading';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -50,19 +51,7 @@ const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
 
     let [fontsLoaded] = useFonts({ 
-        SourceSansPro_700Bold, SourceSansPro_400Regular,
-        NotoSans_400Regular, NotoSans_700Bold, SourceCodePro_400Regular, SourceCodePro_700Bold,
-        RobotoCondensed_400Regular, RobotoCondensed_700Bold, Ubuntu_400Regular, Ubuntu_700Bold,
-        Merriweather_400Regular, Merriweather_700Bold, Rubik_400Regular, Rubik_700Bold,
-        JosefinSans_400Regular, JosefinSans_700Bold, YanoneKaffeesatz_400Regular, YanoneKaffeesatz_700Bold,
-        VarelaRound_400Regular, Kanit_400Regular, Kanit_700Bold, ArchitectsDaughter_400Regular, IndieFlower_400Regular,
-        BalsamiqSans_700Bold, BalsamiqSans_400Regular, PermanentMarker_400Regular, Domine_700Bold, Domine_400Regular,
-        FredokaOne_400Regular, Righteous_400Regular, CreteRound_400Regular, Courgette_400Regular,
-        Alegreya_400Regular, Alegreya_700Bold, KaushanScript_400Regular, ArchivoBlack_400Regular,
-        Kalam_400Regular, Kalam_700Bold, Merienda_400Regular, Merienda_700Bold, AsapCondensed_400Regular,
-        AsapCondensed_700Bold, Yantramanav_700Bold, Yantramanav_400Regular, PathwayGothicOne_400Regular,
-        GloriaHallelujah_400Regular, Handlee_400Regular, BenchNine_400Regular, BenchNine_700Bold,
-        ElMessiri_400Regular, ElMessiri_700Bold, HammersmithOne_400Regular, ArimaMadurai_700Bold, ArimaMadurai_400Regular, CarterOne_400Regular
+        Righteous_400Regular, CarterOne_400Regular, VarelaRound_400Regular
     });
 
     useEffect(() => {
@@ -78,40 +67,53 @@ const EducationScreen = ({ navigation }) => {
     }, []);
 
 
-    return (
-        <LinearGradient
-      colors={["#f54284", "white", "#f54284"]}
-      style={styles.screenStyle}>
-        <View style={styles.screenStyle}>
-            <FlatList
-                data={state}
-                keyExtractor={(education) => education._id}
-                renderItem={(item) => {
-                    return (
-                        <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
-                            <View style={styles.topicStyle}>
-                                <Text style={styles.topicText}>{item.item.topic}</Text>
-                                <MaterialIcons name="keyboard-arrow-right" size={30} />
-                            </View>
-                        </TouchableOpacity>
-                    );
-                }}
-            />
-        </View>
-    </LinearGradient>
-    );
+    if (!fontsLoaded) {
+        return <AppLoading />;
+        // while (!fontsLoaded) {
+            // console.log("was not loaded");
+            // return (
+            //     <View>
+            //         <Text style = {styles.titleTextStyle}> Loading... </Text>
+            //     </View>
+            // );
+        // }
+    }
+    else {
+        return (
+            <LinearGradient
+                colors={["#78d0f5", "white", "#78d0f5"]}
+                style={styles.screenStyle}>
+            <View style={styles.screenStyle}>
+                <Text style = {styles.titleTextStyle}>Learn More About Dental Health!</Text>
+                <FlatList
+                    data={state}
+                    keyExtractor={(education) => education._id}
+                    renderItem={(item) => {
+                        return (
+                            <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
+                                <View style={styles.topicStyle}>
+                                    <Text style={styles.topicText}>{item.item.topic}</Text>
+                                    <MaterialIcons name="keyboard-arrow-right" size={30} />
+                                </View>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
+            </View>
+            </LinearGradient>
+        );
+    }
 };
 
 EducationScreen.navigationOptions = () => {
     return {
-        title: "Education",
+        title: "",
+        safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
         headerStyle: {
-            backgroundColor: '#f54284',
+            backgroundColor: '#78d0f5',
             borderBottomWidth: 0,
             shadowOpacity: 0,
-            elevation: 0,
-
-            
+            elevation: 0,            
         }
     }
 }
@@ -119,25 +121,35 @@ EducationScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     //Topic Style
     topicStyle: {
-        borderColor: 'grey',
-        borderBottomWidth: 9,
-        borderRadius: 11,
+        borderColor: '#10334d', //#10334d
+        borderBottomWidth: 6, //9
+        borderRadius: 11, //11 initial value
         justifyContent: 'flex-end',
         flexDirection: 'row',
         backgroundColor: 'white',
         paddingVertical: 10,
         marginLeft: 5,
         marginRight: 5,
-        marginTop: 2
-
+        marginTop: 2,
+        marginBottom: 2,
     },
-    //Topic Text Styling
+    titleTextStyle: {
+        fontSize: 24,
+        marginLeft: "1.5%",
+        marginBottom: 20,
+        alignSelf: "center",
+        // fontFamily: "CarterOne_400Regular", //good
+        // fontFamily: "Righteous_400Regular",
+        // fontFamily: "FredokaOne_400Regular",
+        fontFamily: "VarelaRound_400Regular",
+        // fontFamily: "NotoSans_400Regular",
+    },
     topicText: {
         flex: 1,
         fontSize: 25,
         // fontWeight: 'bold',
         // fontFamily: "NotoSans_400Regular",
-        fontFamily: "SourceSansPro_400Regular",
+        // fontFamily: "SourceSansPro_400Regular",
         // fontFamily: "RobotoCondensed_400Regular",
         // fontFamily: "Ubuntu_400Regular",
         // fontFamily: "Merriweather_400Regular",
@@ -146,30 +158,30 @@ const styles = StyleSheet.create({
         // fontFamily: "JosefinSans_400Regular",
         // fontFamily: "YanoneKaffeesatz_400Regular",
         // fontFamily: "VarelaRound_400Regular",
-        // fontFamily: "Kanit_400Regular",
+        // fontFamily: "Kanit_400Regular", //OK
         // fontFamily: "ArchitectsDaughter_400Regular",
         // fontFamily: "IndieFlower_400Regular",
         // fontFamily: "BalsamiqSans_400Regular",
         // fontFamily: "PermanentMarker_400Regular",
         // fontFamily: "Domine_400Regular",
         // fontFamily: "FredokaOne_400Regular",
-        // fontFamily: "Righteous_400Regular",
+        // fontFamily: "Righteous_400Regular", //GOOD
         // fontFamily: "Courgette_400Regular",
         // fontFamily: "Alegreya_400Regular",
         // fontFamily: "KaushanScript_400Regular",
-        // fontFamily: "ArchivoBlack_400Regular",
-        // fontFamily: "Kalam_400Regular",
-        // fontFamily: "Merienda_400Regular",
+        // fontFamily: "ArchivoBlack_400Regular", //OK
+        // fontFamily: "Kalam_400Regular", //GOOD
+        // fontFamily: "Merienda_400Regular", //GOOD
         // fontFamily: "AsapCondensed_400Regular",
         // fontFamily: "Yantramanav_400Regular",
         // fontFamily: "PathwayGothicOne_400Regular",
         // fontFamily: "GloriaHallelujah_400Regular",
-        // fontFamily: "Handlee_400Regular",
+        // fontFamily: "Handlee_400Regular", //OK
         // fontFamily: "BenchNine_400Regular",
-        // fontFamily: "ElMessiri_400Regular",
-        // fontFamily: "HammersmithOne_400Regular",
-        // fontFamily: "ArimaMadurai_400Regular",
-        // fontFamily: "CarterOne_400Regular",
+        // fontFamily: "ElMessiri_400Regular", //OK
+        // fontFamily: "HammersmithOne_400Regular", //GOOD
+        // fontFamily: "ArimaMadurai_400Regular", //OK
+        fontFamily: "CarterOne_400Regular", //good
         alignSelf: 'flex-start',
         marginLeft: 15,
     },

@@ -25,7 +25,7 @@ const SigninScreen = ({ navigation }) => {
 
   return (
     // Gradient background 
-    <LinearGradient colors={["#f54284", "white", "#f54284"]} style = {styles.container}>
+    <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
       <View style={styles.container}>
       <KeyboardAwareScrollView>
       <Spacer/>
@@ -92,7 +92,7 @@ const SigninScreen = ({ navigation }) => {
           containerStyle={styles.buttonContainer}
           title="Log In"
           onPress={() => signin({ email, password })}
-          titleStyle={{color: 'black'}}
+          titleStyle={{color: '#fff'}}
         />
         </Spacer>
         {/* Create a new account button touchable opacity function*/}
@@ -119,15 +119,15 @@ SigninScreen.navigationOptions = () => {
 //Style Sheets 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 20,
-    borderColor: "white",
+    // borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#10334d",
   },
   inputStyle: {
     paddingVertical: 8,

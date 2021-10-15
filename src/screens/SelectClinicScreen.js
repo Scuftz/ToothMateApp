@@ -29,11 +29,11 @@ const SelectClinicScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-    colors={["#f54284", "white", "#f54284"]}
+    colors={["#78d0f5", "white", "#78d0f5"]}
     style={styles.container}
   >
     <View style={styles.container}>
-      <Text style={styles.clinicTextStyle}>Select or type a clinic</Text>
+      <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
       <SearchableDropdown
         items={items}
         onItemSelect={(item) => {
@@ -48,8 +48,10 @@ const SelectClinicScreen = ({ navigation }) => {
             borderRadius: 5,
             backgroundColor: "white",
             fontWeight: "bold",
+            fontSize: 20,
           },
         }}
+        placeholderTextColor="#888"
         containerStyle={styles.dropdownContainer}
         itemStyle={{
           padding: 8,
@@ -60,10 +62,10 @@ const SelectClinicScreen = ({ navigation }) => {
           borderRadius: 20,
         }}
         itemTextStyle={{ color: "#222" , marginLeft: 2, fontSize: 15, fontWeight: "bold"}}
-      />
+        />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
-      ) : null}
+        ) : null}
       <Spacer>
         <Button
         buttonStyle={styles.button}
@@ -93,10 +95,12 @@ SelectClinicScreen.navigationOptions = () => {
     // headerShown: false,
     headerTitle: "",
     headerTintColor: 'black',
+    headerBackTitle: "Sign Up",
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
     
     headerStyle: {
-      backgroundColor: '#f54284',
+      backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   buttonContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",
@@ -150,10 +154,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "white",
+    backgroundColor: "#10334d",
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold"
   },
 
