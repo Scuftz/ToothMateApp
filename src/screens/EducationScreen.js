@@ -121,7 +121,7 @@ EducationScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     //Topic Style
     topicStyle: {
-        borderColor: '#10334d', //#10334d
+        borderColor: 'grey', //#10334d
         borderBottomWidth: 6, //9
         borderRadius: 11, //11 initial value
         justifyContent: 'flex-end',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         marginTop: 2,
-        marginBottom: 2,
+        marginBottom: 1,
     },
     titleTextStyle: {
         fontSize: 24,

@@ -28,7 +28,7 @@ const SignupChildScreen = ({ navigation }) => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  // const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
   const [dob, setDob] = useState(new Date(946700000000));
@@ -116,7 +116,7 @@ const SignupChildScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        <Input
+        {/* <Input
           label="Mobile"
           //placeholder="Mobile"
           leftIcon={{ type: "entypo", name: "mobile" }}
@@ -127,7 +127,7 @@ const SignupChildScreen = ({ navigation }) => {
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
-        />
+        /> */}
         <Input
           label="Password"
           //placeholder="Password"
