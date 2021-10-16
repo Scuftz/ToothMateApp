@@ -17,8 +17,8 @@ const PasswordChangeScreen = ({ navigation }) => {
 
     return (
         <LinearGradient
-            colors={["#f54284", "white", "#f54284"]}
-            style={styles.container}>
+        colors={["#78d0f5", "white", "#78d0f5"]}
+        style={styles.container}>
     <View style={styles.container}>
 
         <KeyboardAwareScrollView>
@@ -75,7 +75,7 @@ PasswordChangeScreen.navigationOptions = () => {
   
       
       headerStyle: {
-        backgroundColor: '#f54284',
+        backgroundColor: '#78d0f5',
         borderBottomWidth: 0,
         shadowOpacity: 0,
         elevation: 0, 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
       },
       buttonContainer: {
-        borderWidth: 1,
+        //borderWidth: 1,
         borderRadius: 20,
         borderColor: "white",
         width: "90%",
@@ -123,10 +123,10 @@ const styles = StyleSheet.create({
       },
       button: {
         paddingVertical: 10,
-        backgroundColor: "lightgreen",
+        backgroundColor: "#10334d",
       },
       buttonText: {
-        color: "black",
+        color: "white",
         fontWeight: "bold"
       },
 });
