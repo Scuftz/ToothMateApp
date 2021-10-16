@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   topicStyle: {
-    borderColor: "#10334d", //grey
+    borderColor: "grey", //grey
     borderBottomWidth: 5, //5
     justifyContent: "flex-end",
     flexDirection: "row",
@@ -242,10 +242,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: "90%",
     marginLeft: "5%",
+    // borderWidth: 1,
+    // borderBottomWidth: 5,
+    // borderColor: "black"
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d", //00b3ff  005a80  
+    backgroundColor: "#295578", //00b3ff  005a80 //dfe4e8
   },
   buttonText: {
     color: "#fff",
