@@ -53,8 +53,8 @@ const AccountScreen = ({ navigation }) => {
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
     <SafeAreaView style={{flex: 1}}>
       {/* <Text style={{ fontSize: 48 }}>AccountScreen</Text> */}
-      <Image source={require("../components/t_logo1.png")} style={{width: 100, height: 100, alignSelf: "center"}} />
       <Text style={styles.header}>ToothMate</Text>
+      <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} />
 
       <View style={{flex: 1, marginTop: "10%"}}>
         <Button
@@ -109,23 +109,24 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#346185",
+    backgroundColor: "#F0F0F0",
   },
   titleContainer: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
   backButton: {
     paddingVertical: 10,
-    backgroundColor: "#fff",
-    // borderWidth: 2
-  },
-  backButtonContainer: {
-    borderWidth: 2,
-    borderRadius: 5,
+    backgroundColor: "#F0f0f0",
+    borderColor: "#000",
+    // borderWidth: 2,
+    borderRadius: 20,
     width: "80%",
     marginBottom: 30,
     alignSelf: "center",
+    // borderWidth: 2
+  },
+  backButtonContainer: {
   },
   backTitleContainer: {
     color: "#000",

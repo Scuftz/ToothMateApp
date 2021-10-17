@@ -7,6 +7,7 @@ import {
   FlatList,
   LogBox,
   Platform,
+  ActivityIndicator
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
@@ -21,6 +22,8 @@ import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { HeaderBackButton } from "react-navigation-stack";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 const SignupChildScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -35,6 +38,10 @@ const SignupChildScreen = ({ navigation }) => {
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
 
   useEffect(() => {
     convertDate(dob);
@@ -67,6 +74,21 @@ const SignupChildScreen = ({ navigation }) => {
     showMode("date");
   };
 
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
@@ -74,12 +96,9 @@ const SignupChildScreen = ({ navigation }) => {
     >
     <View style={styles.container}>
       <KeyboardAwareScrollView>
+      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
         <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Spacer>
-          <Text h3 style>
-            Child Account Sign Up
-          </Text>
-        </Spacer>
+        <Spacer/>
         <Input
           label="First Name"
           //placeholder="First name"
@@ -295,7 +314,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#F0F0F0",
   },
   buttonContainer: {
     // borderWidth: 1,
@@ -305,7 +324,7 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     fontWeight: "bold"
   },
 

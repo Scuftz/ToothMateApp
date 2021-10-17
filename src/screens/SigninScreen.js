@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ActivityIndicator
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
@@ -17,11 +18,31 @@ import { text } from "react-native-communications";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { ImageBackground } from "react-native";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const SigninScreen = ({ navigation }) => {
   const { state, signin, clearErrorMessage } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     // Gradient background 
@@ -29,6 +50,8 @@ const SigninScreen = ({ navigation }) => {
       <View style={styles.container}>
       <KeyboardAwareScrollView>
       <Spacer/>
+      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+
       {/* Tooth background image */}
         <ImageBackground
           source={require("../components/t_logo1.png")} styles={styles.container}
@@ -87,14 +110,15 @@ const SigninScreen = ({ navigation }) => {
         <Spacer/>
         <Spacer/>
         <Spacer/>
-
         <Spacer>
+
+
         <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
           title="Log In"
           onPress={() => signin({ email, password })}
-          titleStyle={{color: '#fff'}}
+          titleStyle={{color: '#000'}}
         />
         </Spacer>
         {/* Create a new account button touchable opacity function*/}
@@ -130,7 +154,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#F0F0F0",
   },
   inputStyle: {
     paddingVertical: 8,

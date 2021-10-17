@@ -55,8 +55,8 @@ const UserAccountScreen = ({ navigation }) => {
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
       <View style={{flex: 1}}>
       <Spinner visible={spinner} textContent={"Loading..."} animation="fade" />
-      <Image source={require("../components/t_logo1.png")} style={{width: 100, height: 100, alignSelf: "center"}} />
       <Text style={styles.header}>ToothMate</Text>
+      <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} />
       <View style={{flex: 4, marginTop: "2%"}}>
         <Button
           buttonStyle={styles.button}
@@ -137,10 +137,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#346185",
+    backgroundColor: "#F0F0F0",
   },
   titleContainer: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
   header: {

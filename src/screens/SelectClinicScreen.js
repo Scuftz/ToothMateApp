@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -8,6 +8,8 @@ import { Context as ClinicContext } from "../context/ClinicContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 
 const SelectClinicScreen = ({ navigation }) => {
@@ -22,10 +24,29 @@ const SelectClinicScreen = ({ navigation }) => {
   const cc = useContext(ClinicContext);
   const [clinic, setClinic] = useState({ name: "Clinic" });
 
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
+
   useEffect(() => {
     cc.getClinicNames();
   }, []);
   const items = cc.state;
+
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <LinearGradient
@@ -33,6 +54,8 @@ const SelectClinicScreen = ({ navigation }) => {
     style={styles.container}
   >
     <View style={styles.container}>
+    <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+    <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} />
       <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
       <SearchableDropdown
         items={items}
@@ -43,9 +66,10 @@ const SelectClinicScreen = ({ navigation }) => {
           placeholder: `${clinic.name}`,
           style: {
             padding: 5,
+            paddingLeft: 15,
             borderWidth: 1,
             borderColor: "#ccc",
-            borderRadius: 5,
+            borderRadius: 20,
             backgroundColor: "white",
             fontWeight: "bold",
             fontSize: 20,
@@ -143,7 +167,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "black",
     fontWeight: "bold",
-    paddingTop: 10
+    paddingTop: 10,
+    alignSelf: "center"
   },
   buttonContainer: {
     // borderWidth: 1,
@@ -154,10 +179,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#f0F0F0",
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     fontWeight: "bold"
   },
 

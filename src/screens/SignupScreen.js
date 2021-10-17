@@ -8,6 +8,7 @@ import {
   LogBox,
   Platform,
   Image,
+  ActivityIndicator
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
@@ -21,6 +22,8 @@ import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -35,6 +38,11 @@ const SignupScreen = ({ navigation }) => {
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
+
 
   useEffect(() => {
     convertDate(dob);
@@ -67,6 +75,21 @@ const SignupScreen = ({ navigation }) => {
     showMode("date");
   };
 
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
@@ -74,6 +97,7 @@ const SignupScreen = ({ navigation }) => {
     >
       <View style={styles.container}>
         <KeyboardAwareScrollView>
+          <Text style={{fontSize: 50, marginTop: "15%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
           <NavigationEvents onWillFocus={clearErrorMessage} />
           {/* <Text style = {styles.header}>
             Sign Up for Tooth Mate
@@ -89,8 +113,6 @@ const SignupScreen = ({ navigation }) => {
               marginTop: 25,
             }}
           /> */}
-          <Spacer/>
-          <Spacer/>
           <Spacer/>
           <Input
             label="First Name"
@@ -186,7 +208,7 @@ const SignupScreen = ({ navigation }) => {
             })()}
           </View>
           <Spacer>
-          <Spacer/><Spacer/>
+          <Spacer/>
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
@@ -308,7 +330,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#F0F0F0", //#10334D
   },
   header: {
     color: "#2B510C",
@@ -319,7 +341,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   buttonText: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
 });

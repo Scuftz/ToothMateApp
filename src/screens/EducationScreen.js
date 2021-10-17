@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context as UserContext } from '../context/UserContext';
@@ -8,44 +8,9 @@ import { Context as EducationContext } from '../context/EducationContext';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
-import { Raleway_100Thin } from '@expo-google-fonts/raleway';
-import { NotoSans_400Regular,  NotoSans_700Bold } from "@expo-google-fonts/noto-sans";
-import { SourceSansPro_400Regular, SourceSansPro_700Bold } from "@expo-google-fonts/source-sans-pro";
-import { RobotoCondensed_400Regular, RobotoCondensed_700Bold } from "@expo-google-fonts/roboto-condensed"
-import { Ubuntu_400Regular, Ubuntu_700Bold } from "@expo-google-fonts/ubuntu";
-import { Merriweather_400Regular, Merriweather_700Bold} from "@expo-google-fonts/merriweather";
-import { Rubik_400Regular, Rubik_700Bold } from "@expo-google-fonts/rubik";
-import { SourceCodePro_400Regular, SourceCodePro_700Bold } from "@expo-google-fonts/source-code-pro";
-import { JosefinSans_400Regular, JosefinSans_700Bold } from "@expo-google-fonts/josefin-sans";
-import { YanoneKaffeesatz_400Regular, YanoneKaffeesatz_700Bold } from "@expo-google-fonts/yanone-kaffeesatz";
 import { VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
-import { Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
-import { ArchitectsDaughter_400Regular } from "@expo-google-fonts/architects-daughter";
-import { IndieFlower_400Regular } from "@expo-google-fonts/indie-flower";
-import { BalsamiqSans_400Regular, BalsamiqSans_700Bold } from "@expo-google-fonts/balsamiq-sans";
-import { PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
-import { Domine_400Regular, Domine_700Bold } from "@expo-google-fonts/domine";
-import { Righteous_400Regular } from "@expo-google-fonts/righteous";
-import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
-import { Courgette_400Regular } from "@expo-google-fonts/courgette";
-import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
-import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
-import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
-import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
-import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
-import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
-import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
-import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
-import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
-import { Handlee_400Regular} from "@expo-google-fonts/handlee";
-import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
-import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
-import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
-import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
-
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
@@ -68,23 +33,27 @@ const EducationScreen = ({ navigation }) => {
 
 
     if (!fontsLoaded) {
-        return <AppLoading />;
-        // while (!fontsLoaded) {
-            // console.log("was not loaded");
-            // return (
-            //     <View>
-            //         <Text style = {styles.titleTextStyle}> Loading... </Text>
-            //     </View>
-            // );
-        // }
-    }
+        return (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              padding: 10,
+            }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        );
+      }
     else {
         return (
             <LinearGradient
                 colors={["#78d0f5", "white", "#78d0f5"]}
                 style={styles.screenStyle}>
             <View style={styles.screenStyle}>
-                <Text style = {styles.titleTextStyle}>Learn More About Dental Health!</Text>
+            <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+                <Text style = {styles.titleTextStyle}>Education Library</Text>
                 <FlatList
                     data={state}
                     keyExtractor={(education) => education._id}
@@ -122,7 +91,7 @@ const styles = StyleSheet.create({
     //Topic Style
     topicStyle: {
         borderColor: 'grey', //#10334d
-        borderBottomWidth: 6, //9
+        // borderBottomWidth: 6, //9
         borderRadius: 11, //11 initial value
         justifyContent: 'flex-end',
         flexDirection: 'row',
@@ -137,6 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginLeft: "1.5%",
         marginBottom: 20,
+        marginTop: 20,
         alignSelf: "center",
         // fontFamily: "CarterOne_400Regular", //good
         // fontFamily: "Righteous_400Regular",
@@ -181,7 +151,7 @@ const styles = StyleSheet.create({
         // fontFamily: "ElMessiri_400Regular", //OK
         // fontFamily: "HammersmithOne_400Regular", //GOOD
         // fontFamily: "ArimaMadurai_400Regular", //OK
-        fontFamily: "CarterOne_400Regular", //good
+        // fontFamily: "CarterOne_400Regular", //good
         alignSelf: 'flex-start',
         marginLeft: 15,
     },

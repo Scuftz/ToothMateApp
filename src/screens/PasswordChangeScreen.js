@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -7,6 +7,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Context as ClinicContext } from "../context/ClinicContext";
 import { Context as UserContext } from "../context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 
 const PasswordChangeScreen = ({ navigation }) => {
@@ -15,12 +17,33 @@ const PasswordChangeScreen = ({ navigation }) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
+    let [fontsLoaded] = useFonts({ 
+        Righteous_400Regular
+      });
+
+    if (!fontsLoaded) {
+    return (
+        <View
+        style={{
+            flex: 1,
+            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+    );
+    }
+
     return (
         <LinearGradient
         colors={["#78d0f5", "white", "#78d0f5"]}
         style={styles.container}>
     <View style={styles.container}>
-
+        <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+        <Spacer/>
+        <Spacer/>
         <KeyboardAwareScrollView>
             <Input 
                 label="Current Password"
@@ -125,10 +148,10 @@ const styles = StyleSheet.create({
       },
       button: {
         paddingVertical: 10,
-        backgroundColor: "#10334d",
+        backgroundColor: "#F0F0F0",
       },
       buttonText: {
-        color: "white",
+        color: "#000",
         fontWeight: "bold"
       },
 });
