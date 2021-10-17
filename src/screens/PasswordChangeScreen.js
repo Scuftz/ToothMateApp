@@ -72,6 +72,8 @@ PasswordChangeScreen.navigationOptions = () => {
       // headerShown: false,
       headerTitle: "",
       headerTintColor: 'black',
+      headerBackTitleVisible: false,
+      safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
   
       
       headerStyle: {

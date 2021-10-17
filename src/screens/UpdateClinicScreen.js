@@ -81,10 +81,11 @@ const UpdateClinicScreen = ({ navigation }) => {
 
 UpdateClinicScreen.navigationOptions = () => {
   return {
-    // headerShown: false,
+    title: "",
+    headerBackTitleVisible: false,
 
-    headerTitle: "",
     headerTintColor: 'black',
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
     
     headerStyle: {
       backgroundColor: '#78d0f5',
