@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#78d0f5",
   },
   buttonText: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
 });

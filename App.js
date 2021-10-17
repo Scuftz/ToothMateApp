@@ -28,6 +28,7 @@ import DentalChartScreen from "./src/screens/DentalChartScreen";
 import InvoiceScreen from "./src/screens/InvoiceScreen";
 import ImagesScreen from "./src/screens/ImagesScreen";
 import DisconnectChildScreen from "./src/screens/DisconnectChildScreen";
+import { enableScreens } from "react-native-screens";
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,

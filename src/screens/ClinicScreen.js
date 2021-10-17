@@ -211,17 +211,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: "1.5%",
-    marginBottom: 5,
+    marginBottom: 10,
   },
   topicStyle: {
     borderColor: "grey", //grey
-    borderBottomWidth: 5, //5
+    // borderBottomWidth: 5, //5
     justifyContent: "flex-end",
     flexDirection: "row",
     backgroundColor: "white",
     paddingVertical: 10,
     borderRadius: 20,
-    marginBottom: 2
+    marginBottom: 7
   },
   topicText: {
     flex: 1,
@@ -248,10 +248,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#295578", //00b3ff  005a80 //dfe4e8
+    backgroundColor: "#F0F0F0", //00b3ff  005a80 //dfe4e8
   },
   buttonText: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
 });

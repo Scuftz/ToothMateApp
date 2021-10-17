@@ -203,9 +203,9 @@ const DentalChartScreen = ({ navigation }) => {
             switchOn={hasWisdomTooth}
             onPress={() => setHasWisdomTooth(!hasWisdomTooth)}
             circleColorOff="#9ad2d9"
-            circleColorOn="#00e5ff"
-            backgroundColorOn="#10334d"
-            backgroundColorOff="#10334d"
+            circleColorOn="#78d0f5"
+            backgroundColorOn="#F0F0F0"
+            backgroundColorOff="#F0F0F0"
           />
         </View>
       </ScrollView>

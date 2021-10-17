@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
         // marginRight: "5%",
         marginBottom: "1.5%",
         textAlign: "center",
-        backgroundColor: "#10334d",
+        backgroundColor: "#F0F0F0",
         overflow: "hidden",
-        color: "#fff",
+        color: "#000",
     },
     screenStyle: {
         flex: 1,

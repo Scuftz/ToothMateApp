@@ -132,8 +132,8 @@ const AccountScreen = ({ navigation }) => {
     {/* <View style={styles.container}> */}
       {/* <KeyboardAwareScrollView> */}
         <SafeAreaView style={{flex: 1}}>
-          <Image source={require("../components/t_logo1.png")} style={{width: 100, height: 100, alignSelf: "center"}} />
           <Text style={styles.header}>ToothMate</Text>
+          <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} />
           <View style={{flex: 2, marginTop: "2%"}}>
               {/* <Button 
               buttonStyle={styles.button}
@@ -158,7 +158,7 @@ const AccountScreen = ({ navigation }) => {
               <Spacer/>
           </View>
 
-          <View style={{flex: 3, borderBottomWidth: 3, marginTop: "-10%"}}>
+          <View style={{flex: 3, borderBottomWidth: 3, marginTop: "0%"}}>
             <Text style={styles.yourAccountStyle}>Your Accounts</Text>
             <ScrollView style={{ marginBottom: 10  }}>
               {childButtons()}
@@ -181,10 +181,39 @@ const AccountScreen = ({ navigation }) => {
 };
 
 
-AccountScreen.navigationOptions = {
-  headerShown: false,
+AccountScreen.navigationOptions = () => {
+  return {
+    headerShown: false,
+    }
 };
 
+// EducationScreen.navigationOptions = () => {
+//   return {
+//       title: "",
+//       safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
+//       headerStyle: {
+//           backgroundColor: '#78d0f5',
+//           borderBottomWidth: 0,
+//           shadowOpacity: 0,
+//           elevation: 0,            
+//       }
+//   }
+// }
+// ClinicScreen.navigationOptions = () => {
+//   return {
+//     title: "",
+//     tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
+//     headerTintColor: 'black',
+//     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
+
+//     headerStyle: {
+//       backgroundColor: '#78d0f5',//78d0f5
+//       borderBottomWidth: 0,
+//       shadowOpacity: 0,
+//       elevation: 0,    
+//     }
+//   };
+// };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -199,14 +228,21 @@ const styles = StyleSheet.create({
     color: "black",
   },
   buttonContainer: {
-    borderRadius: 20,
-    width: "80%",
-    marginBottom: 15,
-    alignSelf: "center"
+    //comment
   },
   button: {
+    width: "80%",
     paddingVertical: 10,
-    backgroundColor: "#346185",
+    backgroundColor: "#F0F0F0", //#346185
+    marginBottom: 15,
+    alignSelf: "center",
+    // borderWidth: 3,
+    borderRadius: 20,
+    borderColor: "#000"
+  },
+  titleContainer: {
+    color: "#000",
+    fontWeight: "bold"
   },
   signOutContainer: {
     borderRadius: 20,
@@ -215,25 +251,21 @@ const styles = StyleSheet.create({
   },
   signOutButton: {
     paddingVertical: 10,
-    backgroundColor: "#346185",
+    backgroundColor: "#FFF",
     borderColor: "#346185",
   },
   signOutTextStyle: {
-    color: "#fff",
-    fontWeight: "bold"
-  },
-  titleContainer: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold"
   },
   childButtonStyle: {
     paddingVertical: 10,
     width: "80%",
     alignSelf: "center",
-    borderRadius: 5,
+    borderRadius: 20,
     marginTop: 10,
-    backgroundColor: "#fff",
-    borderWidth: 3,
+    backgroundColor: "#F0F0F0",
+    // borderWidth: 3,
     borderColor: "#346185",
   },
   childTextStyle: {
@@ -245,7 +277,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: "center",
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginBottom: "3%",
   },
 
 });

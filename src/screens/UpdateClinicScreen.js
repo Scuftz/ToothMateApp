@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -9,6 +9,8 @@ import { Context as UserContext } from "../context/UserContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 
 const UpdateClinicScreen = ({ navigation }) => {
@@ -18,16 +20,39 @@ const UpdateClinicScreen = ({ navigation }) => {
 
   const [clinic, setClinic] = useState({ id: uc.state.clinic._id, name: uc.state.clinic.name });
 
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
+
   useEffect(() => {
     cc.getClinicNames();
   }, []);
   const items = cc.state;
+
+  if (!fontsLoaded) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          padding: 10,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
   <LinearGradient
     colors={["#78d0f5", "white", "#78d0f5"]}
     style={styles.container}>
     <View style={styles.container}>
+      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+
+      <Spacer/>
+      <Spacer/>
       <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
       <SearchableDropdown
         items={items}
@@ -81,10 +106,11 @@ const UpdateClinicScreen = ({ navigation }) => {
 
 UpdateClinicScreen.navigationOptions = () => {
   return {
-    // headerShown: false,
+    title: "",
+    headerBackTitleVisible: false,
 
-    headerTitle: "",
     headerTintColor: 'black',
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
     
     headerStyle: {
       backgroundColor: '#78d0f5',
@@ -141,10 +167,10 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#10334d",
+    backgroundColor: "#F0F0F0",
   },
   buttonText: {
-    color: "white",
+    color: "#000",
     fontWeight: "bold"
   },
 });
