@@ -47,7 +47,7 @@ const SigninScreen = ({ navigation }) => {
       <ImageBackground
         source={require("../components/t_logo_crop2.png")}
         style={{
-          paddingTop: "30%",
+          paddingTop: "20%",
           height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
           width: Dimensions.get('window').width,
         }}
@@ -79,13 +79,10 @@ const SigninScreen = ({ navigation }) => {
           autoCorrect={false}
           secureTextEntry
         />
-     </ImageBackground>  
- 
         {state.errorMessage ? (
           <Text style={styles.errorMessage}>{state.errorMessage}</Text>
         ) : null}
-        
-        <Spacer>
+     </ImageBackground>  
         <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
@@ -93,8 +90,6 @@ const SigninScreen = ({ navigation }) => {
           onPress={() => signin({ email, password })}
           titleStyle={{color: '#000', fontWeight: "bold"}}
         />
-        </Spacer>
-
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Spacer>
             <View style={styles.link}>
@@ -173,6 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     fontWeight: "bold",
+    marginTop: "2%",
   },
   inputStyle: {
     paddingVertical: 8,
