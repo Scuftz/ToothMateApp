@@ -3,23 +3,14 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  FlatList,
-  LogBox,
   Platform,
-  Image,
   ActivityIndicator
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
-// import { Context as ClinicContext } from "../context/ClinicContext";
-import SearchableDropdown from "react-native-searchable-dropdown";
-import { InteractionManager } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
@@ -27,7 +18,7 @@ import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
-  //   const cc = useContext(ClinicContext);
+
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -99,24 +90,10 @@ const SignupScreen = ({ navigation }) => {
         <KeyboardAwareScrollView>
           <Text style={{fontSize: 50, marginTop: "15%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
           <NavigationEvents onWillFocus={clearErrorMessage} />
-          {/* <Text style = {styles.header}>
-            Sign Up for Tooth Mate
-          </Text> */}
-        {/*   <Image
-            source={require("../components/tm_white_logo.png")}
-            style={{
-              alignSelf: "center",
-              justifyContent: "center",
-              width: 150,
-              height: 90,
-              resizeMode: "contain",
-              marginTop: 25,
-            }}
-          /> */}
           <Spacer/>
+
           <Input
             label="First Name"
-            //placeholder="First name"
             leftIcon={{ type: "feather", name: "user" }}
             value={firstname}
             onChangeText={setFirstName}
@@ -128,7 +105,6 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Last Name"
-            //placeholder="Last name"
             leftIcon={{ type: "feather", name: "user" }}
             value={lastname}
             onChangeText={setLastName}
@@ -140,7 +116,6 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Email"
-            //placeholder="Email"
             leftIcon={{ type: "material-icons", name: "email" }}
             value={email}
             onChangeText={setEmail}
@@ -152,7 +127,6 @@ const SignupScreen = ({ navigation }) => {
           />
           <Input
             label="Password"
-            //placeholder="Password"
             leftIcon={{ type: "fontawesome5", name: "lock" }}
             value={password}
             onChangeText={setPassword}
@@ -258,8 +232,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    //marginTop: 15,
-
   },
   dateStyle: {
     fontSize: 18,
@@ -286,12 +258,9 @@ const styles = StyleSheet.create({
     marginLeft: "2.25%",
   },
   textStyle: {
-    //This is for the box
     fontSize: 16,
-    //fontFamily: 'Helvetica'
   },
   labelStyle: {
-    //This is for the text
     fontSize: 14,
     marginLeft: 18,
     color: "black",
@@ -309,21 +278,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-
   dropdownContainer: {
     padding: 10,
     paddingBottom: 20,
   },
   clinicTextStyle: {
-    //Enter Date of Birth Styling
     marginLeft: 20,
     fontSize: 14,
-    //color: "#86939e",
     color: "black",
     fontWeight: "bold",
   },
   buttonContainer: {
-    // borderWidth: 1,
     borderRadius: 20,
     width: "90%",
     marginLeft: "5%",
