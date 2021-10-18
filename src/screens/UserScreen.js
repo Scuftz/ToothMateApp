@@ -5,6 +5,7 @@ import {
   Text,
   Platform,
   TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -13,6 +14,10 @@ import { Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as userContext } from "../context/UserContext";
 import { Context as authContext } from "../context/AuthContext";
+import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
+
 
 const UserScreen = ({ navigation }) => {
   const { state, getUser } = useContext(userContext);
@@ -27,6 +32,10 @@ const UserScreen = ({ navigation }) => {
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  let [fontsLoaded] = useFonts({ 
+    Righteous_400Regular
+  });
 
   useEffect(() => {
     convertDate(dob);
@@ -77,21 +86,37 @@ const UserScreen = ({ navigation }) => {
   
     };
 
+    if (!fontsLoaded) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            padding: 10,
+          }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+
   return (
+    <LinearGradient
+      colors={["#78d0f5", "white", "#78d0f5"]}
+      style={styles.container}
+    >
     <View style={styles.container}>
       <KeyboardAwareScrollView>
+      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular", marginBottom: "2%", marginTop: "5%%"}}> ToothMate </Text>
         <NavigationEvents />
-        <Spacer>
-          <Text h3 style={{ marginBottom: 5 }}>
-            Change your details
-          </Text>
-        </Spacer>
-        <Spacer />
+        <Spacer/>
         <Input
           label="First Name"
           value={firstname}
           onChangeText={setFirstName}
           autoCapitalize="none"
+          leftIcon={{ type: "feather", name: "user" }}
           autoCorrect={false}
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.textStyle}
@@ -102,6 +127,7 @@ const UserScreen = ({ navigation }) => {
           value={lastname}
           onChangeText={setLastName}
           autoCapitalize="none"
+          leftIcon={{ type: "feather", name: "user" }}
           autoCorrect={false}
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.textStyle}
@@ -112,12 +138,13 @@ const UserScreen = ({ navigation }) => {
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
+          leftIcon={{ type: "material-icons", name: "email" }}
           autoCorrect={false}
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        <Input
+        {/* <Input
           label="Mobile"
           value={mobile}
           onChangeText={setMobile}
@@ -126,7 +153,7 @@ const UserScreen = ({ navigation }) => {
           inputContainerStyle={styles.inputContainerStyle}
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
-        />
+        /> */}
         <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
         <View>
           {(() => {
@@ -173,6 +200,9 @@ const UserScreen = ({ navigation }) => {
         <Spacer>
           <Button
             title="Change Details"
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
+            titleStyle={styles.buttonText}   
             onPress={() => {
               updateUser({ firstname, lastname, email, mobile, dob });
             }}
@@ -180,16 +210,36 @@ const UserScreen = ({ navigation }) => {
         </Spacer>
       </KeyboardAwareScrollView>
     </View>
+    </LinearGradient>
   );
 };
+
+UserScreen.navigationOptions = ({ navigation }) => {
+  return {
+      title: "",
+      headerTintColor: 'black',
+      safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+      headerBackTitleVisible: false,
+  
+      headerStyle: {
+        backgroundColor: '#78d0f5',
+        borderBottomWidth: 0,
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      cardStyle: {
+        backgroundColor: "white",
+      },
+  };    
+}
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    marginBottom: 30,
-    marginTop: 50,
   },
+
   dateStyle: {
     fontSize: 18,
     padding: 10,
@@ -206,14 +256,24 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   inputContainerStyle: {
-    height: 30,
-    marginBottom: 0,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#dedede",
+    width: "95%",
+    paddingLeft: 15,
+    backgroundColor: "#ebebeb",
+    marginLeft: "2.25%",
   },
   textStyle: {
     fontSize: 16,
   },
   labelStyle: {
     fontSize: 14,
+    marginLeft: 18,
+    color: "black",
+    marginBottom: 3,
+    marginTop: 2,  
+
   },
   errorMessage: {
     fontSize: 16,
@@ -228,10 +288,24 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   clinicTextStyle: {
-    marginLeft: 10,
-    fontSize: 14,
-    color: "#86939e",
-    fontWeight: "bold",
+    marginLeft: 20,
+     fontSize: 14,
+     color: "black",
+     fontWeight: "bold",
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "#F0F0F0",
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    borderColor: "white",
+    width: "90%",
+    marginLeft: "5%",
+  },
+  buttonText: {
+    color: "#000",
+    fontWeight: "bold"
   },
 });
 
