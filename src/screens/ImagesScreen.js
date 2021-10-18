@@ -7,7 +7,7 @@ const ImagesScreen = ({ navigation }) => {
     const base64image = navigation.getParam("img");
 
   return (
-    <LinearGradient colors={["white", "#7ad0f5", "white"]} style = {styles.container}>
+    <LinearGradient colors={["78d0f5", "#fff", "78d0f5"]} style = {styles.container}>
     <ScrollView>
       <View style={styles.container}>
         <AppointmentImage base64={base64image} />
