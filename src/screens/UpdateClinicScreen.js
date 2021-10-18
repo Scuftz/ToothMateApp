@@ -1,17 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
-import { NavigationEvents } from "react-navigation";
-import { Text, Input, Button } from "react-native-elements";
+import { View, StyleSheet, ActivityIndicator, Image } from "react-native";
+import { Text, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
 import { Context as UserContext } from "../context/UserContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
-
 
 const UpdateClinicScreen = ({ navigation }) => {
   const { state, updateUserClinic } = useContext(AuthContext);
@@ -49,10 +45,8 @@ const UpdateClinicScreen = ({ navigation }) => {
     colors={["#78d0f5", "white", "#78d0f5"]}
     style={styles.container}>
     <View style={styles.container}>
-      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
-
-      <Spacer/>
-      <Spacer/>
+      <Text style={{fontSize: 50, alignSelf: "center", color: "#000", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+      <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} />
       <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
       <SearchableDropdown
         items={items}
@@ -63,12 +57,13 @@ const UpdateClinicScreen = ({ navigation }) => {
           placeholder: `${clinic.name}`,
           style: {
             padding: 5,
+            paddingLeft: 15,
             borderWidth: 1,
             borderColor: "#ccc",
-            borderRadius: 5,
+            borderRadius: 20,
             backgroundColor: "white",
             fontWeight: "bold",
-            fontSize: 20
+            fontSize: 20,
           },
         }}
         placeholderTextColor="#888"
@@ -127,7 +122,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-
   },
   inputContainerStyle: {
     height: 30,
@@ -156,7 +150,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "black",
     fontWeight: "bold",
-    paddingTop: 10
+    paddingTop: 10,
+    alignSelf: "center"
   },
   buttonContainer: {
     //borderWidth: 1,

@@ -47,8 +47,8 @@ const EducationScreen = ({ navigation }) => {
             <LinearGradient
                 colors={["#78d0f5", "white", "#78d0f5"]}
                 style={styles.screenStyle}>
-            <View style={styles.screenStyle}>
-            <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+            <View style={{flex: 1, borderWidth: 1}}>
+            <Text style={{fontSize: 50, marginTop: "15%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
                 <Text style = {styles.titleTextStyle}>Education Library</Text>
                 <FlatList
                     data={state}
@@ -72,15 +72,18 @@ const EducationScreen = ({ navigation }) => {
 
 EducationScreen.navigationOptions = () => {
     return {
-        title: "",
-        safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
-        headerStyle: {
-            backgroundColor: '#78d0f5',
-            borderBottomWidth: 0,
-            shadowOpacity: 0,
-            elevation: 0,            
+        headerShown: false,
         }
-    }
+    // return {
+    //     title: "",
+    //     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
+    //     headerStyle: {
+    //         backgroundColor: '#78d0f5',//78d0f5
+    //         borderBottomWidth: 0,
+    //         shadowOpacity: 0,
+    //         elevation: 0,            
+    //     }
+    // }
 }
 
 const styles = StyleSheet.create({

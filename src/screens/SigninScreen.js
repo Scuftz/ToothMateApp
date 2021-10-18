@@ -43,7 +43,7 @@ const SigninScreen = ({ navigation }) => {
     <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
       <View style={styles.container}>
 
-      <Text style={{fontSize: 50, marginTop: "20%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+      <Text style={{fontSize: 50, marginTop: "15%", marginBottom: "10%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
       <ImageBackground
         source={require("../components/t_logo_crop2.png")}
         style={{

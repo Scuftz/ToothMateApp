@@ -18,18 +18,18 @@ const PasswordChangeScreen = ({ navigation }) => {
       });
 
     if (!fontsLoaded) {
-    return (
-        <View
-        style={{
-            flex: 1,
-            justifyContent: "center",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            padding: 10,
-        }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        </View>
-    );
+        return (
+            <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                padding: 10,
+            }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        );
     }
 
     return (
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     },
     header: {
         alignSelf: "center",
-        fontSize: 48,
+        fontSize: 50,
         fontFamily: "Righteous_400Regular",
         color: "black",
     },

@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import { StyleSheet, Text, Image, ActivityIndicator, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, Text, ImageBackground, Dimensions, ActivityIndicator, View } from "react-native";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
@@ -51,15 +51,21 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       {/* <Text style={{ fontSize: 48 }}>AccountScreen</Text> */}
       <Text style={styles.header}>ToothMate</Text>
-      <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} />
-
+      {/* <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} /> */}
+      <ImageBackground
+        source={require("../components/t_logo_crop2.png")}
+        style={{
+          paddingTop: "15%",
+          height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
+          width: Dimensions.get('window').width,
+        }}
+      >
       <View style={{flex: 1, marginTop: "10%"}}>
         <Button
           buttonStyle={styles.backButton}
-          containerStyle={styles.backButtonContainer}
           titleStyle={styles.backTitleContainer}
           title="Back to Parent Account"
           onPress={async () => {
@@ -80,7 +86,8 @@ const AccountScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("UserAccount")}
         />
       </View>
-    </SafeAreaView>
+      </ImageBackground>
+    </View>
     </LinearGradient>
   );
 };
@@ -100,6 +107,8 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontFamily: "Righteous_400Regular",
     color: "black",
+    marginBottom: "10%",
+    marginTop: "15%",
   },
   buttonContainer: {
     borderRadius: 20,
@@ -119,14 +128,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#F0f0f0",
     borderColor: "#000",
-    // borderWidth: 2,
     borderRadius: 20,
     width: "80%",
     marginBottom: 30,
     alignSelf: "center",
-    // borderWidth: 2
-  },
-  backButtonContainer: {
   },
   backTitleContainer: {
     color: "#000",

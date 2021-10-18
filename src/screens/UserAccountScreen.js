@@ -51,7 +51,6 @@ const UserAccountScreen = ({ navigation }) => {
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
       <View style={{flex: 1}}>
       <Spinner visible={spinner} textContent={"Loading..."} animation="fade" />
-      {/* <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} /> */}
       <Text style={styles.header}>ToothMate</Text>
       <ImageBackground
         source={require("../components/t_logo_crop2.png")}
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignSelf: "center",
-    fontSize: 48,
+    fontSize: 50,
     fontFamily: "Righteous_400Regular",
     color: "black",
     marginBottom: "10%"
