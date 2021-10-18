@@ -81,9 +81,7 @@ const UserScreen = ({ navigation }) => {
   };
 
   const showDatepicker = () => {
-    p;
       showMode("date");
-  
     };
 
     if (!fontsLoaded) {
@@ -108,7 +106,7 @@ const UserScreen = ({ navigation }) => {
     >
     <View style={styles.container}>
       <KeyboardAwareScrollView>
-      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular", marginBottom: "2%", marginTop: "5%%"}}> ToothMate </Text>
+      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular", marginBottom: "2%", marginTop: "5%"}}> ToothMate </Text>
         <NavigationEvents />
         <Spacer/>
         <Input
@@ -154,12 +152,17 @@ const UserScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         /> */}
-        <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
+        <Text style={styles.clinicTextStyle}>Date of Birth</Text>
         <View>
           {(() => {
             if (Platform.OS === "android") {
               return (
-                <>
+                <View
+                    style={{
+                      width: "90%",
+                      marginLeft: "5%",
+                    }}
+                  >
                   <TouchableOpacity onPress={showDatepicker}>
                     <Text style={styles.dateStyle}>{stringDate}</Text>
                   </TouchableOpacity>
@@ -173,7 +176,7 @@ const UserScreen = ({ navigation }) => {
                       onChange={onChange}
                     />
                   )}
-                </>
+                </View>
               );
             } else {
               return (
@@ -199,7 +202,7 @@ const UserScreen = ({ navigation }) => {
         ) : null}
         <Spacer>
           <Button
-            title="Change Details"
+            title="Update Details"
             buttonStyle={styles.button}
             containerStyle={styles.buttonContainer}
             titleStyle={styles.buttonText}   

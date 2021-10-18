@@ -161,7 +161,7 @@ const SignupChildScreen = ({ navigation }) => {
           labelStyle={styles.labelStyle}
         />
 
-        <Text style={styles.clinicTextStyle}>Enter Date of Birth</Text>
+        <Text style={styles.clinicTextStyle}>Date of Birth</Text>
         <View>
           {(() => {
             if (Platform.OS === "android") {
