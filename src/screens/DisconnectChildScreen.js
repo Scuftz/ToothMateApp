@@ -1,17 +1,21 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import { StyleSheet, Text, ActivityIndicator, View } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { StyleSheet, Text, ActivityIndicator, View, ImageBackground, Dimensions} from "react-native";
 import { Button } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Spacer from "../components/Spacer";
-import { Context as AuthContext } from "../context/AuthContext";
 import { Context as UserContext } from "../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
+
 
 const DisconnectChildScreen = ({ navigation }) => {
   const { state, canDisconnect, disconnectChild } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [parent, setParent] = useState(null);
   const [dob, setDOB] = useState(null);
+
+  let [fontsLoaded] = useFonts({ 
+      Righteous_400Regular
+    });
 
   const checkDisconnect = async () => {
     try {
@@ -27,7 +31,7 @@ const DisconnectChildScreen = ({ navigation }) => {
     console.log(state);
   }, []);
 
-  if (loading) {
+  if (loading || !fontsLoaded) {
     return (
       <View
         style={{
@@ -44,36 +48,99 @@ const DisconnectChildScreen = ({ navigation }) => {
 
   if (state.canDisconnect) {
     return (
-      <View>
-        <Text>Are you sure you want to do this?</Text>
-        <Button
-          title="Continue"
-          onPress={async () => {
-            disconnectChild();
-            const parentid = await AsyncStorage.getItem("parentid");
-            if (parentid) {
-              await AsyncStorage.setItem("id", parentid);
-              navigation.navigate("mainFlow");
-            } else {
-              navigation.popToTop();
-            }
-          }}
-        />
-      </View>
+      <LinearGradient colors={["#78d0f5", "#fff", "#78d0f5"]} style = {styles.container}>
+        <View style = {{flex: 1}}>
+        <Text style={styles.header}> ToothMate </Text>
+          <Text style={{ alignSelf: "center", marginTop: "5%", textAlign: "center", fontSize: 20 }}> You must be 18+ to make your account independent</Text>
+          <View style={{ justifyContent: "center", marginTop: "30%", borderWidth: 1, backgroundColor: "#fff"}}>
+          <Text style={{ alignSelf: "center", fontSize: 24, paddingTop: "5%", fontWeight: "bold"}}>Are you sure you want to do this?</Text>
+          <Text style={{ alignSelf: "center", fontSize: 20 }}> This action cannot be undone.</Text>
+          <Button
+            title="Disconnect from Parent"
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
+            titleStyle={styles.buttonText}
+            onPress={async () => {
+              disconnectChild();
+              const parentid = await AsyncStorage.getItem("parentid");
+              if (parentid) {
+                await AsyncStorage.setItem("id", parentid);
+                navigation.navigate("mainFlow");
+              } else {
+                navigation.popToTop();
+              }
+            }}
+          />
+          </View>
+        </View>
+      </LinearGradient>
     );
   }
-
-  return (
-    <View>
-      <Text>You cannot disconnect</Text>
-    </View>
-  );
+  else {
+    return (
+      <LinearGradient colors={["#78d0f5", "#fff", "#78d0f5"]} style = {styles.container}>
+        <View style = {{flex: 1}}>
+        <Text style={styles.header}> ToothMate </Text>
+          <ImageBackground
+              source={require("../components/t_logo_crop2.png")}
+              style={{
+                  paddingTop: "15%",
+                  height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
+                  width: Dimensions.get('window').width,
+              }}
+          >
+          <Text style={{ alignSelf: "center", fontWeight: "bold", marginTop: "10%", textAlign: "center", fontSize: 20, marginHorizontal: "10%" }}>
+            You cannot disconnect from a parent account as there is no parent account attached to your account.
+          </Text>
+          </ImageBackground>
+        </View>
+      </LinearGradient>
+    );
+  }
 };
 
-DisconnectChildScreen.navigationOptions = {
-  headerShown: false,
+DisconnectChildScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerTitle: "",
+    headerTintColor: 'black',
+    headerBackTitleVisible: false,
+    safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
+    headerStyle: {
+      backgroundColor: '#78d0f5',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0, 
+      }
+  };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    alignSelf: "center",
+    fontSize: 50,
+    fontFamily: "Righteous_400Regular",
+    color: "black",
+  },
+  container: {
+    flex: 1,
+    marginHorizontal: 0,
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    width: "90%",
+    alignSelf: "center",
+    marginTop: "10%",
+    marginBottom: "5%"
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: "#f54245",
+  },
+  buttonText: {
+    color: "#000",
+    fontWeight: "bold"
+  },
+});
 
 export default DisconnectChildScreen;
