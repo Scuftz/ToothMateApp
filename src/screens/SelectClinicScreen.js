@@ -89,7 +89,7 @@ const SelectClinicScreen = ({ navigation }) => {
         />
       {state.errorMessage ? (
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
-        ) : null}
+        ) : <Text style={styles.errorMessage}></Text>}
       <Spacer>
         <Button
         buttonStyle={styles.button}
@@ -153,7 +153,10 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 16,
     color: "red",
-    marginLeft: 15,
+    alignSelf: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    marginHorizontal: "5%"
   },
   link: {
     color: "blue",
@@ -171,7 +174,6 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   buttonContainer: {
-    // borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",

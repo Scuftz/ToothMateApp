@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import { StyleSheet, Text, ActivityIndicator, View, ScrollView, Image } from "react-native";
+import { StyleSheet, Text, ActivityIndicator, View, ScrollView, Image, ImageBackground, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
@@ -8,42 +8,8 @@ import { Context as UserContext } from "../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
-import { Raleway_100Thin } from '@expo-google-fonts/raleway';
-import { NotoSans_400Regular,  NotoSans_700Bold } from "@expo-google-fonts/noto-sans";
-import { SourceSansPro_400Regular, SourceSansPro_700Bold } from "@expo-google-fonts/source-sans-pro";
-import { RobotoCondensed_400Regular, RobotoCondensed_700Bold } from "@expo-google-fonts/roboto-condensed"
-import { Ubuntu_400Regular, Ubuntu_700Bold } from "@expo-google-fonts/ubuntu";
-import { Merriweather_400Regular, Merriweather_700Bold} from "@expo-google-fonts/merriweather";
-import { Rubik_400Regular, Rubik_700Bold } from "@expo-google-fonts/rubik";
-import { SourceCodePro_400Regular, SourceCodePro_700Bold } from "@expo-google-fonts/source-code-pro";
-import { JosefinSans_400Regular, JosefinSans_700Bold } from "@expo-google-fonts/josefin-sans";
-import { YanoneKaffeesatz_400Regular, YanoneKaffeesatz_700Bold } from "@expo-google-fonts/yanone-kaffeesatz";
-import { VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
-import { Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
-import { ArchitectsDaughter_400Regular } from "@expo-google-fonts/architects-daughter";
-import { IndieFlower_400Regular } from "@expo-google-fonts/indie-flower";
-import { BalsamiqSans_400Regular, BalsamiqSans_700Bold } from "@expo-google-fonts/balsamiq-sans";
-import { PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
-import { Domine_400Regular, Domine_700Bold } from "@expo-google-fonts/domine";
+import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
 import { Righteous_400Regular } from "@expo-google-fonts/righteous";
-import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-import { CreteRound_400Regular } from "@expo-google-fonts/crete-round";
-import { Courgette_400Regular } from "@expo-google-fonts/courgette";
-import { Alegreya_400Regular, Alegreya_700Bold } from "@expo-google-fonts/alegreya";
-import { KaushanScript_400Regular } from "@expo-google-fonts/kaushan-script";
-import { ArchivoBlack_400Regular } from "@expo-google-fonts/archivo-black";
-import { Kalam_400Regular, Kalam_700Bold } from "@expo-google-fonts/kalam";
-import { Merienda_400Regular, Merienda_700Bold } from "@expo-google-fonts/merienda";
-import { AsapCondensed_400Regular, AsapCondensed_700Bold } from "@expo-google-fonts/asap-condensed";
-import {Yantramanav_400Regular, Yantramanav_700Bold } from "@expo-google-fonts/yantramanav";
-import { PathwayGothicOne_400Regular } from "@expo-google-fonts/pathway-gothic-one";
-import { GloriaHallelujah_400Regular} from "@expo-google-fonts/gloria-hallelujah";
-import { Handlee_400Regular} from "@expo-google-fonts/handlee";
-import { BenchNine_400Regular, BenchNine_700Bold } from "@expo-google-fonts/benchnine";
-import { ElMessiri_400Regular, ElMessiri_700Bold } from "@expo-google-fonts/el-messiri";
-import { HammersmithOne_400Regular} from "@expo-google-fonts/hammersmith-one";
-import { ArimaMadurai_400Regular, ArimaMadurai_700Bold} from "@expo-google-fonts/arima-madurai";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
 
 const AccountScreen = ({ navigation }) => {
@@ -131,16 +97,19 @@ const AccountScreen = ({ navigation }) => {
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
     {/* <View style={styles.container}> */}
       {/* <KeyboardAwareScrollView> */}
-        <SafeAreaView style={{flex: 1}}>
+        <View style={{flex: 1}}>
           <Text style={styles.header}>ToothMate</Text>
-          <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} />
-          <View style={{flex: 2, marginTop: "2%"}}>
-              {/* <Button 
-              buttonStyle={styles.button}
-              containerStyle={styles.buttonContainer}
-              title="Test?" onPress={() => console.log(state.children)} 
-              titleStyle={styles.titleContainer}
-              /> */}
+          {/* <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} /> */}
+          <ImageBackground
+            source={require("../components/t_logo_crop2.png")}
+            style={{
+              paddingTop: "15%",
+              height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.3 : Dimensions.get('window').height * 0.4,
+              width: Dimensions.get('window').width * 0.6,
+              alignSelf: "center",
+            }}
+          >
+          <View style={{flex: 1, marginTop: "2%", width: Dimensions.get('window').width, marginLeft: "-34%"}}>
               <Button
                 buttonStyle={styles.button}
                 containerStyle={styles.buttonContainer}
@@ -155,8 +124,8 @@ const AccountScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("signUpChildFlow")}
               titleStyle={styles.titleContainer}
               />
-              <Spacer/>
           </View>
+          </ImageBackground>
 
           <View style={{flex: 3, borderBottomWidth: 3, marginTop: "0%"}}>
             <Text style={styles.yourAccountStyle}>Your Accounts</Text>
@@ -173,7 +142,7 @@ const AccountScreen = ({ navigation }) => {
               titleStyle={styles.signOutTextStyle}
             />
           </View>
-        </SafeAreaView>
+        </View>
       {/* </KeyboardAwareScrollView> */}
     {/* </View> */}
   </LinearGradient>
@@ -185,35 +154,18 @@ AccountScreen.navigationOptions = () => {
   return {
     headerShown: false,
     }
+  // return {
+  //   title: "",
+  //   safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
+  //   headerStyle: {
+  //       backgroundColor: '#78d0f5',//78d0f5
+  //       borderBottomWidth: 0,
+  //       shadowOpacity: 0,
+  //       elevation: 0,            
+  //   }
+  // }
 };
 
-// EducationScreen.navigationOptions = () => {
-//   return {
-//       title: "",
-//       safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
-//       headerStyle: {
-//           backgroundColor: '#78d0f5',
-//           borderBottomWidth: 0,
-//           shadowOpacity: 0,
-//           elevation: 0,            
-//       }
-//   }
-// }
-// ClinicScreen.navigationOptions = () => {
-//   return {
-//     title: "",
-//     tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
-//     headerTintColor: 'black',
-//     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
-
-//     headerStyle: {
-//       backgroundColor: '#78d0f5',//78d0f5
-//       borderBottomWidth: 0,
-//       shadowOpacity: 0,
-//       elevation: 0,    
-//     }
-//   };
-// };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -221,11 +173,10 @@ const styles = StyleSheet.create({
     color: "black",
   },
   header: {
-    flex: 1,
+    fontSize: 50,
+    marginTop: "15%",
     alignSelf: "center",
-    fontSize: 48,
-    fontFamily: "Righteous_400Regular",
-    color: "black",
+    fontFamily: "Righteous_400Regular"
   },
   buttonContainer: {
     //comment
@@ -279,6 +230,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "bold",
     marginBottom: "3%",
+    marginTop: "6%"
   },
 
 });

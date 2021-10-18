@@ -3,19 +3,14 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Image,
-  ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  Dimensions,
+  Platform
 } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { color } from "react-native-elements/dist/helpers";
-import { BackgroundImage } from "react-native-elements/dist/config";
-import { text } from "react-native-communications";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { ImageBackground } from "react-native";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
@@ -45,38 +40,23 @@ const SigninScreen = ({ navigation }) => {
   }
 
   return (
-    // Gradient background 
     <LinearGradient colors={["#78d0f5", "white", "#78d0f5"]} style = {styles.container}>
       <View style={styles.container}>
-      <KeyboardAwareScrollView>
-      <Spacer/>
-      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
 
-      {/* Tooth background image */}
-        <ImageBackground
-          source={require("../components/t_logo1.png")} styles={styles.container}
-          style={{
-            position: 'absolute',
-            top: '-5%',
-            left: '-2.5%', //fix image crop so even on each side
-            opacity: 1,
-            width: '100%',
-            height: '100%',
-            // borderWidth: 1,
-          }}
-        />
+      <Text style={{fontSize: 50, marginTop: "15%", marginBottom: "10%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+      <ImageBackground
+        source={require("../components/t_logo_crop2.png")}
+        style={{
+          paddingTop: "20%",
+          height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
+          width: Dimensions.get('window').width,
+        }}
+        >
 
-      {/* <View style={styles.container}>
-      <KeyboardAwareScrollView> */}
         <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
+        
         <Input
-          label="EMAIL ADDRESS"
+          label="Email Address"
           leftIcon={{ type: "material-icons", name: "email" }}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputStyle}
@@ -86,9 +66,9 @@ const SigninScreen = ({ navigation }) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        {/* Password label button */}
+
         <Input
-          label="PASSWORD"
+          label="Password"
           inputContainerStyle={styles.inputContainer}
           leftIcon={{ type: "font-awesome", name: "lock" }}
           inputStyle={styles.inputStyle}
@@ -102,26 +82,14 @@ const SigninScreen = ({ navigation }) => {
         {state.errorMessage ? (
           <Text style={styles.errorMessage}>{state.errorMessage}</Text>
         ) : null}
-        {/* Log in button */}
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer/>
-        <Spacer>
-
-
+     </ImageBackground>  
         <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
           title="Log In"
           onPress={() => signin({ email, password })}
-          titleStyle={{color: '#000'}}
+          titleStyle={{color: '#000', fontWeight: "bold"}}
         />
-        </Spacer>
-        {/* Create a new account button touchable opacity function*/}
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Spacer>
             <View style={styles.link}>
@@ -129,9 +97,8 @@ const SigninScreen = ({ navigation }) => {
             </View>
           </Spacer>
         </TouchableOpacity>
-      </KeyboardAwareScrollView>
-    </View>
 
+      </View>
     </LinearGradient>
   );
 };
@@ -145,10 +112,7 @@ SigninScreen.navigationOptions = () => {
 //Style Sheets 
 const styles = StyleSheet.create({
   buttonContainer: {
-    // borderWidth: 1,
     borderRadius: 20,
-
-    // borderColor: "white",
     width: "90%",
     marginLeft: "5%",
   },
@@ -168,41 +132,43 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     borderWidth: 1,
-    borderRadius: 30,
-    width: "65%",
+    borderRadius: 20,
+    width: "80%",
+    marginLeft: "10%",
     borderColor: "#dedede",
     paddingLeft: 13,
     backgroundColor: "#f8f8ff",
-    marginLeft: "17.5%",
   },
   labelStyles: {
-    marginLeft: "21%",
+    marginLeft: "15%",
     color: "black",
   },
   containerHeading: {
-    flex: 1,
     alignSelf: "center",
     fontSize: 48,
     fontWeight: "bold",
     color: "black",
   },
+  imageContainer: {
+    width: 200,
+    height: 200,
+  },
   container: {
-    flex: 1,
-    // padding: 24,
-    // paddingBottom: 15,
-    fontWeight: "bold",
-    color: "black", 
+    flex: 1, 
   },
   errorMessage: {
     fontSize: 16,
     color: "red",
-    marginLeft: 15,
+    alignSelf: "center",
+    marginTop: "-5%",
+    fontWeight: "bold"
   },
   link: {
     color: "black",
     flexDirection: "row",
     justifyContent: "center",
     fontWeight: "bold",
+    marginTop: "2%",
   },
   inputStyle: {
     paddingVertical: 8,

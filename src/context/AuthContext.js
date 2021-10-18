@@ -106,7 +106,7 @@ const signup =
     } catch (err) {
       dispatch({
         type: "add_error",
-        payload: "Something went wrong with Signup",
+        payload: "Invalid Sign Up Details",
       });
     }
   };
@@ -153,7 +153,7 @@ const signupchild =
     } catch (err) {
       dispatch({
         type: "add_error",
-        payload: "Something went wrong with Signup",
+        payload: "Invalid Sign Up Details",
       });
     }
   };
@@ -175,7 +175,7 @@ const signin =
     } catch (err) {
       dispatch({
         type: "add_error",
-        payload: "Something went wrong with Signin",
+        payload: "Invalid Login Details",
       });
     }
   };
@@ -216,7 +216,7 @@ const updateUser = (dispatch) => {
       console.log(err);
       dispatch({
         type: "add_error",
-        payload: "Something went wrong when changing your details",
+        payload: "Error While Changing Details",
       });
     }
   };
@@ -233,7 +233,7 @@ const updateUserClinic = (dispatch) => {
     } catch (err) {
       dispatch({
         type: "add_error",
-        payload: "Something went wrong when changing your clinic",
+        payload: "Error While Changing Clinic",
       });
     }
   };
@@ -253,7 +253,7 @@ const changePassword = (dispatch) => {
     } catch (err) {
       dispatch({
         type: "add_error",
-        payload: "Something went wrong when changing your password",
+        payload: "Error While Changing Password",
       });
     }
   };
