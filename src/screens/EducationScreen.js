@@ -1,22 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import AppLoading from 'expo-app-loading';
 import { TouchableOpacity, ActivityIndicator } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Context as UserContext } from '../context/UserContext';
 import { Context as EducationContext } from '../context/EducationContext';
 import { FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import { VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
-import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const EducationScreen = ({ navigation }) => {
     const { state, getEducationRange } = useContext(EducationContext);
 
     let [fontsLoaded] = useFonts({ 
-        Righteous_400Regular, CarterOne_400Regular, VarelaRound_400Regular
+        Righteous_400Regular, VarelaRound_400Regular
     });
 
     useEffect(() => {
@@ -108,50 +104,11 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 20,
         alignSelf: "center",
-        // fontFamily: "CarterOne_400Regular", //good
-        // fontFamily: "Righteous_400Regular",
-        // fontFamily: "FredokaOne_400Regular",
         fontFamily: "VarelaRound_400Regular",
-        // fontFamily: "NotoSans_400Regular",
     },
     topicText: {
         flex: 1,
         fontSize: 25,
-        // fontWeight: 'bold',
-        // fontFamily: "NotoSans_400Regular",
-        // fontFamily: "SourceSansPro_400Regular",
-        // fontFamily: "RobotoCondensed_400Regular",
-        // fontFamily: "Ubuntu_400Regular",
-        // fontFamily: "Merriweather_400Regular",
-        // fontFamily: "Rubik_400Regular",
-        // fontFamily: "SourceCodePro_400Regular",
-        // fontFamily: "JosefinSans_400Regular",
-        // fontFamily: "YanoneKaffeesatz_400Regular",
-        // fontFamily: "VarelaRound_400Regular",
-        // fontFamily: "Kanit_400Regular", //OK
-        // fontFamily: "ArchitectsDaughter_400Regular",
-        // fontFamily: "IndieFlower_400Regular",
-        // fontFamily: "BalsamiqSans_400Regular",
-        // fontFamily: "PermanentMarker_400Regular",
-        // fontFamily: "Domine_400Regular",
-        // fontFamily: "FredokaOne_400Regular",
-        // fontFamily: "Righteous_400Regular", //GOOD
-        // fontFamily: "Courgette_400Regular",
-        // fontFamily: "Alegreya_400Regular",
-        // fontFamily: "KaushanScript_400Regular",
-        // fontFamily: "ArchivoBlack_400Regular", //OK
-        // fontFamily: "Kalam_400Regular", //GOOD
-        // fontFamily: "Merienda_400Regular", //GOOD
-        // fontFamily: "AsapCondensed_400Regular",
-        // fontFamily: "Yantramanav_400Regular",
-        // fontFamily: "PathwayGothicOne_400Regular",
-        // fontFamily: "GloriaHallelujah_400Regular",
-        // fontFamily: "Handlee_400Regular", //OK
-        // fontFamily: "BenchNine_400Regular",
-        // fontFamily: "ElMessiri_400Regular", //OK
-        // fontFamily: "HammersmithOne_400Regular", //GOOD
-        // fontFamily: "ArimaMadurai_400Regular", //OK
-        // fontFamily: "CarterOne_400Regular", //good
         alignSelf: 'flex-start',
         marginLeft: 15,
     },

@@ -70,7 +70,6 @@ AppointmentScreen.navigationOptions = ({ navigation }) => {
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
     headerStyle: {
-      // height: 90,
       backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,

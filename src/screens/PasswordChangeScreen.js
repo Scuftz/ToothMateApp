@@ -1,15 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useState, useContext } from "react";
+import { View, StyleSheet, ImageBackground, ActivityIndicator, Dimensions, Platform } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Context as ClinicContext } from "../context/ClinicContext";
-import { Context as UserContext } from "../context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
-
 
 const PasswordChangeScreen = ({ navigation }) => {
 
@@ -38,13 +34,22 @@ const PasswordChangeScreen = ({ navigation }) => {
 
     return (
         <LinearGradient
-        colors={["#78d0f5", "white", "#78d0f5"]}
-        style={styles.container}>
-    <View style={styles.container}>
-        <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
-        <Spacer/>
-        <Spacer/>
-        <KeyboardAwareScrollView>
+            colors={["#78d0f5", "white", "#78d0f5"]}
+            style={styles.container}
+        >
+        <View style={styles.container}>
+        <Text style={styles.header}> ToothMate </Text>
+
+        <ImageBackground
+            source={require("../components/t_logo_crop2.png")}
+            style={{
+                paddingTop: "15%",
+                height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
+                width: Dimensions.get('window').width,
+            }}
+        >
+
+        <View style={{flex: 1, marginTop: "5%"}}>
             <Input 
                 label="Current Password"
                 leftIcon={{ type: "fontawesome5", name: "lock" }}
@@ -53,9 +58,9 @@ const PasswordChangeScreen = ({ navigation }) => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
-                inputContainerStyle={styles.inputContainerStyle}
+                inputContainerStyle={styles.inputContainer}
                 inputStyle={styles.textStyle}
-                labelStyle={styles.labelStyle}
+                labelStyle={styles.labelStyles}
             />
             <Input 
                 label="New Password"
@@ -65,95 +70,101 @@ const PasswordChangeScreen = ({ navigation }) => {
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
-                inputContainerStyle={styles.inputContainerStyle}
+                inputContainerStyle={styles.inputContainer}
                 inputStyle={styles.textStyle}
-                labelStyle={styles.labelStyle}
+                labelStyle={styles.labelStyles}
             />
+        </View>
             {state.errorMessage ? (
                 <Text style={styles.errorMessage}>{state.errorMessage}</Text>
             ) : null}
-            <Spacer>
-                    <Button
-                    buttonStyle={styles.button}
-                    containerStyle={styles.buttonContainer}
-                    title="Change Password"
-                    titleStyle={styles.buttonText}
-                    onPress={() => {
-                        changePassword({oldPassword, newPassword})
-                       
-                    }}
-                /> 
-            </Spacer>
-        </KeyboardAwareScrollView>
-</View>
+        </ImageBackground>
+
+
+            <Button
+                buttonStyle={styles.button}
+                containerStyle={styles.buttonContainer}
+                title="Change Password"
+                titleStyle={styles.buttonText}
+                onPress={() => {
+                    changePassword({oldPassword, newPassword})
+                }}
+            /> 
+        </View>
         </LinearGradient>
     );
 };
 
 PasswordChangeScreen.navigationOptions = () => {
     return {
-      // headerShown: false,
       headerTitle: "",
       headerTintColor: 'black',
       headerBackTitleVisible: false,
       safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
-  
-      
       headerStyle: {
         backgroundColor: '#78d0f5',
         borderBottomWidth: 0,
         shadowOpacity: 0,
         elevation: 0, 
-    }
-      
+        }
     };
-  };
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-    
-      },
-    inputContainerStyle: {
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor: "#dedede",
-        width: "95%",
-        paddingLeft: 15,
-        backgroundColor: "#ebebeb",
-        marginLeft: "2.25%",
+    },
+    header: {
+        alignSelf: "center",
+        fontSize: 48,
+        fontFamily: "Righteous_400Regular",
+        color: "black",
     },
     textStyle: {
         fontSize: 16,
     },
-    labelStyle: {
-        fontSize: 14,
-        marginLeft: 18,
+    inputStyle: {
+        paddingVertical: 8,
+        padding: 5,
+        fontSize: 16,
+        fontWeight: "bold",
         color: "black",
-        marginBottom: 3,
-        marginTop: 2,
+    },
+    inputContainer: {
+        borderWidth: 1,
+        borderRadius: 20,
+        width: "80%",
+        marginLeft: "10%",
+        borderColor: "#dedede",
+        paddingLeft: 13,
+        backgroundColor: "#f8f8ff",
+    },
+    labelStyles: {
+        marginLeft: "15%",
+        color: "black",
     },
     errorMessage: {
         fontSize: 16,
         color: "red",
-        marginLeft: 15,
-      },
-      buttonContainer: {
-        //borderWidth: 1,
+        alignSelf: "center",
+        justifyContent: "center",
+        fontWeight: "bold",
+        marginHorizontal: "5%"
+    },
+    buttonContainer: {
         borderRadius: 20,
-        borderColor: "white",
         width: "90%",
-        marginLeft: "5%",
-      },
-      button: {
+        alignSelf: "center",
+        marginTop: "5%"
+    },
+    button: {
         paddingVertical: 10,
         backgroundColor: "#F0F0F0",
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: "#000",
         fontWeight: "bold"
-      },
+    },
 });
 
 export default PasswordChangeScreen;

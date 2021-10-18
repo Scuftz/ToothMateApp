@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Image, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Text, Image, ActivityIndicator, ImageBackground, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../components/Spacer";
-import { Context as AccountContext } from "../context/AccountContext";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as UserContext } from "../context/UserContext";
-import { Ionicons } from "@expo/vector-icons";
-import Caller from "../components/Caller";
 import Spinner from "react-native-loading-spinner-overlay";
-import { navigate } from "../navigationRef";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
@@ -55,9 +51,17 @@ const UserAccountScreen = ({ navigation }) => {
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
       <View style={{flex: 1}}>
       <Spinner visible={spinner} textContent={"Loading..."} animation="fade" />
+      {/* <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} /> */}
       <Text style={styles.header}>ToothMate</Text>
-      <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} />
-      <View style={{flex: 4, marginTop: "2%"}}>
+      <ImageBackground
+        source={require("../components/t_logo_crop2.png")}
+        style={{
+          paddingTop: "15%",
+          height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
+          width: Dimensions.get('window').width,
+        }}
+      >
+      <View style={{flex: 1, marginTop: "5%"}}>
         <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
@@ -101,6 +105,7 @@ const UserAccountScreen = ({ navigation }) => {
           }}
         />
       </View>
+      </ImageBackground>
       </View>
     </LinearGradient>
   );
@@ -144,11 +149,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   header: {
-    flex: 1,
     alignSelf: "center",
     fontSize: 48,
     fontFamily: "Righteous_400Regular",
     color: "black",
+    marginBottom: "10%"
   },
 });
 

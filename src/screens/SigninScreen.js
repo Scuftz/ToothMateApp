@@ -49,7 +49,7 @@ const SigninScreen = ({ navigation }) => {
         style={{
           paddingTop: "30%",
           height: Platform.OS == "ios" ? Dimensions.get('window').height * 0.6 : Dimensions.get('window').height * 0.7,
-          width: Dimensions.get('window').width
+          width: Dimensions.get('window').width,
         }}
         >
 
@@ -102,7 +102,6 @@ const SigninScreen = ({ navigation }) => {
             </View>
           </Spacer>
         </TouchableOpacity>
-
 
       </View>
     </LinearGradient>
