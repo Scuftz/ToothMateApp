@@ -1,8 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
-import { navigate } from "../navigationRef";
-import axios from "../api/axios";
 
 const UserReducer = (state, action) => {
   switch (action.type) {
@@ -24,14 +22,9 @@ const canDisconnect = (dispatch) => {
     const id = await AsyncStorage.getItem("id");
     const dobResponse = await axiosApi.get("/getDOB/" + id);
     const isChild = await axiosApi.get("/isChild/" + id);
-    console.log("Is Child: ");
-    console.log(isChild.data.isChild);
     const date1 = new Date();
-    console.log(date1);
     const date2 = new Date(dobResponse.data.dob);
-    console.log(date2);
     const dateDiff = Math.abs(date1 - date2) / (1000 * 60 * 60 * 24 * 365);
-    console.log(dateDiff);
     let canDisconnect = false;
     if (dateDiff > 18 && isChild.data.isChild != null) {
       canDisconnect = true;

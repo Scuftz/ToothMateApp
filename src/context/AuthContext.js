@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
 import { navigate } from "../navigationRef";
-import axios from "../api/axios";
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -98,10 +97,7 @@ const signup =
           clinic,
           parent: parentid,
         });
-        //await AsyncStorage.setItem("token", response.data.token);
-        //dispatch({ type: "signin", payload: response.data.token });
         navigate("AccountFlow");
-        console.log("sign up child here");
       }
     } catch (err) {
       dispatch({
@@ -166,7 +162,6 @@ const signin =
 
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("id", response.data.id);
-      console.log("here");
       dispatch({
         type: "signin",
         payload: { token: response.data.token, id: response.data.id },
@@ -179,24 +174,6 @@ const signin =
       });
     }
   };
-
-/*const signin =
-  (dispatch) =>
-  async ({ email, password }) => {
-    try {
-      const response = await axiosApi.post("/signin", { email, password });
-      console.log("here");
-      await AsyncStorage.setItem("token", response.data.token);
-      console.log(response.data);
-      dispatch({ type: "signin", payload: response.data });
-      navigate("Account");
-    } catch (err) {
-      dispatch({
-        type: "add_error",
-        payload: "Something went wrong with Signin",
-      });
-    }
-  };*/
 
 const updateUser = (dispatch) => {
   return async ({ firstname, lastname, email, mobile, dob }) => {

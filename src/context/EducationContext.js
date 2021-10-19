@@ -1,8 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
-import { navigate } from "../navigationRef";
-import axios from "../api/axios";
 
 const EducationReducer = (state, action) => {
   switch (action.type) {
@@ -26,11 +24,8 @@ const getEducationRange = (dispatch) => {
     const id = await AsyncStorage.getItem("id");
     const dobResponse = await axiosApi.get("/getDOB/" + id);
     const date1 = new Date();
-    console.log(date1);
     const date2 = new Date(dobResponse.data.dob);
-    console.log(date2);
     const dateDiff = Math.abs(date1 - date2) / (1000 * 60 * 60 * 24 * 365);
-    console.log(dateDiff);
     let range = 0;
     if (dateDiff > 0 && dateDiff < 11) {
       range = 1;
@@ -51,7 +46,7 @@ const addEducationContent =
     try {
       const response = await axiosApi.post("/addEducation", { topic, content });
     } catch (err) {
-      console.log("oops");
+      console.log("Error: " + err);
     }
   };
 

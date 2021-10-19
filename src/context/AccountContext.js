@@ -14,9 +14,7 @@ const accountReducer = (state, action) => {
 const user = (dispatch) => async () => {
   try {
     const token = await AsyncStorage.getItem("token");
-    console.log(token);
     const response = await axiosApi.post("/user", token);
-    console.log(response.data.user);
     dispatch({ type: "user", payload: response.data.user });
   } catch (err) {}
 };

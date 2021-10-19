@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
 
@@ -21,7 +20,6 @@ const getAppointmentContent = (dispatch) => {
 
 const getUserAppointments = (dispatch) => {
   return async (email) => {
-    console.log("Appointment Context Entry");
     const response = await axiosApi.get("/Appointment/" + email);
 
     dispatch({ type: "get_user_appointment", payload: response.data });
