@@ -90,7 +90,7 @@ const DisconnectChildScreen = ({ navigation }) => {
               }}
           >
           <Text style={{ alignSelf: "center", fontWeight: "bold", marginTop: "10%", textAlign: "center", fontSize: 20, marginHorizontal: "10%" }}>
-            You cannot disconnect from a parent account as there is no parent account attached to your account.
+            You cannot disconnect from a parent account you are either under 18 or there is no parent account attached to your account.
           </Text>
           </ImageBackground>
         </View>
