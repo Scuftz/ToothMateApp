@@ -7,9 +7,9 @@ const ImagesScreen = ({ navigation }) => {
     const base64image = navigation.getParam("img");
 
   return (
-    <LinearGradient colors={["78d0f5", "#fff", "78d0f5"]} style = {styles.container}>
+    <LinearGradient colors={["#78d0f5", "#fff", "#78d0f5"]} style = {styles.container}>
     <ScrollView>
-      <View style={styles.container}>
+      <View style={styles.containerImage}>
         <AppointmentImage base64={base64image} />
       </View>
     </ScrollView>
@@ -36,10 +36,11 @@ ImagesScreen.navigationOptions = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 0,
-    marginTop: "25%",
-    justifyContent: "center",
   },
+  containerImage: {
+    flex: 1,
+    marginTop: "50%"
+  }
 });
 
 export default ImagesScreen;
