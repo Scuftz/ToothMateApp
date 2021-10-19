@@ -1,19 +1,15 @@
 import React, { useContext, useState } from "react";
 import { StyleSheet, Text, ImageBackground, Dimensions, ActivityIndicator, View } from "react-native";
 import { Button } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
-
 const AccountScreen = ({ navigation }) => {
   const { state, signout, getchildaccounts } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [parent, setParent] = useState(null);
-  //const [isFocused, setFocused] = useState(navigation.isFocused());
 
   let [fontsLoaded] = useFonts({ 
     Righteous_400Regular
@@ -52,9 +48,7 @@ const AccountScreen = ({ navigation }) => {
   return (
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
     <View style={{flex: 1}}>
-      {/* <Text style={{ fontSize: 48 }}>AccountScreen</Text> */}
       <Text style={styles.header}>ToothMate</Text>
-      {/* <Image source={require("../components/t_logo1.png")} style={{width: 300, height: 300, alignSelf: "center"}} /> */}
       <ImageBackground
         source={require("../components/t_logo_crop2.png")}
         style={{
@@ -92,10 +86,13 @@ const AccountScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 AccountScreen.navigationOptions = {
   headerShown: false,
 };
 
+
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,

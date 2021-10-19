@@ -1,16 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Image } from "react-native";
-import { NavigationEvents } from "react-navigation";
-import { Text, Input, Button } from "react-native-elements";
+import { Text, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as ClinicContext } from "../context/ClinicContext";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
-
 
 const SelectClinicScreen = ({ navigation }) => {
   const { state, signup, signupchild } = useContext(AuthContext);
@@ -114,27 +110,24 @@ const SelectClinicScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 SelectClinicScreen.navigationOptions = () => {
   return {
-    // headerShown: false,
     headerTitle: "",
     headerTintColor: 'black',
     headerBackTitle: "Sign Up",
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
-    
     headerStyle: {
       backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
-      elevation: 0,
-      
-      
-  }
-    
+      elevation: 0,      
+    }
   };
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -187,7 +180,6 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "bold"
   },
-
 });
 
 export default SelectClinicScreen;

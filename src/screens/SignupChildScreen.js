@@ -1,24 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-  LogBox,
-  Platform,
-  ActivityIndicator
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
-// import { Context as ClinicContext } from "../context/ClinicContext";
-import SearchableDropdown from "react-native-searchable-dropdown";
-import { InteractionManager } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
-import { KeyboardAvoidingView } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { HeaderBackButton } from "react-navigation-stack";
 import { LinearGradient } from "expo-linear-gradient";
@@ -27,11 +13,9 @@ import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const SignupChildScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
-  //   const cc = useContext(ClinicContext);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  // const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
   const [dob, setDob] = useState(new Date(946700000000));
@@ -101,7 +85,6 @@ const SignupChildScreen = ({ navigation }) => {
         <Spacer/>
         <Input
           label="First Name"
-          //placeholder="First name"
           value={firstname}
           leftIcon={{ type: "feather", name: "user" }}
           onChangeText={setFirstName}
@@ -113,7 +96,6 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Last Name"
-          //placeholder="Last name"
           leftIcon={{ type: "feather", name: "user" }}
           value={lastname}
           onChangeText={setLastName}
@@ -125,7 +107,6 @@ const SignupChildScreen = ({ navigation }) => {
         />
         <Input
           label="Email"
-          //placeholder="Email"
           leftIcon={{ type: "material-icons", name: "email" }}
           value={email}
           onChangeText={setEmail}
@@ -135,21 +116,8 @@ const SignupChildScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        {/* <Input
-          label="Mobile"
-          //placeholder="Mobile"
-          leftIcon={{ type: "entypo", name: "mobile" }}
-          value={mobile}
-          onChangeText={setMobile}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        /> */}
         <Input
           label="Password"
-          //placeholder="Password"
           leftIcon={{ type: "fontawesome5", name: "lock" }}
           value={password}
           onChangeText={setPassword}
@@ -226,7 +194,6 @@ const SignupChildScreen = ({ navigation }) => {
       </KeyboardAwareScrollView>
     </View>
     </LinearGradient>
-
   );
 };
 
@@ -247,7 +214,6 @@ SignupChildScreen.navigationOptions = ({ navigation }) => {
     headerLeft: () => (
       <HeaderBackButton tintColor='black' headerBackTitleVisible={false} headerTitle="a" onPress={() => navigation.navigate("AccountFlow")}/>
     ),
-
   };
 };
 
@@ -284,13 +250,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   clinicTextStyle: {
-     //Enter Date of Birth Styling
      marginLeft: 20,
      fontSize: 14,
      color: "black",
      fontWeight: "bold",
   },
-  //Container Style
   inputContainerStyle: {
     borderWidth: 1,
     borderRadius: 20,
@@ -300,11 +264,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebebeb",
     marginLeft: "2.25%",
   },
-  //This is for the box
   textStyle: {
     fontSize: 16,
   },
-  //This is for the text
   labelStyle: {
     fontSize: 14,
     marginLeft: 18,
@@ -317,7 +279,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
   },
   buttonContainer: {
-    // borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",
@@ -327,7 +288,6 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "bold"
   },
-
 });
 
 export default SignupChildScreen;

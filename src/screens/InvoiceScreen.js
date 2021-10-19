@@ -14,6 +14,7 @@ const InvoiceScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 InvoiceScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Invoice",
@@ -30,6 +31,7 @@ InvoiceScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 0,

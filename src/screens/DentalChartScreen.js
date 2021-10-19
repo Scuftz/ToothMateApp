@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Modal,
-  Pressable,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, Modal, Pressable } from "react-native";
 import { CheckBox } from "react-native-elements";
 import SwitchToggle from "react-native-switch-toggle";
 import { LinearGradient } from "expo-linear-gradient";
@@ -96,9 +88,6 @@ const DentalChartScreen = ({ navigation }) => {
     //if still gathering user data, display loading while data loads
     return (
       <AppLoading />
-      // <View>
-      //   <Text> Loading... </Text>
-      // </View>
     );
   } else {
     return (
@@ -110,8 +99,6 @@ const DentalChartScreen = ({ navigation }) => {
       >
         <View>
           <Text style={styles.headingFont}>
-            {" "}
-            {/* Heading Text */}
             Tap on any tooth to see your dental history!
           </Text>
         </View>
@@ -214,6 +201,7 @@ const DentalChartScreen = ({ navigation }) => {
   }
 };
 
+//Header Options
 DentalChartScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "",
@@ -223,7 +211,6 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
     
     headerStyle: {
-      // height: 0,
       backgroundColor: '#78d0f5',
       borderBottomWidth: 0,
       shadowOpacity: 0,
@@ -234,13 +221,10 @@ DentalChartScreen.navigationOptions = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: "#78d0f5",
     flex: 1,
-    // justifyContent: "center",
   },
   toggle: {
     flexDirection: "row",
-    // borderWidth: 1,
     borderColor: "#fff",
     borderRadius: 20,
     paddingRight: 10,

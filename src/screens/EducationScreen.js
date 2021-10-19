@@ -17,7 +17,6 @@ const EducationScreen = ({ navigation }) => {
 
     useEffect(() => {
         //when the screen is opened get all the education contents
-        
         getEducationRange();
         const listener = navigation.addListener('didFocus', () => {            
         getEducationRange();
@@ -73,25 +72,13 @@ const EducationScreen = ({ navigation }) => {
 EducationScreen.navigationOptions = () => {
     return {
         headerShown: false,
-        }
-    // return {
-    //     title: "",
-    //     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
-    //     headerStyle: {
-    //         backgroundColor: '#78d0f5',//78d0f5
-    //         borderBottomWidth: 0,
-    //         shadowOpacity: 0,
-    //         elevation: 0,            
-    //     }
-    // }
+    }
 }
 
 const styles = StyleSheet.create({
-    //Topic Style
     topicStyle: {
-        borderColor: 'grey', //#10334d
-        // borderBottomWidth: 6, //9
-        borderRadius: 11, //11 initial value
+        borderColor: 'grey',
+        borderRadius: 11,
         justifyContent: 'flex-end',
         flexDirection: 'row',
         backgroundColor: 'white',
@@ -115,12 +102,9 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginLeft: 15,
     },
-    //Screen Styling
     screenStyle: {
         flex: 1,
-        //padding: 1,
         justifyContent: "center",
-
     }
 });
 

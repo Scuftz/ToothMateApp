@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image, ActivityIndicator, ImageBackground, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as UserContext } from "../context/UserContext";
 import Spinner from "react-native-loading-spinner-overlay";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
 
 const UserAccountScreen = ({ navigation }) => {
   const { getUser, getDentalClinic } = useContext(UserContext);
@@ -19,7 +15,6 @@ const UserAccountScreen = ({ navigation }) => {
   let [fontsLoaded] = useFonts({ 
     Righteous_400Regular
   });
-
 
   useEffect(() => {
     clearErrorMessage();

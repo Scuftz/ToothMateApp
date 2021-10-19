@@ -1,11 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  ActivityIndicator
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -14,7 +8,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
 
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
@@ -34,11 +27,11 @@ const SignupScreen = ({ navigation }) => {
     Righteous_400Regular
   });
 
-
   useEffect(() => {
     convertDate(dob);
   }, []);
 
+  //Convert Date to how we want topresent it in App
   function convertDate(inputDate) {
     let date = new Date(inputDate);
     let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
@@ -222,6 +215,7 @@ const SignupScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 SignupScreen.navigationOptions = () => {
   return {
     headerShown: false,
@@ -254,7 +248,7 @@ const styles = StyleSheet.create({
     borderColor: "#dedede",
     width: "95%",
     paddingLeft: 15,
-    backgroundColor: "#f7f7f7", //#ebebeb
+    backgroundColor: "#f7f7f7",
     marginLeft: "2.25%",
   },
   textStyle: {
@@ -295,7 +289,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
-    backgroundColor: "#F0F0F0", //#10334D
+    backgroundColor: "#F0F0F0",
   },
   header: {
     color: "#2B510C",

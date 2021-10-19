@@ -112,9 +112,7 @@ UpdateClinicScreen.navigationOptions = () => {
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
-      
-      
-  }
+    }
   };
 };
 
@@ -154,7 +152,6 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   buttonContainer: {
-    //borderWidth: 1,
     borderRadius: 20,
     borderColor: "white",
     width: "90%",

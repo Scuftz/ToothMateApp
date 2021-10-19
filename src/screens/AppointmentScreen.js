@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 
+//Buffer used for converting images
 global.Buffer = global.Buffer || require('buffer').Buffer
 
 const AppointmentScreen = ({ navigation }) => {
@@ -31,7 +26,6 @@ const AppointmentScreen = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-
         <View style={styles.heading}>
           <Text style={styles.headingFont}>Appointment Date</Text>
         </View>
@@ -62,6 +56,7 @@ const AppointmentScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 AppointmentScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Appointment",
@@ -78,6 +73,7 @@ AppointmentScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,

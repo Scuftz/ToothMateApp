@@ -1,13 +1,10 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, ActivityIndicator, View, ScrollView, Image, ImageBackground, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
 import { Context as UserContext } from "../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useFonts, VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
 import { Righteous_400Regular } from "@expo-google-fonts/righteous";
 import { CarterOne_400Regular } from "@expo-google-fonts/carter-one";
@@ -52,6 +49,7 @@ const AccountScreen = ({ navigation }) => {
     };
   }, [isFocused]);
 
+  //Child Account Buttons that appear on Screen
   const childButtons = () => {
     const buttons = [];
     state.children
@@ -95,11 +93,8 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <LinearGradient colors={["#7ad0f5", "white", "#7ad0f5"]} style = {styles.container}>
-    {/* <View style={styles.container}> */}
-      {/* <KeyboardAwareScrollView> */}
         <View style={{flex: 1}}>
           <Text style={styles.header}>ToothMate</Text>
-          {/* <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} /> */}
           <ImageBackground
             source={require("../components/t_logo_crop2.png")}
             style={{
@@ -112,14 +107,12 @@ const AccountScreen = ({ navigation }) => {
           <View style={{flex: 1, marginTop: "2%", width: Dimensions.get('window').width, marginLeft: "-34%"}}>
               <Button
                 buttonStyle={styles.button}
-                containerStyle={styles.buttonContainer}
                 title="Settings"
                 onPress={() => navigation.navigate("UserAccount")}
                 titleStyle={styles.titleContainer}
               />
               <Button
               buttonStyle={styles.button}
-              containerStyle={styles.buttonContainer}
               title="Sign Up A Child/Elderly Account"
               onPress={() => navigation.navigate("signUpChildFlow")}
               titleStyle={styles.titleContainer}
@@ -143,29 +136,18 @@ const AccountScreen = ({ navigation }) => {
             />
           </View>
         </View>
-      {/* </KeyboardAwareScrollView> */}
-    {/* </View> */}
   </LinearGradient>
   );
 };
 
-
+//Header Options
 AccountScreen.navigationOptions = () => {
   return {
     headerShown: false,
     }
-  // return {
-  //   title: "",
-  //   safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
-  //   headerStyle: {
-  //       backgroundColor: '#78d0f5',//78d0f5
-  //       borderBottomWidth: 0,
-  //       shadowOpacity: 0,
-  //       elevation: 0,            
-  //   }
-  // }
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -178,16 +160,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontFamily: "Righteous_400Regular"
   },
-  buttonContainer: {
-    //comment
-  },
   button: {
     width: "80%",
     paddingVertical: 10,
     backgroundColor: "#F0F0F0", //#346185
     marginBottom: 15,
     alignSelf: "center",
-    // borderWidth: 3,
     borderRadius: 20,
     borderColor: "#000"
   },
@@ -216,7 +194,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 10,
     backgroundColor: "#F0F0F0",
-    // borderWidth: 3,
     borderColor: "#346185",
   },
   childTextStyle: {
@@ -232,7 +209,6 @@ const styles = StyleSheet.create({
     marginBottom: "3%",
     marginTop: "6%"
   },
-
 });
 
 export default AccountScreen;

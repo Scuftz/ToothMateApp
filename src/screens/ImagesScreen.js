@@ -17,6 +17,7 @@ const ImagesScreen = ({ navigation }) => {
   );
 };
 
+//Header Options
 ImagesScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Images",
@@ -33,6 +34,7 @@ ImagesScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,

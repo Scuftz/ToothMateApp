@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Platform,
-  TouchableOpacity,
-  ActivityIndicator
-} from "react-native";
+import { View, StyleSheet, Text, Platform, TouchableOpacity, ActivityIndicator } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { NavigationEvents } from "react-navigation";
@@ -16,8 +9,6 @@ import { Context as userContext } from "../context/UserContext";
 import { Context as authContext } from "../context/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
-
-
 
 const UserScreen = ({ navigation }) => {
   const { state, getUser } = useContext(userContext);
@@ -51,10 +42,6 @@ const UserScreen = ({ navigation }) => {
   const userinfo = () => {
     getUser();
     let i = 1;
-    //    while (state.details.length == 0){
-    //      console.log("i")
-    //     i++;
-    //  }
   };
 
   function convertDate(inputDate) {
@@ -142,16 +129,6 @@ const UserScreen = ({ navigation }) => {
           inputStyle={styles.textStyle}
           labelStyle={styles.labelStyle}
         />
-        {/* <Input
-          label="Mobile"
-          value={mobile}
-          onChangeText={setMobile}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        /> */}
         <Text style={styles.clinicTextStyle}>Date of Birth</Text>
         <View>
           {(() => {

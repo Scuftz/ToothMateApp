@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Linking,
-} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Linking } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // Component for calling and texting
 const Caller = (props) => {
@@ -56,8 +49,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     backgroundColor: "#F0EEEE",
     height: 70,
-    // borderRadius: 5,
-    // marginHorizontal: 15,
     flexDirection: "row",
     alignSelf: "stretch",
     marginBottom: 15,

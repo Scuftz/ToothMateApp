@@ -2,24 +2,12 @@ import React, { useContext } from 'react';
 import { Text, StyleSheet, ScrollView } from 'react-native';
 import { Context } from '../context/EducationContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useFonts, CarterOne_400Regular } from "@expo-google-fonts/carter-one";
-import AppLoading from 'expo-app-loading';
-
 
 const EducationContentScreen = ({navigation}) => {
     const { state } = useContext(Context)
-    
-    let [fontsLoaded] = useFonts({ 
-        CarterOne_400Regular
-    });
 
     const content = state.find((content) => content._id === navigation.getParam('id'));
 
-    if (!fontsLoaded) {
-        return (
-            <AppLoading />
-        )
-    } else {
     return (
         <LinearGradient
             colors={["#78d0f5", "white", "#78d0f5"]}
@@ -30,9 +18,10 @@ const EducationContentScreen = ({navigation}) => {
             </ScrollView>
         </LinearGradient>
         );
-    }
+    
 };
 
+//Header Options
 EducationContentScreen.navigationOptions = ({ navigation }) => {
     return {
         title: "Education",
@@ -49,11 +38,11 @@ EducationContentScreen.navigationOptions = ({ navigation }) => {
     };    
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
     title:{
         fontSize: 30,
         paddingVertical: 10,
-        // fontFamily: "CarterOne_400Regular",
         marginBottom: "1.5%",
         textAlign: "center",
         backgroundColor: "#F0F0F0",

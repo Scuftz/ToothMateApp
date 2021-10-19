@@ -1,14 +1,11 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, ImageBackground, ActivityIndicator, Dimensions, Platform } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
-import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const PasswordChangeScreen = ({ navigation }) => {
-
     const { state, changePassword } = useContext(AuthContext);
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -81,20 +78,21 @@ const PasswordChangeScreen = ({ navigation }) => {
         </ImageBackground>
 
 
-            <Button
-                buttonStyle={styles.button}
-                containerStyle={styles.buttonContainer}
-                title="Change Password"
-                titleStyle={styles.buttonText}
-                onPress={() => {
-                    changePassword({oldPassword, newPassword})
-                }}
-            /> 
+        <Button
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
+            title="Change Password"
+            titleStyle={styles.buttonText}
+            onPress={() => {
+                changePassword({oldPassword, newPassword})
+            }}
+        /> 
         </View>
         </LinearGradient>
     );
 };
 
+//Header Options
 PasswordChangeScreen.navigationOptions = () => {
     return {
       headerTitle: "",
@@ -110,6 +108,7 @@ PasswordChangeScreen.navigationOptions = () => {
     };
 };
 
+//StyleSheet
 const styles = StyleSheet.create({
     container: {
         flex: 1,

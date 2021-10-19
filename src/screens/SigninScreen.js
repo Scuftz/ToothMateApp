@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  Dimensions,
-  Platform
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Dimensions, Platform } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -97,12 +90,12 @@ const SigninScreen = ({ navigation }) => {
             </View>
           </Spacer>
         </TouchableOpacity>
-
       </View>
     </LinearGradient>
   );
 };
 
+//Header Options
 SigninScreen.navigationOptions = () => {
   return {
     headerShown: false,
@@ -177,7 +170,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
   },
-
 });
 
 export default SigninScreen;
