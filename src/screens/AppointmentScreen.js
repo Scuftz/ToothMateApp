@@ -4,13 +4,20 @@ import { Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 
 //Buffer used for converting images
-global.Buffer = global.Buffer || require('buffer').Buffer
+global.Buffer = global.Buffer || require("buffer").Buffer;
 
 const AppointmentScreen = ({ navigation }) => {
   const appointment = navigation.getParam("appointment");
-  const base64image = Buffer.from(appointment.imgs[0].img.data.data).toString("base64");
+  const base64image = Buffer.from(appointment.images[0].img.data.data).toString(
+    "base64"
+  );
+  const base64images = appointment.images.map((image) => {
+    return Buffer.from(image.img.data.data).toString("base64");
+  });
   // console.log("B64: " + base64image);
-  const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString("base64");
+  const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString(
+    "base64"
+  );
   // console.log("B64pdf: " + base64pdf)
 
   function convertDate(mongoDate) {
@@ -32,25 +39,29 @@ const AppointmentScreen = ({ navigation }) => {
         <Text style={styles.title}>{convertDate(appointment.date)}</Text>
 
         <Spacer />
-        <Button 
+        <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
           titleStyle={styles.buttonText}
-          title="Invoice" 
-          onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}/>
+          title="Invoice"
+          onPress={() => navigation.navigate("invoice", { pdf: base64pdf })}
+        />
         <Spacer />
-        <Button 
+        <Button
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
           titleStyle={styles.buttonText}
-          title="Images" onPress={() => navigation.navigate("images", { img: base64image })}/>
+          title="Images"
+          onPress={() =>
+            navigation.navigate("images", { images: base64images })
+          }
+        />
         <Spacer />
 
         <View style={styles.heading}>
           <Text style={styles.headingFont}>Dentist's Notes</Text>
         </View>
         <Text style={styles.title}>{appointment.notes}</Text>
-
       </View>
     </ScrollView>
   );
@@ -60,16 +71,16 @@ const AppointmentScreen = ({ navigation }) => {
 AppointmentScreen.navigationOptions = ({ navigation }) => {
   return {
     title: "Your Appointment",
-    headerTintColor: 'black',
+    headerTintColor: "black",
     headerBackTitleVisible: false,
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
     headerStyle: {
-      backgroundColor: '#78d0f5',
+      backgroundColor: "#78d0f5",
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
-    }
+    },
   };
 };
 
@@ -101,7 +112,7 @@ const styles = StyleSheet.create({
   },
   headingFont: {
     fontSize: 25,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   scroll: {
     marginTop: 15,
@@ -119,7 +130,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
 
