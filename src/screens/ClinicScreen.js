@@ -1,7 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import AppLoading from "expo-app-loading";
 import { Button } from "react-native-elements";
-import { View, Text, StyleSheet, TouchableOpacity, Platform} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -14,15 +20,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const ClinicScreen = ({ navigation }) => {
-
   const {
     state: { appointments, clinic },
     getEmailAndAppointments,
     getDentalClinic,
   } = useContext(UserContext);
 
-  let [fontsLoaded] = useFonts({ 
-    Righteous_400Regular
+  let [fontsLoaded] = useFonts({
+    Righteous_400Regular,
   });
 
   useEffect(() => {
@@ -49,60 +54,63 @@ const ClinicScreen = ({ navigation }) => {
   }
 
   if (clinic === null || !fontsLoaded) {
-    return (
-      <AppLoading/>
-    );
+    return <AppLoading />;
   } else {
     return (
-    <LinearGradient
-      colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.container}>
-      <View>
-        <View style = {styles.insideContainer}>
-        <Text style = {styles.titleTextStyle}>{clinic.name}</Text>
+      <LinearGradient
+        colors={["#78d0f5", "white", "#78d0f5"]}
+        style={styles.container}>
+        <View>
+          <View style={styles.insideContainer}>
+            <Text style={styles.titleTextStyle}>{clinic.name}</Text>
 
-        <View style={styles.caller}>
-          <Caller
-            phone={clinic.phone}
-            email={clinic.email}
-            url={clinic.bookingURL}
-          />
+            <View style={styles.caller}>
+              <Caller
+                phone={clinic.phone}
+                email={clinic.email}
+                url={clinic.bookingURL}
+              />
+            </View>
+            <Button
+              buttonStyle={styles.button}
+              containerStyle={styles.buttonContainer}
+              titleStyle={styles.buttonText}
+              title="View Your Dental Chart"
+              onPress={() =>
+                navigation.navigate("chart", { appointments: appointments })
+              }
+            />
+            <Button
+              buttonStyle={styles.button}
+              containerStyle={styles.buttonContainer}
+              titleStyle={styles.buttonText}
+              title="All Dental Images"
+              onPress={() => null}
+            />
+            <Text style={styles.appointmentTextStyle}>Your appointments</Text>
+            <FlatList
+              data={appointments}
+              keyExtractor={(appointment) => appointment._id}
+              renderItem={(item) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("appointment", {
+                        appointment: item.item,
+                      })
+                    }>
+                    <View style={styles.topicStyle}>
+                      <Text style={styles.topicText}>
+                        {convertDate(item.item.date)}
+                      </Text>
+                      <MaterialIcons name="keyboard-arrow-right" size={30} />
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
         </View>
-
-        <Button
-          buttonStyle={styles.button}
-          containerStyle={styles.buttonContainer}
-          titleStyle={styles.buttonText}
-          title="View Your Dental Chart"
-          onPress={() =>
-            navigation.navigate("chart", { appointments: appointments })
-          }
-        />
-        <Spacer />
-
-        <Text style = {styles.appointmentTextStyle}>Your appointments</Text>
-        <FlatList
-          data={appointments}
-          keyExtractor={(appointment) => appointment._id}
-          renderItem={(item) => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("appointment", { appointment: item.item })
-                }
-              >
-                <View style={styles.topicStyle}>
-                  <Text style={styles.topicText}>
-                    {convertDate(item.item.date)}
-                  </Text>
-                  <MaterialIcons name="keyboard-arrow-right" size={30} />
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-        </View>
-      </View>
       </LinearGradient>
     );
   }
@@ -113,15 +121,15 @@ ClinicScreen.navigationOptions = () => {
   return {
     title: "",
     tabBarIcon: <MaterialCommunityIcons name="toothbrush-paste" size={25} />,
-    headerTintColor: 'black',
+    headerTintColor: "black",
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 10 },
 
     headerStyle: {
-      backgroundColor: '#78d0f5',
+      backgroundColor: "#78d0f5",
       borderBottomWidth: 0,
       shadowOpacity: 0,
-      elevation: 0,    
-    }
+      elevation: 0,
+    },
   };
 };
 
@@ -140,6 +148,7 @@ const styles = StyleSheet.create({
     fontFamily: "Righteous_400Regular",
   },
   appointmentTextStyle: {
+    marginTop: 10,
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: "1.5%",
@@ -152,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: 10,
     borderRadius: 20,
-    marginBottom: 7
+    marginBottom: 7,
   },
   topicText: {
     flex: 1,
@@ -165,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
   },
-  insideContainer:{
+  insideContainer: {
     marginLeft: "1.5%",
     marginRight: "1.5%",
   },
@@ -176,11 +185,13 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 10,
+    marginBottom: 10,
+    borderRadius: 20,
     backgroundColor: "#F0F0F0",
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
 
