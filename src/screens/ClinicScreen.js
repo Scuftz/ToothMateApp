@@ -21,7 +21,8 @@ import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
 const ClinicScreen = ({ navigation }) => {
   const {
-    state: { appointments, clinic },
+    state: { appointments, clinic, images },
+    getAllImages,
     getEmailAndAppointments,
     getDentalClinic,
   } = useContext(UserContext);
@@ -31,8 +32,10 @@ const ClinicScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
+    console.log("isArray: ", Array.isArray(images));
     getEmailAndAppointments();
     getDentalClinic();
+    getAllImages();
 
     const listener = navigation.addListener("didFocus", () => {
       getEmailAndAppointments();
@@ -85,7 +88,9 @@ const ClinicScreen = ({ navigation }) => {
               containerStyle={styles.buttonContainer}
               titleStyle={styles.buttonText}
               title="All Dental Images"
-              onPress={() => null}
+              onPress={() =>
+                navigation.navigate("allimages", { images: images })
+              }
             />
             <Text style={styles.appointmentTextStyle}>Your appointments</Text>
             <FlatList

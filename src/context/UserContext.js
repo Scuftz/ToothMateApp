@@ -14,6 +14,8 @@ const UserReducer = (state, action) => {
       return { ...state, dob: action.payload };
     case "can_disconnect":
       return { ...state, canDisconnect: action.payload };
+    case "get_all_images":
+      return { ...state, images: action.payload };
   }
 };
 
@@ -84,6 +86,17 @@ const getEmailAndAppointments = (dispatch) => {
   };
 };
 
+const getAllImages = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const emailResponse = await axiosApi.get("/getEmail/" + id);
+    const email = emailResponse.data.email;
+    const response = await axiosApi.get("/getAllImages/" + email);
+
+    dispatch({ type: "get_all_images", payload: response.data });
+  };
+};
+
 export const { Provider, Context } = createDataContext(
   UserReducer,
   {
@@ -93,6 +106,7 @@ export const { Provider, Context } = createDataContext(
     getUser,
     canDisconnect,
     disconnectChild,
+    getAllImages,
   },
   {
     appointments: [],
@@ -100,5 +114,6 @@ export const { Provider, Context } = createDataContext(
     test: "testx",
     details: {},
     canDisconnect: null,
+    images: [],
   }
 );
