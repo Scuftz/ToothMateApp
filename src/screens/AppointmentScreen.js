@@ -8,17 +8,12 @@ global.Buffer = global.Buffer || require("buffer").Buffer;
 
 const AppointmentScreen = ({ navigation }) => {
   const appointment = navigation.getParam("appointment");
-  const base64image = Buffer.from(appointment.images[0].img.data.data).toString(
-    "base64"
-  );
   const base64images = appointment.images.map((image) => {
     return Buffer.from(image.img.data.data).toString("base64");
   });
-  // console.log("B64: " + base64image);
   const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString(
     "base64"
   );
-  // console.log("B64pdf: " + base64pdf)
 
   function convertDate(mongoDate) {
     let date = new Date(mongoDate);

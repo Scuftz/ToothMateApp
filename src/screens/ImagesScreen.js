@@ -13,7 +13,6 @@ const ImagesScreen = ({ navigation }) => {
     if (currentImageIndex < base64images.length - 1) {
       setCurrentImage(base64images[currentImageIndex + 1]);
       setCurrentImageIndex(currentImageIndex + 1);
-      console.log("Screen: " + currentImage);
     }
   };
 
@@ -21,7 +20,6 @@ const ImagesScreen = ({ navigation }) => {
     if (currentImageIndex > 0) {
       setCurrentImage(base64images[currentImageIndex - 1]);
       setCurrentImageIndex(currentImageIndex - 1);
-      console.log("Screen: " + currentImage);
     }
   };
 
