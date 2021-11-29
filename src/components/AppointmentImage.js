@@ -1,18 +1,23 @@
 import React, { Component, useEffect } from "react";
 import { Image, StyleSheet, Dimensions } from "react-native";
+import ImageZoom from "react-native-image-pan-zoom";
 
 const AppointmentImage = ({ base64 }) => {
   const img = base64;
 
-  useEffect(() => {
-    console.log("Component: " + img);
-  });
-
   return (
-    <Image
-      style={styles.imgStyle}
-      source={{ uri: "data:image/png;base64," + img }}
-    />
+    <ImageZoom
+      cropWidth={Dimensions.get("window").width}
+      cropHeight={500}
+      //cropWidth={Dimensions.get("window").width}
+      //cropHeight={Dimensions.get("window").height}
+      imageWidth={400}
+      imageHeight={300}>
+      <Image
+        style={styles.imgStyle}
+        source={{ uri: "data:image/png;base64," + img }}
+      />
+    </ImageZoom>
   );
 };
 

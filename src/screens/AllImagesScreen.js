@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { Button } from "react-native-elements";
 import AppointmentImage from "../components/AppointmentImage";
 import { LinearGradient } from "expo-linear-gradient";
 

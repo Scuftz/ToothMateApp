@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   containerImage: {
     flex: 1,
-    marginTop: "50%",
+    marginTop: "25%",
   },
   buttonViewStyle: {
     marginTop: 15,
