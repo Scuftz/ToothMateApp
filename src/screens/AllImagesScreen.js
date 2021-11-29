@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import React from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import { Button } from "react-native-elements";
 import AppointmentImage from "../components/AppointmentImage";
 import { LinearGradient } from "expo-linear-gradient";
@@ -10,46 +10,22 @@ const AllImagesScreen = ({ navigation }) => {
     return Buffer.from(image.img.data.data).toString("base64");
   });
   const base64images = preFilterBase64images.filter((image) => image);
-  const [currentImage, setCurrentImage] = useState(base64images[0]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imageCount, setImageCount] = useState(base64images.length);
-
-  useEffect(() => {
-    console.log(base64images);
-    setCurrentImage(base64images[currentImageIndex]);
-  }, [currentImageIndex]);
-
-  const handleNextImage = () => {
-    if (currentImageIndex === imageCount - 1) {
-      setCurrentImageIndex(0);
-    } else {
-      setCurrentImageIndex(currentImageIndex + 1);
-    }
-  };
-
-  const handlePreviousImage = () => {
-    if (currentImageIndex === 0) {
-      setCurrentImageIndex(imageCount - 1);
-    } else {
-      setCurrentImageIndex(currentImageIndex - 1);
-    }
-  };
 
   return (
     <View style={styles.container}>
       <LinearGradient
         colors={["#78d0f5", "#fff", "#78d0f5"]}
         style={styles.container}>
-        <ScrollView>
-          <View style={styles.containerImage}>
-            <AppointmentImage
-              base64={currentImage}
-              key={currentImageIndex}
-              onPress={handleNextImage}
-              onLongPress={handlePreviousImage}
-            />
-          </View>
-        </ScrollView>
+        <FlatList
+          numColumns={1}
+          data={base64images}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+          renderItem={({ item }) => (
+            <AppointmentImage key={item.key} base64={item} />
+          )}
+        />
       </LinearGradient>
     </View>
   );
