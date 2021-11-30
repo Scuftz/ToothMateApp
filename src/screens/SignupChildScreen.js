@@ -55,6 +55,47 @@ const SignupChildScreen = ({ navigation }) => {
     convertDate(currentDate);
   };
 
+  const submit = () => {
+    if (firstname === "") {
+      setErrorMessage("Please enter your first name");
+    } else if (lastname === "") {
+      setErrorMessage("Please enter your last name");
+    } else if (email === "") {
+      setErrorMessage("Please enter your email");
+    } else if (email.includes("@") === false) {
+      setErrorMessage("Please enter a valid email");
+    } else if (nhi === "") {
+      setErrorMessage("Please enter your NHI");
+    } else if (/^[a-zA-Z]{3}[0-9]{4}$/.test(nhi) === false) {
+      setErrorMessage("Please enter a valid NHI");
+    } else if (password === "") {
+      setErrorMessage("Please enter your password");
+    } else if (password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters");
+    } else if (password === password.toLowerCase()) {
+      setErrorMessage(
+        "Please enter a password with at least one capital letter"
+      );
+    } else if (/\d/.test(password) === false) {
+      setErrorMessage("Please enter a password with at least one number");
+    } else if (
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password) === false
+    ) {
+      setErrorMessage(
+        "Please enter a password with at least one special character"
+      );
+    } else {
+      navigation.navigate("SelectClinic", {
+        firstname,
+        lastname,
+        email,
+        nhi,
+        password,
+        dob,
+      });
+    }
+  };
+
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
@@ -203,15 +244,7 @@ const SignupChildScreen = ({ navigation }) => {
               containerStyle={styles.buttonContainer}
               title="Next"
               titleStyle={styles.buttonText}
-              onPress={() =>
-                navigation.navigate("SelectClinic", {
-                  firstname,
-                  lastname,
-                  email,
-                  password,
-                  dob,
-                })
-              }
+              onPress={() => submit()}
             />
           </Spacer>
         </KeyboardAwareScrollView>

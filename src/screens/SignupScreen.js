@@ -28,6 +28,7 @@ const SignupScreen = ({ navigation }) => {
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   let [fontsLoaded] = useFonts({
     Righteous_400Regular,
@@ -54,6 +55,47 @@ const SignupScreen = ({ navigation }) => {
     setShow(Platform.OS === "ios");
     setDob(currentDate);
     convertDate(currentDate);
+  };
+
+  const submit = () => {
+    if (firstname === "") {
+      setErrorMessage("Please enter your first name");
+    } else if (lastname === "") {
+      setErrorMessage("Please enter your last name");
+    } else if (email === "") {
+      setErrorMessage("Please enter your email");
+    } else if (email.includes("@") === false) {
+      setErrorMessage("Please enter a valid email");
+    } else if (nhi === "") {
+      setErrorMessage("Please enter your NHI");
+    } else if (/^[a-zA-Z]{3}[0-9]{4}$/.test(nhi) === false) {
+      setErrorMessage("Please enter a valid NHI");
+    } else if (password === "") {
+      setErrorMessage("Please enter your password");
+    } else if (password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters");
+    } else if (password === password.toLowerCase()) {
+      setErrorMessage(
+        "Please enter a password with at least one capital letter"
+      );
+    } else if (/\d/.test(password) === false) {
+      setErrorMessage("Please enter a password with at least one number");
+    } else if (
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password) === false
+    ) {
+      setErrorMessage(
+        "Please enter a password with at least one special character"
+      );
+    } else {
+      navigation.navigate("SelectClinic", {
+        firstname,
+        lastname,
+        email,
+        nhi,
+        password,
+        dob,
+      });
+    }
   };
 
   const showMode = (currentMode) => {
@@ -135,9 +177,9 @@ const SignupScreen = ({ navigation }) => {
           <Input
             label="NHI Number"
             leftIcon={{ type: "material-community", name: "hospital-box" }}
-            value={nhi}
+            value={nhi.toUpperCase()}
             onChangeText={setNhi}
-            autoCapitalize="none"
+            autoCapitalize="characters"
             autoCorrect={false}
             inputContainerStyle={styles.inputContainerStyle}
             inputStyle={styles.textStyle}
@@ -196,7 +238,13 @@ const SignupScreen = ({ navigation }) => {
                 );
               }
             })()}
+            <Spacer />
           </View>
+          {errorMessage ? (
+            <View style={styles.link}>
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            </View>
+          ) : null}
           <Spacer>
             <Spacer />
             <Button
@@ -204,15 +252,7 @@ const SignupScreen = ({ navigation }) => {
               containerStyle={styles.buttonContainer}
               title="Next"
               titleStyle={styles.buttonText}
-              onPress={() =>
-                navigation.navigate("SelectClinic", {
-                  firstname,
-                  lastname,
-                  email,
-                  password,
-                  dob,
-                })
-              }
+              onPress={() => submit()}
             />
           </Spacer>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
@@ -324,6 +364,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#000",
     fontWeight: "bold",
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: "red",
+    alignSelf: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    marginHorizontal: "5%",
   },
 });
 
