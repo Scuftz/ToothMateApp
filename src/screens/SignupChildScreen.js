@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -10,21 +16,21 @@ import { HeaderBackButton } from "react-navigation-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts, Righteous_400Regular } from "@expo-google-fonts/righteous";
 
-
 const SignupChildScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nhi, setNhi] = useState("");
 
   const [dob, setDob] = useState(new Date(946700000000));
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  let [fontsLoaded] = useFonts({ 
-    Righteous_400Regular
+  let [fontsLoaded] = useFonts({
+    Righteous_400Regular,
   });
 
   useEffect(() => {
@@ -76,123 +82,140 @@ const SignupChildScreen = ({ navigation }) => {
   return (
     <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.container}
-    >
-    <View style={styles.container}>
-      <KeyboardAwareScrollView>
-      <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
-        <NavigationEvents onWillFocus={clearErrorMessage} />
-        <Spacer/>
-        <Input
-          label="First Name"
-          value={firstname}
-          leftIcon={{ type: "feather", name: "user" }}
-          onChangeText={setFirstName}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Last Name"
-          leftIcon={{ type: "feather", name: "user" }}
-          value={lastname}
-          onChangeText={setLastName}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Email"
-          leftIcon={{ type: "material-icons", name: "email" }}
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
-        <Input
-          label="Password"
-          leftIcon={{ type: "fontawesome5", name: "lock" }}
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={styles.textStyle}
-          labelStyle={styles.labelStyle}
-        />
+      style={styles.container}>
+      <View style={styles.container}>
+        <KeyboardAwareScrollView>
+          <Text
+            style={{
+              fontSize: 50,
+              alignSelf: "center",
+              fontFamily: "Righteous_400Regular",
+            }}>
+            {" "}
+            ToothMate{" "}
+          </Text>
+          <NavigationEvents onWillFocus={clearErrorMessage} />
+          <Spacer />
+          <Input
+            label="First Name"
+            value={firstname}
+            leftIcon={{ type: "feather", name: "user" }}
+            onChangeText={setFirstName}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Last Name"
+            leftIcon={{ type: "feather", name: "user" }}
+            value={lastname}
+            onChangeText={setLastName}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Email"
+            leftIcon={{ type: "material-icons", name: "email" }}
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="NHI Number"
+            leftIcon={{ type: "material-community", name: "hospital-box" }}
+            value={nhi}
+            onChangeText={setNhi}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
+            label="Password"
+            leftIcon={{ type: "fontawesome5", name: "lock" }}
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
 
-        <Text style={styles.clinicTextStyle}>Date of Birth</Text>
-        <View>
-          {(() => {
-            if (Platform.OS === "android") {
-              return (
-                <View
+          <Text style={styles.clinicTextStyle}>Date of Birth</Text>
+          <View>
+            {(() => {
+              if (Platform.OS === "android") {
+                return (
+                  <View
                     style={{
                       width: "90%",
                       marginLeft: "5%",
-                    }}
-                  >
-                  <TouchableOpacity onPress={showDatepicker}>
-                    <Text style={styles.dateStyle}>{stringDate}</Text>
-                  </TouchableOpacity>
-                  {show && (
+                    }}>
+                    <TouchableOpacity onPress={showDatepicker}>
+                      <Text style={styles.dateStyle}>{stringDate}</Text>
+                    </TouchableOpacity>
+                    {show && (
+                      <DateTimePicker
+                        testID="dateTimePicker"
+                        value={dob}
+                        mode={mode}
+                        is24Hour={true}
+                        display="spinner"
+                        onChange={onChange}
+                      />
+                    )}
+                  </View>
+                );
+              } else {
+                return (
+                  <>
                     <DateTimePicker
                       testID="dateTimePicker"
                       value={dob}
                       mode={mode}
                       is24Hour={true}
                       display="spinner"
+                      style={{ height: 150 }}
                       onChange={onChange}
                     />
-                  )}
-                </View>
-              );
-            } else {
-              return (
-                <>
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={dob}
-                    mode={mode}
-                    is24Hour={true}
-                    display="spinner"
-                    style={{ height: 150 }}
-                    onChange={onChange}
-                  />
-                </>
-              );
-            }
-            return null;
-          })()}
-        </View>
-        <Spacer />
-        <Spacer>
-          <Button
+                  </>
+                );
+              }
+              return null;
+            })()}
+          </View>
+          <Spacer />
+          <Spacer>
+            <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
               title="Next"
-              titleStyle={styles.buttonText}            
+              titleStyle={styles.buttonText}
               onPress={() =>
-              navigation.navigate("SelectClinic", {
-                firstname,
-                lastname,
-                email,
-                password,
-                dob,
-              })
-            }
-          />
-        </Spacer>
-      </KeyboardAwareScrollView>
-    </View>
+                navigation.navigate("SelectClinic", {
+                  firstname,
+                  lastname,
+                  email,
+                  password,
+                  dob,
+                })
+              }
+            />
+          </Spacer>
+        </KeyboardAwareScrollView>
+      </View>
     </LinearGradient>
   );
 };
@@ -200,19 +223,24 @@ const SignupChildScreen = ({ navigation }) => {
 SignupChildScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: "",
-    headerTintColor: 'black',
+    headerTintColor: "black",
     headerBackTitleVisible: false,
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
     headerStyle: {
-      backgroundColor: '#78d0f5',
+      backgroundColor: "#78d0f5",
       borderBottomWidth: 0,
       shadowOpacity: 0,
       elevation: 0,
     },
 
     headerLeft: () => (
-      <HeaderBackButton tintColor='black' headerBackTitleVisible={false} headerTitle="a" onPress={() => navigation.navigate("AccountFlow")}/>
+      <HeaderBackButton
+        tintColor="black"
+        headerBackTitleVisible={false}
+        headerTitle="a"
+        onPress={() => navigation.navigate("AccountFlow")}
+      />
     ),
   };
 };
@@ -250,10 +278,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   clinicTextStyle: {
-     marginLeft: 20,
-     fontSize: 14,
-     color: "black",
-     fontWeight: "bold",
+    marginLeft: 20,
+    fontSize: 14,
+    color: "black",
+    fontWeight: "bold",
   },
   inputContainerStyle: {
     borderWidth: 1,
@@ -286,7 +314,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
 

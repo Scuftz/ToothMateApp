@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -15,16 +21,16 @@ const SignupScreen = ({ navigation }) => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [nhi, setNhi] = useState("");
 
   const [dob, setDob] = useState(new Date(946700000000));
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
-  let [fontsLoaded] = useFonts({ 
-    Righteous_400Regular
+  let [fontsLoaded] = useFonts({
+    Righteous_400Regular,
   });
 
   useEffect(() => {
@@ -77,13 +83,21 @@ const SignupScreen = ({ navigation }) => {
   return (
     <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.container}
-    >
+      style={styles.container}>
       <View style={styles.container}>
         <KeyboardAwareScrollView>
-          <Text style={{fontSize: 50, marginTop: "15%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+          <Text
+            style={{
+              fontSize: 50,
+              marginTop: "15%",
+              alignSelf: "center",
+              fontFamily: "Righteous_400Regular",
+            }}>
+            {" "}
+            ToothMate{" "}
+          </Text>
           <NavigationEvents onWillFocus={clearErrorMessage} />
-          <Spacer/>
+          <Spacer />
 
           <Input
             label="First Name"
@@ -119,6 +133,17 @@ const SignupScreen = ({ navigation }) => {
             labelStyle={styles.labelStyle}
           />
           <Input
+            label="NHI Number"
+            leftIcon={{ type: "material-community", name: "hospital-box" }}
+            value={nhi}
+            onChangeText={setNhi}
+            autoCapitalize="none"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
             label="Password"
             leftIcon={{ type: "fontawesome5", name: "lock" }}
             value={password}
@@ -139,8 +164,7 @@ const SignupScreen = ({ navigation }) => {
                     style={{
                       width: "90%",
                       marginLeft: "5%",
-                    }}
-                  >
+                    }}>
                     <TouchableOpacity onPress={showDatepicker}>
                       <Text style={styles.dateStyle}>{stringDate}</Text>
                     </TouchableOpacity>
@@ -171,11 +195,10 @@ const SignupScreen = ({ navigation }) => {
                   </>
                 );
               }
-              return null;
             })()}
           </View>
           <Spacer>
-          <Spacer/>
+            <Spacer />
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
@@ -201,8 +224,7 @@ const SignupScreen = ({ navigation }) => {
                     fontSize: 15,
                     color: "black",
                     textAlign: "center",
-                  }}
-                >
+                  }}>
                   Already have an account?
                   <Text style={styles.link}> Sign in instead</Text>
                 </Text>
@@ -301,7 +323,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
 
