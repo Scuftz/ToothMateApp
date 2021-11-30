@@ -15,9 +15,6 @@ const ImagesScreen = ({ navigation }) => {
     base64images[currentImageIndex]
   );
 
-  console.log(index);
-  console.log(currentImageIndex);
-
   const nextImage = () => {
     if (currentImageIndex < base64images.length - 1) {
       setCurrentImage(base64images[currentImageIndex + 1]);
