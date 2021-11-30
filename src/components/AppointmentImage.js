@@ -1,12 +1,9 @@
 import React, { Component, useEffect } from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Dimensions } from "react-native";
+import ImageZoom from "react-native-image-pan-zoom";
 
 const AppointmentImage = ({ base64 }) => {
   const img = base64;
-
-  useEffect(() => {
-    console.log("Component: " + img);
-  });
 
   return (
     <Image
@@ -18,9 +15,10 @@ const AppointmentImage = ({ base64 }) => {
 
 const styles = StyleSheet.create({
   imgStyle: {
+    resizeMode: "contain",
     alignSelf: "center",
-    width: "50%",
-    height: 200,
+    width: 400,
+    height: 300,
   },
 });
 
