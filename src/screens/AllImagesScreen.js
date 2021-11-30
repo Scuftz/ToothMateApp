@@ -1,5 +1,10 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native";
 import AppointmentImage from "../components/AppointmentImage";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -22,7 +27,17 @@ const AllImagesScreen = ({ navigation }) => {
             return index.toString();
           }}
           renderItem={({ item }) => (
-            <AppointmentImage key={item.key} base64={item} />
+            <TouchableWithoutFeedback
+              onPress={() =>
+                navigation.navigate("images", {
+                  images: base64images,
+                  imageIndex: base64images.indexOf(item),
+                })
+              }>
+              <View>
+                <AppointmentImage key={item.key} base64={item} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
         />
       </LinearGradient>

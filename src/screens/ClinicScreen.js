@@ -32,7 +32,6 @@ const ClinicScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    console.log("isArray: ", Array.isArray(images));
     getEmailAndAppointments();
     getDentalClinic();
     getAllImages();

@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import AppointmentImage from "../components/AppointmentImage";
 import { LinearGradient } from "expo-linear-gradient";
+import ImageZoom from "react-native-image-pan-zoom";
 
 const ImagesScreen = ({ navigation }) => {
+  const index = navigation.getParam("imageIndex");
   const base64images = navigation.getParam("images");
-  const [currentImage, setCurrentImage] = useState(base64images[0]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  console.log(Array.isArray(base64images));
+  const [currentImageIndex, setCurrentImageIndex] = useState(
+    index != null ? index : 0
+  );
+  const [currentImage, setCurrentImage] = useState(
+    base64images[currentImageIndex]
+  );
+
+  console.log(index);
+  console.log(currentImageIndex);
 
   const nextImage = () => {
     if (currentImageIndex < base64images.length - 1) {
@@ -51,7 +59,13 @@ const ImagesScreen = ({ navigation }) => {
       style={styles.container}>
       <ScrollView>
         <View style={styles.containerImage}>
-          <AppointmentImage key={currentImageIndex} base64={currentImage} />
+          <ImageZoom
+            cropWidth={Dimensions.get("window").width}
+            cropHeight={500}
+            imageWidth={400}
+            imageHeight={300}>
+            <AppointmentImage key={currentImageIndex} base64={currentImage} />
+          </ImageZoom>
           {buttons()}
         </View>
       </ScrollView>
