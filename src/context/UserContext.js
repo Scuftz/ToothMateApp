@@ -71,12 +71,12 @@ const getDentalClinic = (dispatch) => {
   };
 };
 
-const getEmailAndAppointments = (dispatch) => {
+const getNhiAndAppointments = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
-    const emailResponse = await axiosApi.get("/getEmail/" + id);
-    const email = emailResponse.data.email;
-    const response = await axiosApi.get("/Appointment/" + email);
+    const nhiResponse = await axiosApi.get("/getNhi/" + id);
+    const nhi = nhiResponse.data.nhi;
+    const response = await axiosApi.get("/Appointment/" + nhi);
 
     const temp = []
       .concat(response.data)
@@ -89,9 +89,9 @@ const getEmailAndAppointments = (dispatch) => {
 const getAllImages = (dispatch) => {
   return async () => {
     const id = await AsyncStorage.getItem("id");
-    const emailResponse = await axiosApi.get("/getEmail/" + id);
-    const email = emailResponse.data.email;
-    const response = await axiosApi.get("/getAllImages/" + email);
+    const nhiResponse = await axiosApi.get("/getNhi/" + id);
+    const nhi = nhiResponse.data.nhi;
+    const response = await axiosApi.get("/getAllImages/" + nhi);
 
     dispatch({ type: "get_all_images", payload: response.data });
   };
@@ -101,7 +101,7 @@ export const { Provider, Context } = createDataContext(
   UserReducer,
   {
     getUserDOB,
-    getEmailAndAppointments,
+    getNhiAndAppointments,
     getDentalClinic,
     getUser,
     canDisconnect,

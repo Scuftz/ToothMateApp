@@ -19,8 +19,8 @@ const getAppointmentContent = (dispatch) => {
 };
 
 const getUserAppointments = (dispatch) => {
-  return async (email) => {
-    const response = await axiosApi.get("/Appointment/" + email);
+  return async (nhi) => {
+    const response = await axiosApi.get("/Appointment/" + nhi);
 
     dispatch({ type: "get_user_appointment", payload: response.data });
   };

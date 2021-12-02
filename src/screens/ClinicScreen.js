@@ -23,7 +23,7 @@ const ClinicScreen = ({ navigation }) => {
   const {
     state: { appointments, clinic, images },
     getAllImages,
-    getEmailAndAppointments,
+    getNhiAndAppointments,
     getDentalClinic,
   } = useContext(UserContext);
 
@@ -32,12 +32,12 @@ const ClinicScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    getEmailAndAppointments();
+    getNhiAndAppointments();
     getDentalClinic();
     getAllImages();
 
     const listener = navigation.addListener("didFocus", () => {
-      getEmailAndAppointments();
+      getNhiAndAppointments();
     });
     return () => {
       listener.remove();
