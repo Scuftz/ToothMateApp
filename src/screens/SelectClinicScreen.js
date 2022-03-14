@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+} from "react-native";
 import { Text, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
 import { Context as AuthContext } from "../context/AuthContext";
@@ -14,14 +20,15 @@ const SelectClinicScreen = ({ navigation }) => {
   let firstname = navigation.getParam("firstname");
   let lastname = navigation.getParam("lastname");
   let email = navigation.getParam("email");
+  let nhi = navigation.getParam("nhi");
   let password = navigation.getParam("password");
   let dob = navigation.getParam("dob");
 
   const cc = useContext(ClinicContext);
   const [clinic, setClinic] = useState({ name: "Clinic" });
 
-  let [fontsLoaded] = useFonts({ 
-    Righteous_400Regular
+  let [fontsLoaded] = useFonts({
+    Righteous_400Regular,
   });
 
   useEffect(() => {
@@ -46,67 +53,84 @@ const SelectClinicScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-    colors={["#78d0f5", "white", "#78d0f5"]}
-    style={styles.container}
-  >
-    <View style={styles.container}>
-    <Text style={{fontSize: 50, alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
-    <Image source={require("../components/t_logo1.png")} style={{width: 200, height: 200, alignSelf: "center"}} />
-      <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
-      <SearchableDropdown
-        items={items}
-        onItemSelect={(item) => {
-          setClinic({ id: item._id, name: item.name });
-        }}
-        textInputProps={{
-          placeholder: `${clinic.name}`,
-          style: {
-            padding: 5,
-            paddingLeft: 15,
-            borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 20,
-            backgroundColor: "white",
-            fontWeight: "bold",
-            fontSize: 20,
-          },
-        }}
-        placeholderTextColor="#888"
-        containerStyle={styles.dropdownContainer}
-        itemStyle={{
-          padding: 8,
-          marginTop: 3,
-          backgroundColor: "white",
-          borderColor: "#bbb",
-          borderWidth: 3,
-          borderRadius: 20,
-        }}
-        itemTextStyle={{ color: "#222" , marginLeft: 2, fontSize: 15, fontWeight: "bold"}}
+      colors={["#78d0f5", "white", "#78d0f5"]}
+      style={styles.container}>
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 50,
+            alignSelf: "center",
+            fontFamily: "Righteous_400Regular",
+          }}>
+          {" "}
+          ToothMate{" "}
+        </Text>
+        <Image
+          source={require("../components/t_logo1.png")}
+          style={{ width: 200, height: 200, alignSelf: "center" }}
         />
-      {state.errorMessage ? (
-        <Text style={styles.errorMessage}>{state.errorMessage}</Text>
-        ) : <Text style={styles.errorMessage}></Text>}
-      <Spacer>
-        <Button
-        buttonStyle={styles.button}
-        containerStyle={styles.buttonContainer}
-        title="Sign Up"
-        titleStyle={styles.buttonText}
-          onPress={() => {
-            signup({
-              firstname,
-              lastname,
-              email,
-              password,
-              dob,
-              clinic: clinic.id,
-            });
+        <Text style={styles.clinicTextStyle}>Select Your Clinic</Text>
+        <SearchableDropdown
+          items={items}
+          onItemSelect={(item) => {
+            setClinic({ id: item._id, name: item.name });
+          }}
+          textInputProps={{
+            placeholder: `${clinic.name}`,
+            style: {
+              padding: 5,
+              paddingLeft: 15,
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 20,
+              backgroundColor: "white",
+              fontWeight: "bold",
+              fontSize: 20,
+            },
+          }}
+          placeholderTextColor="#888"
+          containerStyle={styles.dropdownContainer}
+          itemStyle={{
+            padding: 8,
+            marginTop: 3,
+            backgroundColor: "white",
+            borderColor: "#bbb",
+            borderWidth: 3,
+            borderRadius: 20,
+          }}
+          itemTextStyle={{
+            color: "#222",
+            marginLeft: 2,
+            fontSize: 15,
+            fontWeight: "bold",
           }}
         />
-      </Spacer>
-    </View>
+        {state.errorMessage ? (
+          <Text style={styles.errorMessage}>{state.errorMessage}</Text>
+        ) : (
+          <Text style={styles.errorMessage}></Text>
+        )}
+        <Spacer>
+          <Button
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
+            title="Sign Up"
+            titleStyle={styles.buttonText}
+            onPress={() => {
+              signup({
+                firstname,
+                lastname,
+                email,
+                nhi,
+                password,
+                dob,
+                clinic: clinic.id,
+              });
+            }}
+          />
+        </Spacer>
+      </View>
     </LinearGradient>
-
   );
 };
 
@@ -114,16 +138,16 @@ const SelectClinicScreen = ({ navigation }) => {
 SelectClinicScreen.navigationOptions = () => {
   return {
     headerTitle: "",
-    headerTintColor: 'black',
+    headerTintColor: "black",
     headerBackTitle: "Sign Up",
     safeAreaInsets: Platform.OS === "ios" ? { top: 45 } : { top: 30 },
 
     headerStyle: {
-      backgroundColor: '#78d0f5',
+      backgroundColor: "#78d0f5",
       borderBottomWidth: 0,
       shadowOpacity: 0,
-      elevation: 0,      
-    }
+      elevation: 0,
+    },
   };
 };
 
@@ -149,7 +173,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     fontWeight: "bold",
-    marginHorizontal: "5%"
+    marginHorizontal: "5%",
   },
   link: {
     color: "blue",
@@ -164,7 +188,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     paddingTop: 10,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   buttonContainer: {
     borderRadius: 20,
@@ -178,7 +202,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 });
 

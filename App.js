@@ -28,6 +28,7 @@ import DentalChartScreen from "./src/screens/DentalChartScreen";
 import InvoiceScreen from "./src/screens/InvoiceScreen";
 import ImagesScreen from "./src/screens/ImagesScreen";
 import DisconnectChildScreen from "./src/screens/DisconnectChildScreen";
+import AllImagesScreen from "./src/screens/AllImagesScreen";
 import { enableScreens } from "react-native-screens";
 
 const switchNavigator = createSwitchNavigator({
@@ -77,6 +78,7 @@ const switchNavigator = createSwitchNavigator({
         appointment: AppointmentScreen,
         invoice: InvoiceScreen,
         images: ImagesScreen,
+        allimages: AllImagesScreen,
       },
       {
         initialRouteName: "clinic",

@@ -52,7 +52,6 @@ const AppointmentScreen = ({ navigation }) => {
           }
         />
         <Spacer />
-
         <View style={styles.heading}>
           <Text style={styles.headingFont}>Dentist's Notes</Text>
         </View>

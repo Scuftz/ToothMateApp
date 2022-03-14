@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/Spacer";
@@ -15,16 +21,17 @@ const SignupScreen = ({ navigation }) => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [nhi, setNhi] = useState("");
 
   const [dob, setDob] = useState(new Date(946700000000));
   const [stringDate, setStringDate] = useState("");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
-  let [fontsLoaded] = useFonts({ 
-    Righteous_400Regular
+  let [fontsLoaded] = useFonts({
+    Righteous_400Regular,
   });
 
   useEffect(() => {
@@ -48,6 +55,47 @@ const SignupScreen = ({ navigation }) => {
     setShow(Platform.OS === "ios");
     setDob(currentDate);
     convertDate(currentDate);
+  };
+
+  const submit = () => {
+    if (firstname === "") {
+      setErrorMessage("Please enter your first name");
+    } else if (lastname === "") {
+      setErrorMessage("Please enter your last name");
+    } else if (email === "") {
+      setErrorMessage("Please enter your email");
+    } else if (email.includes("@") === false) {
+      setErrorMessage("Please enter a valid email");
+    } else if (nhi === "") {
+      setErrorMessage("Please enter your NHI");
+    } else if (/^[a-zA-Z]{3}[0-9]{4}$/.test(nhi) === false) {
+      setErrorMessage("Please enter a valid NHI");
+    } else if (password === "") {
+      setErrorMessage("Please enter your password");
+    } else if (password.length < 8) {
+      setErrorMessage("Password must be at least 8 characters");
+    } else if (password === password.toLowerCase()) {
+      setErrorMessage(
+        "Please enter a password with at least one capital letter"
+      );
+    } else if (/\d/.test(password) === false) {
+      setErrorMessage("Please enter a password with at least one number");
+    } else if (
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password) === false
+    ) {
+      setErrorMessage(
+        "Please enter a password with at least one special character"
+      );
+    } else {
+      navigation.navigate("SelectClinic", {
+        firstname,
+        lastname,
+        email,
+        nhi,
+        password,
+        dob,
+      });
+    }
   };
 
   const showMode = (currentMode) => {
@@ -77,13 +125,21 @@ const SignupScreen = ({ navigation }) => {
   return (
     <LinearGradient
       colors={["#78d0f5", "white", "#78d0f5"]}
-      style={styles.container}
-    >
+      style={styles.container}>
       <View style={styles.container}>
         <KeyboardAwareScrollView>
-          <Text style={{fontSize: 50, marginTop: "15%", alignSelf: "center", fontFamily: "Righteous_400Regular"}}> ToothMate </Text>
+          <Text
+            style={{
+              fontSize: 50,
+              marginTop: "15%",
+              alignSelf: "center",
+              fontFamily: "Righteous_400Regular",
+            }}>
+            {" "}
+            ToothMate{" "}
+          </Text>
           <NavigationEvents onWillFocus={clearErrorMessage} />
-          <Spacer/>
+          <Spacer />
 
           <Input
             label="First Name"
@@ -119,6 +175,17 @@ const SignupScreen = ({ navigation }) => {
             labelStyle={styles.labelStyle}
           />
           <Input
+            label="NHI Number"
+            leftIcon={{ type: "material-community", name: "hospital-box" }}
+            value={nhi.toUpperCase()}
+            onChangeText={setNhi}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.textStyle}
+            labelStyle={styles.labelStyle}
+          />
+          <Input
             label="Password"
             leftIcon={{ type: "fontawesome5", name: "lock" }}
             value={password}
@@ -139,8 +206,7 @@ const SignupScreen = ({ navigation }) => {
                     style={{
                       width: "90%",
                       marginLeft: "5%",
-                    }}
-                  >
+                    }}>
                     <TouchableOpacity onPress={showDatepicker}>
                       <Text style={styles.dateStyle}>{stringDate}</Text>
                     </TouchableOpacity>
@@ -171,25 +237,22 @@ const SignupScreen = ({ navigation }) => {
                   </>
                 );
               }
-              return null;
             })()}
+            <Spacer />
           </View>
+          {errorMessage ? (
+            <View style={styles.link}>
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            </View>
+          ) : null}
           <Spacer>
-          <Spacer/>
+            <Spacer />
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
               title="Next"
               titleStyle={styles.buttonText}
-              onPress={() =>
-                navigation.navigate("SelectClinic", {
-                  firstname,
-                  lastname,
-                  email,
-                  password,
-                  dob,
-                })
-              }
+              onPress={() => submit()}
             />
           </Spacer>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
@@ -201,8 +264,7 @@ const SignupScreen = ({ navigation }) => {
                     fontSize: 15,
                     color: "black",
                     textAlign: "center",
-                  }}
-                >
+                  }}>
                   Already have an account?
                   <Text style={styles.link}> Sign in instead</Text>
                 </Text>
@@ -301,7 +363,15 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000",
-    fontWeight: "bold"
+    fontWeight: "bold",
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: "red",
+    alignSelf: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    marginHorizontal: "5%",
   },
 });
 

@@ -69,6 +69,7 @@
     "react-native-date-picker": "^3.4.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-image-pan-zoom": "^2.1.12",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-pdf": "^6.3.0",
