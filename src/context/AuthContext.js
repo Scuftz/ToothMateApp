@@ -68,7 +68,7 @@ const clearErrorMessage = (dispatch) => () => {
 //make an api request to sign up with user details
 const signup =
   (dispatch) =>
-  async ({ firstname, lastname, email, nhi, password, dob, clinic }) => {
+  async ({ firstname, lastname, email, nhi, password, dob, clinic, tooth,}) => {
     try {
       const parentid = await AsyncStorage.getItem("id");
       if (parentid === null) {
@@ -80,6 +80,7 @@ const signup =
           password,
           dob,
           clinic,
+          tooth,
         });
         await AsyncStorage.setItem("token", response.data.token);
         await AsyncStorage.setItem("id", response.data.id);
