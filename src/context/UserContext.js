@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import axiosApi from "../api/axios";
+import axios from "../api/axios";
 
 const UserReducer = (state, action) => {
   switch (action.type) {
@@ -16,6 +17,10 @@ const UserReducer = (state, action) => {
       return { ...state, canDisconnect: action.payload };
     case "get_all_images":
       return { ...state, images: action.payload };
+    case "get_dental_chart":
+      return { ...state, dentalChart: action.payload };
+    case "get_tooth":
+      return { ...state, tooth: action.payload };
   }
 };
 
@@ -97,6 +102,25 @@ const getAllImages = (dispatch) => {
   };
 };
 
+const getDentalChart = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const response = await axiosApi.get("/getDentalChart/" + id);
+
+    dispatch({ type: "get_dental_chart", payload: response.data });
+  };
+};
+
+const getTooth = (dispatch) => {
+  return async () => {
+    const id = await AsyncStorage.getItem("id");
+    const toothId = await AsyncStorage.getItem("toothId");
+    const response = await axiosApi.get("/" + id + "/tooth/" + toothId);
+
+    dispatch({ type: "get_tooth", payload: response.data });
+  }
+}
+
 export const { Provider, Context } = createDataContext(
   UserReducer,
   {
@@ -107,6 +131,8 @@ export const { Provider, Context } = createDataContext(
     canDisconnect,
     disconnectChild,
     getAllImages,
+    getDentalChart,
+    getTooth,
   },
   {
     appointments: [],
@@ -115,5 +141,7 @@ export const { Provider, Context } = createDataContext(
     details: {},
     canDisconnect: null,
     images: [],
+    dentalChart: [],
+    tooth: null,
   }
 );
