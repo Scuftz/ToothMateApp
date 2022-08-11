@@ -9,3 +9,22 @@ body,
   width: 100vw;
   height: 100vh;
 }
+
+p {
+  text-align: center;
+  width: 200px;
+  font-family: sans-serif;
+  pointer-events: none;
+  background-color: papayawhip;
+  color: dimgrey;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+}
