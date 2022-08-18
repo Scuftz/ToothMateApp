@@ -23,6 +23,8 @@ const SelectClinicScreen = ({ navigation }) => {
   let nhi = navigation.getParam("nhi");
   let password = navigation.getParam("password");
   let dob = navigation.getParam("dob");
+  let adultToothArray = [[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24],[25],[26],[27],[28],[29],[30],[31]];
+  let childToothArray = [[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19]];
   
   const cc = useContext(ClinicContext);
   const [clinic, setClinic] = useState({ name: "Clinic" });
@@ -125,7 +127,8 @@ const SelectClinicScreen = ({ navigation }) => {
                 password,
                 dob,
                 clinic: clinic.id,
-                tooth: toothArray,
+                adultTeeth: adultToothArray,
+                childTeeth: childToothArray,
               });
             }}
           />
