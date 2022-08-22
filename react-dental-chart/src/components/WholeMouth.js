@@ -182,7 +182,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_first_premolar")}
+        onClick={() => window.location = "upper-right-first-premolar"}
       />
       <mesh
         geometry={nodes.upper_left_wisdom.geometry}
@@ -190,7 +190,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_left_wisdom")}
+        onClick={() => window.location = "upper-left-wisdom-tooth"}
       />
       <mesh
         geometry={nodes.upper_right_second_premolar.geometry}
@@ -198,7 +198,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_second_premolar")}
+        onClick={() => window.location = "upper-right-second-premolar"}
       />
       <mesh
         geometry={nodes.upper_left_lateral_incisor.geometry}
@@ -206,7 +206,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_left_lateral_incisor")}
+        onClick={() => window.location = "upper-left-lateral-incisor"}
       />
       <mesh
         geometry={nodes.upper_right_first_molar.geometry}
@@ -214,7 +214,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_first_molar")}
+        onClick={() => window.location = "upper-right-first-molar"}
       />
       <mesh
         geometry={nodes.upper_right_second_molar.geometry}
@@ -222,7 +222,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_second_molar")}
+        onClick={() => window.location = "upper-right-second-molar"}
       />
       <mesh
         geometry={nodes.upper_right_canine.geometry}
@@ -230,7 +230,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_canine")}
+        onClick={() => window.location = "upper-right-canine"}
       />
       <mesh
         geometry={nodes.upper_left_central_incisor.geometry}
@@ -238,7 +238,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_left_central_incisor")}
+        onClick={() => window.location = "upper-left-central-incisor"}
       />
       <mesh
         geometry={nodes.upper_right_central_incisor.geometry}
@@ -246,7 +246,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_central_incisor")}
+        onClick={() => window.location = "upper-right-central-incisor"}
       />
       <mesh
         geometry={nodes.upper_right_first_premolar001.geometry}
@@ -254,7 +254,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_first_premolar001")}
+        onClick={() => window.location = "upper-right-first-premolar001"}
       />
       <mesh
         geometry={nodes.upper_right_wisdom.geometry}
@@ -262,7 +262,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_wisdom")}
+        onClick={() => window.location = "upper-right-wisdom-tooth"}
       />
       <mesh
         geometry={nodes.upper_right_second_premolar001.geometry}
@@ -270,7 +270,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_second_premolar001")}
+        onClick={() => window.location = "upper-right-second-premolar001"}
       />
       <mesh
         geometry={nodes.upper_right_lateral_incisor.geometry}
@@ -278,7 +278,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_lateral_incisor")}
+        onClick={() => window.location = "upper-right-lateral-incisor"}
       />
       <mesh
         geometry={nodes.upper_right_first_wisdom.geometry}
@@ -286,7 +286,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_first_wisdom")}
+        onClick={() => window.location = "upper-right-first-wisdom-tooth"}
       />
       <mesh
         geometry={nodes.upper_right_second_molar001.geometry}
@@ -294,7 +294,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_second_molar001")}
+        onClick={() => window.location = "upper-right-second-molar001"}
       />
       <mesh
         geometry={nodes.upper_right_canine001.geometry}
@@ -302,7 +302,7 @@ const WholeMouthModel = ({ ...props }) => {
         position={[0, 0.36, -0.29]}
         rotation={[1.11, 0, 0]}
         scale={39.99}
-        onClick={() => console.log("tapped upper_right_canine001")}
+        onClick={() => window.location = "upper-right-canine001"}
       />
     </group>
   );
