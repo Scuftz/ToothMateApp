@@ -1,12 +1,34 @@
-import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Linking } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import React from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+const styles = StyleSheet.create({
+  backgroundStyle: {
+    marginTop: 15,
+    backgroundColor: '#F0EEEE',
+    height: 70,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  iconStyle: {
+    fontSize: 30,
+    alignSelf: 'center',
+    marginHorizontal: 15,
+  },
+  textStyle: {
+    alignSelf: 'center',
+  },
+});
 
 // Component for calling and texting
-const Caller = (props) => {
-  const phoneLink = "tel:" + props.phone;
-  const emailLink = "mailto:" + props.email;
+const Caller = props => {
+  const { phone, email, url } = props;
+
+  const phoneLink = `tel:${phone}`;
+  const emailLink = `mailto:${email}`;
 
   return (
     <View style={styles.backgroundStyle}>
@@ -25,14 +47,11 @@ const Caller = (props) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => {
-          Linking.canOpenURL(props.url).then((supported) => {
-            if (supported) {
-              Linking.openURL(props.url);
-            } else {
-              console.log(props.url);
-            }
-          });
+        onPress={async () => {
+          const supported = Linking.canOpenURL(url);
+          if (supported) {
+            await Linking.openURL(url);
+          }
         }}
       >
         <View>
@@ -43,26 +62,5 @@ const Caller = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  backgroundStyle: {
-    marginTop: 15,
-    backgroundColor: "#F0EEEE",
-    height: 70,
-    flexDirection: "row",
-    alignSelf: "stretch",
-    marginBottom: 15,
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  iconStyle: {
-    fontSize: 30,
-    alignSelf: "center",
-    marginHorizontal: 15,
-  },
-  textStyle: {
-    alignSelf: "center",
-  },
-});
 
 export default Caller;

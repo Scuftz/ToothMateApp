@@ -1,0 +1,128 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Dimensions, Platform } from 'react-native';
+import { Button } from 'react-native-elements';
+import Spacer from '../components/Spacer';
+
+// Buffer used for converting images
+global.Buffer = global.Buffer || require('buffer').Buffer;
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  imageContainer: {
+    width: Dimensions.get('screen').width,
+    height: 400,
+    borderWidth: 1,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  heading: {
+    borderBottomWidth: 1,
+    paddingBottom: 3,
+  },
+  title: {
+    fontSize: 22,
+    borderColor: 'black',
+    paddingTop: 5,
+  },
+  headingFont: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  scroll: {
+    marginTop: 15,
+    marginBottom: 5,
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    borderColor: 'white',
+    width: '90%',
+    marginLeft: '5%',
+  },
+  button: {
+    paddingVertical: 10,
+    backgroundColor: '#78d0f5',
+  },
+  buttonText: {
+    color: '#000',
+    fontWeight: 'bold',
+  },
+});
+
+const AppointmentScreen = props => {
+  const { navigation } = props;
+
+  const appointment = navigation.getParam('appointment');
+  const base64images = appointment.images.map(image => {
+    return Buffer.from(image.img.data.data).toString('base64');
+  });
+  const base64pdf = Buffer.from(appointment.pdfs[0].pdf.data.data).toString('base64');
+
+  function convertDate(mongoDate) {
+    const date = new Date(mongoDate);
+    const year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+    const month = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);
+    const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+
+    const stringDate = `${day} ${month} ${year}`;
+    return stringDate;
+  }
+
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <Text style={styles.headingFont}>Appointment Date</Text>
+        </View>
+        <Text style={styles.title}>{convertDate(appointment.date)}</Text>
+
+        <Spacer />
+        <Button
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonText}
+          title="Invoice"
+          onPress={() => navigation.navigate('invoice', { pdf: base64pdf })}
+        />
+        <Spacer />
+        <Button
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
+          titleStyle={styles.buttonText}
+          title="Images"
+          onPress={() => navigation.navigate('images', { images: base64images })}
+        />
+        <Spacer />
+        <View style={styles.heading}>
+          <Text style={styles.headingFont}>Dentist's Notes</Text>
+        </View>
+        <Text style={styles.title}>{appointment.notes}</Text>
+      </View>
+    </ScrollView>
+  );
+};
+
+// Header Options
+AppointmentScreen.navigationOptions = () => {
+  return {
+    title: 'Your Appointment',
+    headerTintColor: 'black',
+    headerBackTitleVisible: false,
+    safeAreaInsets: Platform.OS === 'ios' ? { top: 45 } : { top: 30 },
+
+    headerStyle: {
+      backgroundColor: '#78d0f5',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+    },
+  };
+};
+
+export default AppointmentScreen;

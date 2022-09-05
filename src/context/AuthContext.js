@@ -1,31 +1,29 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import createDataContext from "./createDataContext";
-import axiosApi from "../api/axios";
-import { navigate } from "../navigationRef";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import createDataContext from './createDataContext';
+import axiosApi from '../api/axios';
+import { navigate } from '../navigationRef';
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case "add_error":
+    case 'add_error':
       return { ...state, errorMessage: action.payload };
-    // case "signup":
-    //     return { errorMessage: "", token: action.payload };
-    case "signin":
+    case 'signin':
       return {
-        errorMessage: "",
+        errorMessage: '',
         token: action.payload.token,
         id: action.payload.id,
       };
-    case "clear_error_message":
-      return { ...state, errorMessage: "" };
-    case "change_password":
+    case 'clear_error_message':
+      return { ...state, errorMessage: '' };
+    case 'change_password':
       return { ...state, errorMessage: action.payload };
-    case "signout":
-      return { token: null, errorMessage: "" };
-    case "user":
-      return { errorMessage: "Hello", token: action.payload };
-    case "getchildaccounts":
+    case 'signout':
+      return { token: null, errorMessage: '' };
+    case 'user':
+      return { errorMessage: 'Hello', token: action.payload };
+    case 'getchildaccounts':
       return {
-        errorMessage: "",
+        errorMessage: '',
         children: action.payload.children,
       };
     default:
@@ -33,17 +31,17 @@ const authReducer = (state, action) => {
   }
 };
 
-const user = (dispatch) => async () => {
+const user = dispatch => async () => {
   try {
-    const token = await AsyncStorage.getItem("token");
-    const response = await axiosApi.post("/user", { token });
-    dispatch({ type: "user", payload: response.data.user });
+    const token = await AsyncStorage.getItem('token');
+    const response = await axiosApi.post('/user', { token });
+    dispatch({ type: 'user', payload: response.data.user });
   } catch (err) {}
 };
 
-const tryLocalSignin = (dispatch) => async () => {
-  const token = await AsyncStorage.getItem("token");
-  const id = await AsyncStorage.getItem("id");
+const tryLocalSignin = dispatch => async () => {
+  const token = await AsyncStorage.getItem('token');
+  const id = await AsyncStorage.getItem('id');
   if (token) {
     if (id) {
       /*
@@ -51,28 +49,28 @@ const tryLocalSignin = (dispatch) => async () => {
       dispatch({ type: "signin", payload: response.data });
       navigate("Account");
       */
-      dispatch({ type: "signin", payload: { token, id } });
-      navigate("AccountFlow");
+      dispatch({ type: 'signin', payload: { token, id } });
+      navigate('AccountFlow');
     } else {
-      navigate("Signup");
+      navigate('Signup');
     }
   } else {
-    navigate("Signup");
+    navigate('Signup');
   }
 };
 
-const clearErrorMessage = (dispatch) => () => {
-  dispatch({ type: "clear_error_message" });
+const clearErrorMessage = dispatch => () => {
+  dispatch({ type: 'clear_error_message' });
 };
 
-//make an api request to sign up with user details
+// make an api request to sign up with user details
 const signup =
-  (dispatch) =>
+  dispatch =>
   async ({ firstname, lastname, email, nhi, password, dob, clinic }) => {
     try {
-      const parentid = await AsyncStorage.getItem("id");
+      const parentid = await AsyncStorage.getItem('id');
       if (parentid === null) {
-        const response = await axiosApi.post("/signup", {
+        const response = await axiosApi.post('/signup', {
           firstname,
           lastname,
           email,
@@ -81,15 +79,15 @@ const signup =
           dob,
           clinic,
         });
-        await AsyncStorage.setItem("token", response.data.token);
-        await AsyncStorage.setItem("id", response.data.id);
+        await AsyncStorage.setItem('token', response.data.token);
+        await AsyncStorage.setItem('id', response.data.id);
         dispatch({
-          type: "signin",
+          type: 'signin',
           payload: { token: response.data.token, id: response.data.id },
         });
-        navigate("AccountFlow");
+        navigate('AccountFlow');
       } else {
-        const response = await axiosApi.post("/signupchild", {
+        const response = await axiosApi.post('/signupchild', {
           firstname,
           lastname,
           email,
@@ -99,43 +97,34 @@ const signup =
           clinic,
           parent: parentid,
         });
-        navigate("AccountFlow");
+        navigate('AccountFlow');
       }
     } catch (err) {
       dispatch({
-        type: "add_error",
-        payload: "Invalid Sign Up Details",
+        type: 'add_error',
+        payload: 'Invalid Sign Up Details',
       });
     }
   };
 
-const getchildaccounts = (dispatch) => async () => {
+const getChildAccounts = dispatch => async () => {
   try {
-    const id = await AsyncStorage.getItem("id");
-    const response = await axiosApi.get("/getchildaccounts/" + id);
+    const id = await AsyncStorage.getItem('id');
+    const response = await axiosApi.get(`/getchildaccounts/${id}`);
     dispatch({
-      type: "getchildaccounts",
+      type: 'getchildaccounts',
       payload: { children: response.data },
     });
   } catch (err) {
-    console.log("Error retrieving child accounts");
+    console.log('Error retrieving child accounts');
   }
 };
 
 const signupchild =
-  (dispatch) =>
-  async ({
-    firstname,
-    lastname,
-    email,
-    mobile,
-    password,
-    dob,
-    clinic,
-    parent,
-  }) => {
+  dispatch =>
+  async ({ firstname, lastname, email, mobile, password, dob, clinic, parent }) => {
     try {
-      const response = await axiosApi.post("/signupchild", {
+      const response = await axiosApi.post('/signupchild', {
         firstname,
         lastname,
         email,
@@ -145,43 +134,43 @@ const signupchild =
         clinic,
         parent,
       });
-      //await AsyncStorage.setItem("token", response.data.token);
-      //dispatch({ type: "signin", payload: response.data.token });
-      navigate("Account");
+      // await AsyncStorage.setItem("token", response.data.token);
+      // dispatch({ type: "signin", payload: response.data.token });
+      navigate('Account');
     } catch (err) {
       dispatch({
-        type: "add_error",
-        payload: "Invalid Sign Up Details",
+        type: 'add_error',
+        payload: 'Invalid Sign Up Details',
       });
     }
   };
 
 const signin =
-  (dispatch) =>
+  dispatch =>
   async ({ email, password }) => {
     try {
-      const response = await axiosApi.post("/signin", { email, password });
+      const response = await axiosApi.post('/signin', { email, password });
 
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("id", response.data.id);
+      await AsyncStorage.setItem('token', response.data.token);
+      await AsyncStorage.setItem('id', response.data.id);
       dispatch({
-        type: "signin",
+        type: 'signin',
         payload: { token: response.data.token, id: response.data.id },
       });
-      navigate("AccountFlow");
+      navigate('AccountFlow');
     } catch (err) {
       dispatch({
-        type: "add_error",
-        payload: "Invalid Login Details",
+        type: 'add_error',
+        payload: 'Invalid Login Details',
       });
     }
   };
 
-const updateUser = (dispatch) => {
+const updateUser = dispatch => {
   return async ({ firstname, lastname, email, mobile, dob }) => {
     try {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/updateUser/" + id, {
+      const id = await AsyncStorage.getItem('id');
+      const response = await axiosApi.put(`/updateUser/${id}`, {
         firstname,
         lastname,
         email,
@@ -189,61 +178,61 @@ const updateUser = (dispatch) => {
         dob,
       });
 
-      dispatch({ type: "clear_error_message" });
-      navigate("UserAccount");
+      dispatch({ type: 'clear_error_message' });
+      navigate('UserAccount');
     } catch (err) {
       console.log(err);
       dispatch({
-        type: "add_error",
-        payload: "Error While Changing Details",
+        type: 'add_error',
+        payload: 'Error While Changing Details',
       });
     }
   };
 };
 
-const updateUserClinic = (dispatch) => {
+const updateUserClinic = dispatch => {
   return async ({ clinic }) => {
     try {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/updateUserClinic/" + id, { clinic });
+      const id = await AsyncStorage.getItem('id');
+      const response = await axiosApi.put(`/updateUserClinic/${id}`, { clinic });
 
-      dispatch({ type: "clear_error_message" });
-      navigate("UserAccount");
+      dispatch({ type: 'clear_error_message' });
+      navigate('UserAccount');
     } catch (err) {
       dispatch({
-        type: "add_error",
-        payload: "Error While Changing Clinic",
+        type: 'add_error',
+        payload: 'Error While Changing Clinic',
       });
     }
   };
 };
 
-const changePassword = (dispatch) => {
+const changePassword = dispatch => {
   return async ({ oldPassword, newPassword }) => {
     try {
-      const id = await AsyncStorage.getItem("id");
-      response = await axiosApi.put("/changePassword/" + id, {
+      const id = await AsyncStorage.getItem('id');
+      const response = await axiosApi.put(`/changePassword/${id}`, {
         oldPassword,
         newPassword,
       });
 
-      dispatch({ type: "clear_error_message" });
-      navigate("UserAccount");
+      dispatch({ type: 'clear_error_message' });
+      navigate('UserAccount');
     } catch (err) {
       dispatch({
-        type: "add_error",
-        payload: "Error While Changing Password",
+        type: 'add_error',
+        payload: 'Error While Changing Password',
       });
     }
   };
 };
 
-const signout = (dispatch) => async () => {
-  await AsyncStorage.removeItem("token");
-  await AsyncStorage.removeItem("id");
-  await AsyncStorage.removeItem("parentid");
-  dispatch({ type: "signout" });
-  navigate("loginFlow");
+const signout = dispatch => async () => {
+  await AsyncStorage.removeItem('token');
+  await AsyncStorage.removeItem('id');
+  await AsyncStorage.removeItem('parentid');
+  dispatch({ type: 'signout' });
+  navigate('loginFlow');
 };
 
 export const { Provider, Context } = createDataContext(
@@ -255,11 +244,11 @@ export const { Provider, Context } = createDataContext(
     clearErrorMessage,
     tryLocalSignin,
     user,
-    getchildaccounts,
+    getChildAccounts,
     signupchild,
     updateUser,
     updateUserClinic,
     changePassword,
   },
-  { token: null, errorMessage: "", id: null }
+  { token: null, errorMessage: '', id: null },
 );
