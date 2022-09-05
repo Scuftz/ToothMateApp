@@ -40,7 +40,7 @@ const Caller = props => {
         </View>
       </TouchableOpacity>
       {/* TouchableOpacity for Linking which opens phone email application */}
-      <TouchableOpacity onPress={() => Linking.openURL(`${emailLink}`)}>
+      <TouchableOpacity onPress={() => Linking.openURL(emailLink)}>
         <View>
           <MaterialIcons name="email" style={styles.iconStyle} />
           <Text style={styles.textStyle}>Email</Text>
