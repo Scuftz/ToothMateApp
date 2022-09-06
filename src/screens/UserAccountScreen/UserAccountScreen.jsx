@@ -11,7 +11,12 @@ import styles from './styles';
 const UserAccountScreen = props => {
   const { navigation } = props;
 
-  const { state, canDisconnect, getUser, getDentalClinic } = useContext(UserContext);
+  const {
+    state: { canDisconnect },
+    checkCanDisconnect,
+    getUser,
+    getDentalClinic,
+  } = useContext(UserContext);
   const { clearErrorMessage } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false);
@@ -22,7 +27,7 @@ const UserAccountScreen = props => {
 
   useEffect(() => {
     const checkDisconnect = async () => {
-      await canDisconnect();
+      await checkCanDisconnect();
     };
     checkDisconnect();
 
@@ -89,7 +94,7 @@ const UserAccountScreen = props => {
               titleStyle={styles.titleContainer}
               onPress={handleChangePassword}
             />
-            {state.canDisconnect && (
+            {canDisconnect && (
               <Button
                 buttonStyle={styles.button}
                 containerStyle={styles.buttonContainer}

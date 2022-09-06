@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
 import createDataContext from '../createDataContext';
 import axiosApi from '../../api/axios';
 
@@ -23,14 +24,15 @@ const UserReducer = (state, action) => {
   }
 };
 
-const canDisconnect = dispatch => {
+const checkCanDisconnect = dispatch => {
   return async () => {
     const id = await AsyncStorage.getItem('id');
     const dobResponse = await axiosApi.get(`/getDOB/${id}`);
     const isChild = await axiosApi.get(`/isChild/${id}`);
-    const date1 = new Date();
-    const date2 = new Date(dobResponse.data.dob);
-    const dateDiff = Math.abs(date1 - date2) / (1000 * 60 * 60 * 24 * 365);
+    const today = dayjs();
+    const dob = dayjs(new Date(dobResponse.data.dob));
+    const dateDiff = today.diff(dob, 'year');
+
     let canDc = false;
     if (dateDiff > 18 && isChild.data.isChild != null) {
       canDc = true;
@@ -106,7 +108,7 @@ export const { Provider, Context } = createDataContext(
     getNhiAndAppointments,
     getDentalClinic,
     getUser,
-    canDisconnect,
+    checkCanDisconnect,
     disconnectChild,
     getAllImages,
   },
