@@ -28,6 +28,8 @@ module.exports = {
     ],
     'import/no-unresolved': 'off',
     'no-plusplus': 'off',
+    camelcase: 'off',
+    'no-underscore-dangle': 'off',
     'import/no-dynamic-require': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
