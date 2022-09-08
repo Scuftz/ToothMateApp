@@ -21,7 +21,7 @@ const CameraController = () => {
 const WholeMouthModel = ({ ...props }) => {
   const group = useRef()
 
-  const { nodes, materials } = useGLTF('/assets/whole_mouth.glb')
+  const { nodes, materials } = useGLTF('/assets/adult_whole_mouth.glb')
 
   return (
     <group ref={group} {...props} dispose={null}>
