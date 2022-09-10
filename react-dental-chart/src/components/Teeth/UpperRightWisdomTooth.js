@@ -21,7 +21,7 @@ const CameraController = () => {
 const UpperRightWisdom = ({ ...props }) => {
   const group = useRef()
 
-  const { nodes, materials } = useGLTF('/assets/wisdom.glb')
+  const { nodes, materials } = useGLTF('/assets/Right_Upper_Wisdom.glb')
 
   return (
     <group ref={group} {...props} dispose={null}>
