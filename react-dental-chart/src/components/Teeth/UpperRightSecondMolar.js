@@ -27,8 +27,6 @@ const RightUpperSecondMolar = ({ ...props }) => {
     <group ref={group} {...props} dispose={null}>
         <group position={[0, -1.19, 0]} rotation={[-Math.PI / 2, 0, -0.09]} scale={-0.66}>
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003.geometry} material={materials['1']} material-color={'lightgreen'}/>
-        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_1.geometry} material={materials['29']} />
-        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_2.geometry} material={materials['30']} />
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_3.geometry} material={materials['2']} material-color={'lightgreen'}/>
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_4.geometry} material={materials['3']} material-color={'lightgreen'}/>
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_5.geometry} material={materials['4']} />
@@ -56,6 +54,8 @@ const RightUpperSecondMolar = ({ ...props }) => {
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_27.geometry} material={materials['26']} />
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_28.geometry} material={materials['27']} />
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_29.geometry} material={materials['28']} />
+        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_1.geometry} material={materials['29']} />
+        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_2.geometry} material={materials['30']} />
       </group>
     </group>
   )
