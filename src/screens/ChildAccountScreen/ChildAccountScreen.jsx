@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import styles from './styles';
-import ToothLogo from '../assets/t_logo_crop2.png';
+import ToothLogo from '../../assets/t_logo_crop2.png';
 
 const AccountScreen = props => {
   const { navigation } = props;

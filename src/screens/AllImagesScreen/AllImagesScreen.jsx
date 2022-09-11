@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, FlatList, TouchableWithoutFeedback, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Buffer } from 'buffer';
 import AppointmentImage from '../../components/AppointmentImage';
 import styles from './styles';
+
+global.Buffer = global.Buffer || Buffer.Buffer;
 
 const AllImagesScreen = props => {
   const { navigation } = props;

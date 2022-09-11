@@ -180,11 +180,11 @@ const SignupChildScreen = props => {
             )}
             <Spacer />
           </View>
-          {errorMessage && (
+          {errorMessage ? (
             <View style={styles.link}>
               <Text style={styles.errorMessage}>{errorMessage}</Text>
             </View>
-          )}
+          ) : null}
           <Spacer />
           <Spacer>
             <Button

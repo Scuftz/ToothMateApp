@@ -28,16 +28,19 @@ const EducationScreen = props => {
     };
   }, []);
 
-  const renderEducationItem = item => {
-    return (
-      <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
-        <View style={styles.topicStyle}>
-          <Text style={styles.topicText}>{item.item.topic}</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={30} />
-        </View>
-      </TouchableOpacity>
-    );
-  };
+  const renderEducationItem = React.useCallback(
+    item => {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate('content', { id: item.item._id })}>
+          <View style={styles.topicStyle}>
+            <Text style={styles.topicText}>{item.item.topic}</Text>
+            <MaterialIcons name="keyboard-arrow-right" size={30} />
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [navigation],
+  );
 
   if (!fontsLoaded) {
     return (

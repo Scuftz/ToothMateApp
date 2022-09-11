@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, ActivityIndicator, View, ScrollView, FlatList, ImageBackground } from 'react-native';
+import { Text, ActivityIndicator, View, FlatList, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -106,7 +106,7 @@ const AccountScreen = props => {
         </ImageBackground>
         <View style={{ flex: 3, borderBottomWidth: 3, marginTop: '0%' }}>
           <Text style={styles.yourAccountStyle}>Your Accounts</Text>
-          <ScrollView style={{ marginBottom: 10 }}>{childButtons()}</ScrollView>
+          <View style={{ marginBottom: 10 }}>{childButtons}</View>
         </View>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Button

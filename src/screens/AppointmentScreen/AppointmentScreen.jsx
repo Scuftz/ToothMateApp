@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, ScrollView, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
-import Buffer from 'buffer';
 import dayjs from 'dayjs';
+import { Buffer } from 'buffer';
 import Spacer from '../../components/Spacer';
 import styles from './styles';
 
-// Buffer used for converting images
 global.Buffer = global.Buffer || Buffer.Buffer;
 
 const AppointmentScreen = props => {

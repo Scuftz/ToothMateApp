@@ -71,7 +71,7 @@ const UpdateClinicScreen = () => {
           itemStyle={styles.searchableDropdownItemStyle}
           itemTextStyle={styles.searchableDropdownItemTextStyle}
         />
-        {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
         <Spacer>
           <Button
             buttonStyle={styles.button}

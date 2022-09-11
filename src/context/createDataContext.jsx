@@ -7,7 +7,11 @@ export default (reducer, actions, defaultValue) => {
     const [state, dispatch] = useReducer(reducer, defaultValue);
 
     const contextValue = React.useMemo(() => {
-      const boundActions = actions.map(action => action(dispatch));
+      const boundActions = {};
+
+      Object.keys(actions).forEach(key => {
+        boundActions[key] = actions[key](dispatch);
+      });
 
       return { state, ...boundActions };
     }, [state]);

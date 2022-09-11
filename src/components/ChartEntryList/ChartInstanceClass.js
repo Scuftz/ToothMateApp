@@ -9,7 +9,7 @@ class ChartInstanceClass {
   }
 }
 
-ChartInstanceClass.prototype.addValue = value => {
+ChartInstanceClass.prototype.addValue = function (value) {
   this.values.push(value);
   this.output += `${value}\n`;
 };
