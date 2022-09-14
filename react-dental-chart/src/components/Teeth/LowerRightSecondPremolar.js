@@ -163,7 +163,7 @@ export const LowerRightSecondPremolar = () => {
           <RightLowerSecondPremolar />
         </Suspense>
       </Canvas>
-      <div>Clicked on lower right first premolar</div>
+      <div>Clicked on lower right second premolar</div>
     </>
   )
 }
