@@ -10,7 +10,7 @@ const CameraController = () => {
     const controls = new OrbitControls(camera, gl.domElement)
 
     controls.minDistance = 3
-    controls.maxDistance = 6
+    controls.maxDistance = 4
     return () => {
       controls.dispose()
     }
@@ -26,7 +26,11 @@ const RightLowerCanine = ({ ...props }) => {
   return (
     <group ref={group} {...props} dispose={null}>
       <group position={[0, -1.54, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[-0.68, 0.68, 0.68]}>
-        <mesh geometry={nodes.Human_Teeth_Lower_Canine002_1.geometry} material={materials['1']} />
+        <mesh
+          geometry={nodes.Human_Teeth_Lower_Canine002_1.geometry}
+          material={materials['1']}
+          material-color={'lightblue'}
+        />
         <mesh geometry={nodes.Human_Teeth_Lower_Canine002_4.geometry} material={materials['2']} />
         <mesh geometry={nodes.Human_Teeth_Lower_Canine002_5.geometry} material={materials['3']} />
         <mesh geometry={nodes.Human_Teeth_Lower_Canine002_6.geometry} material={materials['4']} />

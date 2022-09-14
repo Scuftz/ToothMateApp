@@ -1,9 +1,3 @@
-// export const UpperLeftWisdomTooth = () => {
-//     return(
-//         <div>Clicked on upper left widsom tooth</div>
-//     )
-// }
-
 import React, { useRef, Suspense, useEffect } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -16,7 +10,7 @@ const CameraController = () => {
     const controls = new OrbitControls(camera, gl.domElement)
 
     controls.minDistance = 3
-    controls.maxDistance = 6
+    controls.maxDistance = 4
     return () => {
       controls.dispose()
     }

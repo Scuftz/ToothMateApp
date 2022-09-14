@@ -10,7 +10,7 @@ const CameraController = () => {
     const controls = new OrbitControls(camera, gl.domElement)
 
     controls.minDistance = 3
-    controls.maxDistance = 6
+    controls.maxDistance = 4
     return () => {
       controls.dispose()
     }
@@ -137,7 +137,7 @@ const UpperRightWisdom = ({ ...props }) => {
           geometry={nodes.Human_Teeth_Upper_Third_Molar_Wisdom_Geo003_29.geometry}
           material={materials['27']}
         />
-         <mesh
+        <mesh
           geometry={nodes.Human_Teeth_Upper_Third_Molar_Wisdom_Geo003_1.geometry}
           material={materials['28']}
         />

@@ -10,7 +10,7 @@ const CameraController = () => {
     const controls = new OrbitControls(camera, gl.domElement)
 
     controls.minDistance = 3
-    controls.maxDistance = 6
+    controls.maxDistance = 4
     return () => {
       controls.dispose()
     }
@@ -29,6 +29,7 @@ const LeftLowerLateralIncisor = ({ ...props }) => {
         <mesh
           geometry={nodes.Human_Teeth_Lower_Lateral_Incisor_1.geometry}
           material={materials['1']}
+          material-color={'lightblue'}
         />
         <mesh
           geometry={nodes.Human_Teeth_Lower_Lateral_Incisor_2.geometry}

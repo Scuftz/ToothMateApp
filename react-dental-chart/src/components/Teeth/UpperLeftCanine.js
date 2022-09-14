@@ -10,7 +10,7 @@ const CameraController = () => {
     const controls = new OrbitControls(camera, gl.domElement)
 
     controls.minDistance = 3
-    controls.maxDistance = 6
+    controls.maxDistance = 4
     return () => {
       controls.dispose()
     }
@@ -165,7 +165,7 @@ export const UpperLeftCanine = () => {
           <LeftUpperCanine />
         </Suspense>
       </Canvas>
-     <div>Clicked on upper left canine</div>
+      <div>Clicked on upper left canine</div>
     </>
   )
 }
