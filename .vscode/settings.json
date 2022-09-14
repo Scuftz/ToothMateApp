@@ -1,0 +1,23 @@
+{
+  "editor.rulers": [120],
+  "jest.showCoverageOnLoad": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+  ],
+  "files.watcherExclude": {
+    "**/node_modules/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+  },
+  "files.exclude": {
+    "**/.git": true,
+  },
+  "eslint.enable": true,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.codeActionsOnSaveTimeout": 5000,
+}
