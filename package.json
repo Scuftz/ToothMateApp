@@ -85,7 +85,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-navigation-tabs": "^2.11.1",
-    "rn-pdf-reader-js": "^2.0.2"
+    "rn-pdf-reader-js": "^2.0.2",
+    "@expo/webpack-config": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
