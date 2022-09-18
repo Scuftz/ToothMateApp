@@ -18,17 +18,17 @@ const CameraController = () => {
   return null
 }
 
-const RightUpperFirstPremolar = ({ ...props }) => {
+const LeftUpperFirstPremolar = ({ ...props }) => {
   const group = useRef()
 
-  const { nodes, materials } = useGLTF('/assets/Right_Upper_First_Premolar.glb')
+  const { nodes, materials } = useGLTF('/assets/Left_Upper_First_Premolar.glb')
  
   return (
     <group ref={group} {...props} dispose={null}>
-      <group position={[-0.02, -1.48, 0]} rotation={[-Math.PI / 2, 0, -0.04]} scale={-0.56}>
-        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_1.geometry} material={materials['1']} material-color={'lightgreen'}/>
-        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_2.geometry} material={materials['2']} material-color={'lightgreen'} />
-        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_3.geometry} material={materials['3']} material-color={'lightgreen'}/>
+      <group position={[-0.02, -1.48, 0]} rotation={[Math.PI / 2, 0, -0.04]} scale={0.56}>
+        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_1.geometry} material={materials['1']} material-color={'lightblue'}/>
+        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_2.geometry} material={materials['2']} material-color={'lightblue'}/>
+        <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_3.geometry} material={materials['3']} material-color={'lightblue'}/>
         <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_4.geometry} material={materials['4']} />
         <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_5.geometry} material={materials['5']} />
         <mesh geometry={nodes.Human_Teeth_Upper_First_Premolar_Geo058_6.geometry} material={materials['6']} />
@@ -61,7 +61,7 @@ const RightUpperFirstPremolar = ({ ...props }) => {
   )
 }
 
-export const UpperRightFirstPremolar = () => {
+export const UpperLeftFirstPremolar = () => {
   const back = () => {
     return window.history.back()
   }
@@ -75,10 +75,11 @@ export const UpperRightFirstPremolar = () => {
         <ambientLight intensity={0.7} />
         <spotLight intensity={1} angle={0.2} penumbra={1} position={[10, 15, 10]} />
         <Suspense fallback={null}>
-          <RightUpperFirstPremolar />
+          <LeftUpperFirstPremolar />
         </Suspense>
       </Canvas>
-      <div>Clicked on upper right first premolar</div> 
+      <div>Clicked on upper left first premolar</div>
     </>
   )
+
 }
