@@ -18,17 +18,17 @@ const CameraController = () => {
   return null
 }
 
-const RightUpperSecondMolar = ({ ...props }) => {
+const LeftUpperSecondMolar = ({ ...props }) => {
   const group = useRef()
 
-  const { nodes, materials } = useGLTF('/assets/Right_Upper_Second_Molar.glb')
+  const { nodes, materials } = useGLTF('/assets/Left_Upper_Second_Molar.glb')
  
   return (
     <group ref={group} {...props} dispose={null}>
-        <group position={[0, -1.19, 0]} rotation={[-Math.PI / 2, 0, -0.09]} scale={-0.66}>
-        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003.geometry} material={materials['1']} material-color={'lightgreen'}/>
-        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_3.geometry} material={materials['2']} material-color={'lightgreen'}/>
-        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_4.geometry} material={materials['3']} material-color={'lightgreen'}/>
+        <group position={[0, -1.19, 0]} rotation={[Math.PI / 2, 0, -0.09]} scale={0.66}>
+        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003.geometry} material={materials['1']}  material-color={'lightblue'}/>
+        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_3.geometry} material={materials['2']}  material-color={'lightblue'}/>
+        <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_4.geometry} material={materials['3']}  material-color={'lightblue'}/>
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_5.geometry} material={materials['4']} />
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_6.geometry} material={materials['5']} />
         <mesh geometry={nodes.Human_Teeth_Upper_Second_Molar_Geo003_7.geometry} material={materials['6']} />
@@ -61,7 +61,8 @@ const RightUpperSecondMolar = ({ ...props }) => {
   )
 }
 
-export const UpperRightSecondMolar = () => {
+
+export const UpperLeftSecondMolar = () => {
   const back = () => {
     return window.history.back()
   }
@@ -75,10 +76,11 @@ export const UpperRightSecondMolar = () => {
         <ambientLight intensity={0.7} />
         <spotLight intensity={1} angle={0.2} penumbra={1} position={[10, 15, 10]} />
         <Suspense fallback={null}>
-          <RightUpperSecondMolar />
+        <LeftUpperSecondMolar />
         </Suspense>
       </Canvas>
-      <div>Clicked on upper right second molar</div>
+      <div>Clicked on upper left second molar</div>
     </>
   )
 }
+

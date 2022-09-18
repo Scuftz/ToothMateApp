@@ -68,7 +68,8 @@ const clearErrorMessage = (dispatch) => () => {
 //make an api request to sign up with user details
 const signup =
   (dispatch) =>
-  async ({ firstname, lastname, email, nhi, password, dob, clinic }) => {
+  async ({ firstname, lastname, email, nhi, password, dob, clinic, adultTeeth, childTeeth}) => {
+
     try {
       const parentid = await AsyncStorage.getItem("id");
       if (parentid === null) {
@@ -80,6 +81,7 @@ const signup =
           password,
           dob,
           clinic,
+          adultTeeth,
         });
         await AsyncStorage.setItem("token", response.data.token);
         await AsyncStorage.setItem("id", response.data.id);
@@ -98,6 +100,7 @@ const signup =
           dob,
           clinic,
           parent: parentid,
+          childTeeth,
         });
         navigate("AccountFlow");
       }
@@ -135,6 +138,7 @@ const signupchild =
     parent,
   }) => {
     try {
+      let childTeeth = [[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19]];
       const response = await axiosApi.post("/signupchild", {
         firstname,
         lastname,
@@ -144,6 +148,7 @@ const signupchild =
         dob,
         clinic,
         parent,
+        childTeeth,
       });
       //await AsyncStorage.setItem("token", response.data.token);
       //dispatch({ type: "signin", payload: response.data.token });
