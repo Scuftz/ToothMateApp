@@ -62,20 +62,14 @@ const RightUpperLateralIncisor = ({ ...props }) => {
 }
 
 export const UpperRightLateralIncisor = () => {
-  const back = () => {
-    return window.history.back()
-  }
   return (
     <>
-     <button style={{ marginTop: 10 }} onClick={back}>
-        Back to Dental Chart
-      </button>
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />
         <spotLight intensity={1} angle={0.2} penumbra={1} position={[10, 15, 10]} />
         <Suspense fallback={null}>
-          <UpperRightLateralIncisor />
+          <RightUpperLateralIncisor />
         </Suspense>
       </Canvas>
       <div>Clicked on upper right lateral incisor</div> 
