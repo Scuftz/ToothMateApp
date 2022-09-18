@@ -137,7 +137,7 @@ const UpperRightWisdom = ({ ...props }) => {
           geometry={nodes.Human_Teeth_Upper_Third_Molar_Wisdom_Geo003_29.geometry}
           material={materials['27']}
         />
-         <mesh
+        <mesh
           geometry={nodes.Human_Teeth_Upper_Third_Molar_Wisdom_Geo003_1.geometry}
           material={materials['28']}
         />
@@ -155,8 +155,14 @@ const UpperRightWisdom = ({ ...props }) => {
 }
 
 export const UpperRightWisdomTooth = () => {
+  const back = () => {
+    return window.history.back()
+  }
   return (
     <>
+     <button style={{ marginTop: 10 }} onClick={back}>
+        Back to Dental Chart
+      </button>
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />

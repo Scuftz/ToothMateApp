@@ -62,8 +62,14 @@ const RightUpperSecondPremolar = ({ ...props }) => {
 }
 
 export const UpperRightSecondPremolar = () => {
+  const back = () => {
+    return window.history.back()
+  }
   return (
     <>
+     <button style={{ marginTop: 10 }} onClick={back}>
+        Back to Dental Chart
+      </button>
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />

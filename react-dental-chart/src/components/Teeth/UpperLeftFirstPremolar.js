@@ -62,8 +62,14 @@ const LeftUpperFirstPremolar = ({ ...props }) => {
 }
 
 export const UpperLeftFirstPremolar = () => {
+  const back = () => {
+    return window.history.back()
+  }
   return (
     <>
+     <button style={{ marginTop: 10 }} onClick={back}>
+        Back to Dental Chart
+      </button>
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />
@@ -75,4 +81,5 @@ export const UpperLeftFirstPremolar = () => {
       <div>Clicked on upper left first premolar</div>
     </>
   )
+
 }

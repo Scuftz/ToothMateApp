@@ -155,8 +155,15 @@ const LeftUpperCanine = ({ ...props }) => {
 }
 
 export const UpperLeftCanine = () => {
+  const back = () => {
+    return window.history.back()
+  }
+
   return (
     <>
+      <button style={{ marginTop: 10 }} onClick={back}>
+        Back to Dental Chart
+      </button>
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />
@@ -165,7 +172,7 @@ export const UpperLeftCanine = () => {
           <LeftUpperCanine />
         </Suspense>
       </Canvas>
-     <div>Clicked on upper left canine</div>
+      <div>Clicked on upper left canine</div>
     </>
   )
 }
