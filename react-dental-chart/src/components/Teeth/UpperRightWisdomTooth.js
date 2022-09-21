@@ -2,11 +2,9 @@ import React, { useRef, Suspense, useEffect } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useGLTF } from '@react-three/drei'
-<<<<<<< HEAD
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-=======
 import {getToothSegmentColor} from '../Util/ToothSegmentColorUtil'
->>>>>>> master
+
 
 const CameraController = () => {
   const { camera, gl } = useThree()
