@@ -2,6 +2,7 @@ import React, { useRef, Suspense, useEffect } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useGLTF } from '@react-three/drei'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const CameraController = () => {
   const { camera, gl } = useThree()
@@ -153,8 +154,15 @@ const LeftLowerWisdom = ({ ...props }) => {
 }
 
 export const LowerLeftWisdomTooth = () => {
+  const back = () =>{
+    return  window.history.back()
+  }
   return (
     <>
+     <ArrowBackIcon
+        onClick={back}
+        style={{ marginTop: 10, marginLeft: 10, alignSelf: ['flex-start'] }}
+      />
       <Canvas>
         <CameraController />
         <ambientLight intensity={0.7} />
