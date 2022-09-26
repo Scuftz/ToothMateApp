@@ -41,7 +41,7 @@ const SignupChildScreen = props => {
 
   const handleDateChange = newDate => {
     const currentDate = newDate ?? dob;
-    setShowDatePicker(Platform.OS === 'ios');
+    setShowDatePicker(false);
     setDob(currentDate);
   };
 
@@ -149,22 +149,10 @@ const SignupChildScreen = props => {
           />
           <Text style={styles.clinicTextStyle}>Date of Birth</Text>
           <View>
-            {Platform.OS === 'android' ? (
-              <View style={styles.androidModalViewStyle}>
-                <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                  <Text style={styles.dateStyle}>{displayDate}</Text>
-                </TouchableOpacity>
-                <DateTimePickerModal
-                  isVisible={showDatePicker}
-                  mode="date"
-                  date={modalDate}
-                  minimumDate={MIN_DATE.toDate()}
-                  maximumDate={MAX_DATE.toDate()}
-                  onCancel={() => setShowDatePicker(false)}
-                  onConfirm={handleDateChange}
-                />
-              </View>
-            ) : (
+            <View style={styles.androidModalViewStyle}>
+              <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <Text style={styles.dateStyle}>{displayDate}</Text>
+              </TouchableOpacity>
               <DateTimePickerModal
                 isVisible={showDatePicker}
                 mode="date"
@@ -174,7 +162,7 @@ const SignupChildScreen = props => {
                 onCancel={() => setShowDatePicker(false)}
                 onConfirm={handleDateChange}
               />
-            )}
+            </View>
             <Spacer />
           </View>
           {errorMessage ? (
