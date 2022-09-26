@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Text, ActivityIndicator, View, ImageBackground, Dimensions, Platform } from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import { Context as UserContext } from '../../context/UserContext/UserContext';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const DisconnectChildScreen = props => {
   const { navigation } = props;
@@ -28,11 +29,7 @@ const DisconnectChildScreen = props => {
   };
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

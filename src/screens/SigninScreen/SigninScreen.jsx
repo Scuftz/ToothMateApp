@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, TouchableOpacity, ImageBackground } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Text, Input, Button } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,6 +8,7 @@ import Spacer from '../../components/Spacer';
 import { Context as AuthContext } from '../../context/AuthContext/AuthContext';
 import ToothLogo from '../../assets/t_logo_crop2.png';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const SigninScreen = props => {
   const { navigation } = props;
@@ -24,11 +25,7 @@ const SigninScreen = props => {
   const handleSignin = () => signin({ email, password });
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

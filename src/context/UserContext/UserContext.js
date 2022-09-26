@@ -115,7 +115,6 @@ export const { Provider, Context } = createDataContext(
   {
     appointments: [],
     clinic: null,
-    test: 'testx',
     details: {},
     canDisconnect: null,
     images: [],

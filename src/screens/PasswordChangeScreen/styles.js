@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
+    justifyContent: 'space-around',
   },
   header: {
     alignSelf: 'center',
@@ -45,7 +47,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     width: '90%',
     alignSelf: 'center',
-    marginTop: '5%',
+    marginBottom: '5%',
   },
   button: {
     paddingVertical: 10,
@@ -62,8 +64,7 @@ export default StyleSheet.create({
     padding: 10,
   },
   inputView: {
-    flex: 1,
-    marginTop: '5%',
+    marginTop: '25%',
   },
   imageBackgroundStyle: {
     flex: 1,
