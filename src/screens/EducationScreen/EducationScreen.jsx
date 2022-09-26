@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { TouchableOpacity, ActivityIndicator, View, Text, FlatList } from 'react-native';
+import { TouchableOpacity, View, Text, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import { Context as EducationContext } from '../../context/EducationContext/EducationContext';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const EducationScreen = props => {
   const { navigation } = props;
@@ -43,11 +44,7 @@ const EducationScreen = props => {
   );
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

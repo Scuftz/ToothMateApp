@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Button } from 'react-native-elements';
-import { View, Text, TouchableOpacity, Platform, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, FlatList } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
@@ -10,6 +10,7 @@ import { Context as UserContext } from '../../context/UserContext/UserContext';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const ClinicScreen = props => {
   const { navigation } = props;
@@ -45,11 +46,7 @@ const ClinicScreen = props => {
   }, []);
 
   if (!clinic || !fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

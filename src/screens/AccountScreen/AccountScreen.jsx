@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, ActivityIndicator, View, FlatList, ImageBackground } from 'react-native';
+import { Text, View, FlatList, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,40 +7,32 @@ import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import { Context as AuthContext } from '../../context/AuthContext/AuthContext';
 import styles from './styles';
 import ToothLogo from '../../assets/t_logo_crop2.png';
+import LoadingScreen from '../LoadingScreen';
 
 const AccountScreen = props => {
   const { navigation } = props;
 
   const {
-    state: { children },
+    state: { children, errorMessage },
     signout,
     getChildAccounts,
   } = useContext(AuthContext);
 
-  const [loading, setLoading] = useState(true);
-  const [parent, setParent] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [isFocused, setFocused] = useState(navigation.isFocused());
 
   const [fontsLoaded] = useFonts({
     Righteous_400Regular,
   });
 
-  const getParent = async () => {
-    let parentValue = parent;
-    try {
-      setLoading(true);
-      parentValue = await AsyncStorage.getItem('parentid');
-      getChildAccounts();
-    } catch (err) {
-      console.log('ERROR');
-    } finally {
-      setParent(parentValue);
-      setLoading(false);
-    }
+  const onFocus = async () => {
+    setLoading(true);
+    await getChildAccounts();
+    setLoading(false);
   };
 
   useEffect(() => {
-    getParent();
+    onFocus();
     const focusListener = navigation.addListener('didFocus', () => {
       setFocused(true);
     });
@@ -54,34 +46,26 @@ const AccountScreen = props => {
     };
   }, [isFocused]);
 
-  const renderChildButton = React.useCallback(
-    child => (
-      <Button
-        title={child.firstname}
-        buttonStyle={styles.childButtonStyle}
-        titleStyle={styles.childTextStyle}
-        onPress={async () => {
-          await AsyncStorage.setItem('parentId', await AsyncStorage.getItem('id'));
-          await AsyncStorage.setItem('id', child._id);
-          navigation.navigate('childFlow');
-        }}
-      />
-    ),
-    [navigation],
+  const renderChildButton = child => (
+    <Button
+      title={child.item.firstname}
+      buttonStyle={styles.childButtonStyle}
+      titleStyle={styles.childTextStyle}
+      onPress={async () => {
+        await AsyncStorage.setItem('parentId', await AsyncStorage.getItem('id'));
+        await AsyncStorage.setItem('id', child.item._id);
+        navigation.navigate('childFlow');
+      }}
+    />
   );
 
   // Child Account Buttons that appear on Screen
-  const childButtons = React.useMemo(
-    () => <FlatList data={children} keyExtractor={child => child._id} renderItem={renderChildButton} />,
-    [children, renderChildButton],
-  );
+  const childButtons = !errorMessage ? (
+    <FlatList data={children} keyExtractor={child => child._id} renderItem={renderChildButton} />
+  ) : null;
 
   if (loading || !fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen showTooth />;
   }
 
   return (
@@ -105,7 +89,7 @@ const AccountScreen = props => {
           </View>
         </ImageBackground>
         <View style={{ flex: 3, borderBottomWidth: 3, marginTop: '0%' }}>
-          <Text style={styles.yourAccountStyle}>Your Accounts</Text>
+          {children && children.length > 0 ? <Text style={styles.yourAccountStyle}>Your Accounts</Text> : null}
           <View style={{ marginBottom: 10 }}>{childButtons}</View>
         </View>
         <View style={{ flex: 1, justifyContent: 'center' }}>

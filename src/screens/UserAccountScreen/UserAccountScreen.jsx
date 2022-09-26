@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ImageBackground, Platform } from 'react-native';
+import { View, Text, ImageBackground, Platform } from 'react-native';
 import { Button } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
@@ -7,6 +7,7 @@ import { Context as UserContext } from '../../context/UserContext/UserContext';
 import { Context as AuthContext } from '../../context/AuthContext/AuthContext';
 import ToothLogo from '../../assets/t_logo_crop2.png';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const UserAccountScreen = props => {
   const { navigation } = props;
@@ -27,8 +28,11 @@ const UserAccountScreen = props => {
 
   useEffect(() => {
     const checkDisconnect = async () => {
+      setLoading(true);
       await checkCanDisconnect();
+      setLoading(false);
     };
+
     checkDisconnect();
 
     clearErrorMessage();
@@ -60,11 +64,7 @@ const UserAccountScreen = props => {
   const handleDisconnectFromParent = () => navigation.push('DisconnectChild');
 
   if (!fontsLoaded || loading) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen showTooth />;
   }
 
   return (

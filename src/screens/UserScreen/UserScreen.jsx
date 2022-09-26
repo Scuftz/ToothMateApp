@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text, Platform, TouchableOpacity, ActivityIndicator } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState, useContext } from 'react';
+import { View, Text, Platform, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationEvents } from 'react-navigation';
 import { Input, Button } from 'react-native-elements';
@@ -12,6 +11,7 @@ import Spacer from '../../components/Spacer';
 import { Context as userContext } from '../../context/UserContext/UserContext';
 import { Context as authContext } from '../../context/AuthContext/AuthContext';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const MIN_DATE = dayjs().subtract(100, 'years');
 const MAX_DATE = dayjs();
@@ -40,7 +40,7 @@ const UserScreen = () => {
 
   const handleDateChange = newDate => {
     const currentDate = newDate ?? dob;
-    setShowDatePicker(Platform.OS === 'ios');
+    setShowDatePicker(false);
     setDob(currentDate);
   };
 
@@ -49,11 +49,7 @@ const UserScreen = () => {
   };
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -98,22 +94,10 @@ const UserScreen = () => {
           />
           <Text style={styles.clinicTextStyle}>Date of Birth</Text>
           <View>
-            {Platform.OS === 'android' ? (
-              <View style={styles.androidModalViewStyle}>
-                <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-                  <Text style={styles.dateStyle}>{displayDate}</Text>
-                </TouchableOpacity>
-                <DateTimePickerModal
-                  isVisible={showDatePicker}
-                  mode="date"
-                  date={modalDate}
-                  minimumDate={MIN_DATE.toDate()}
-                  maximumDate={MAX_DATE.toDate()}
-                  onCancel={() => setShowDatePicker(false)}
-                  onConfirm={handleDateChange}
-                />
-              </View>
-            ) : (
+            <View style={styles.androidModalViewStyle}>
+              <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <Text style={styles.dateStyle}>{displayDate}</Text>
+              </TouchableOpacity>
               <DateTimePickerModal
                 isVisible={showDatePicker}
                 mode="date"
@@ -123,7 +107,7 @@ const UserScreen = () => {
                 onCancel={() => setShowDatePicker(false)}
                 onConfirm={handleDateChange}
               />
-            )}
+            </View>
           </View>
           <Spacer />
           {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
