@@ -39,44 +39,46 @@ const DentalChartScreen = props => {
     // for each appointment
     appointments.forEach(app => {
       // for each dental treatment in appointment
-      app.dentalData.forEach(element => {
-        // index number of tooth from dental data
-        const index = parseInt(element.substring(3, 5), 10) - 1; // - 1 to align index starting at 0
-        // converting code to full dental treatment name
-        let code = '';
-        switch (element.substring(5)) {
-          case 'VNR':
-            code = 'Veneer';
-            break;
-          case 'FIL':
-            code = 'Filling';
-            break;
-          case 'BRK':
-            code = 'Broken Tooth';
-            break;
-          case 'RTC':
-            code = 'Root Canal';
-            break;
-          case 'EXT':
-            code = 'Tooth Extraction';
-            break;
-          case 'CRW':
-            code = 'Dental Crown';
-            break;
-          case 'BND':
-            code = 'Dental Bonding';
-            break;
-          case 'SEA':
-            code = 'Dental Sealant';
-            break;
-          default:
-            // if not found, use dental code
-            code = element.substring(5);
-            break;
-        }
-        const codeDateString = `${code} ${convertDate(app.date)}`; // create dental treatment with treatment date
-        allChartEntries.updateValue(index, codeDateString); // put dental treatment in array
-      });
+      if (app.dentalData) {
+        app.dentalData.forEach(element => {
+          // index number of tooth from dental data
+          const index = parseInt(element.substring(3, 5), 10) - 1; // - 1 to align index starting at 0
+          // converting code to full dental treatment name
+          let code = '';
+          switch (element.substring(5)) {
+            case 'VNR':
+              code = 'Veneer';
+              break;
+            case 'FIL':
+              code = 'Filling';
+              break;
+            case 'BRK':
+              code = 'Broken Tooth';
+              break;
+            case 'RTC':
+              code = 'Root Canal';
+              break;
+            case 'EXT':
+              code = 'Tooth Extraction';
+              break;
+            case 'CRW':
+              code = 'Dental Crown';
+              break;
+            case 'BND':
+              code = 'Dental Bonding';
+              break;
+            case 'SEA':
+              code = 'Dental Sealant';
+              break;
+            default:
+              // if not found, use dental code
+              code = element.substring(5);
+              break;
+          }
+          const codeDateString = `${code} ${convertDate(app.date)}`; // create dental treatment with treatment date
+          allChartEntries.updateValue(index, codeDateString); // put dental treatment in array
+        });
+      }
     });
   }, [allChartEntries, appointments]);
 
