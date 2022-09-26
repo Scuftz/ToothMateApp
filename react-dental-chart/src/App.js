@@ -33,6 +33,7 @@ import { UpperLeftSecondPremolar } from './components/Teeth/UpperLeftSecondPremo
 import { UpperLeftCanine } from './components/Teeth/UpperLeftCanine'
 import { UpperLeftFirstMolar } from './components/Teeth/UpperLeftFirstMolar'
 import { UpperLeftSecondMolar } from './components/Teeth/UpperLeftSecondMolar'
+import Login from './pages/Login'
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         <div className="container">
           <Routes>
             <Route exact path="/" element={<WholeMouth />} />
+            <Route path="/login" element={<Login />} />
 
             {/* LOWER LEFT */}
 
