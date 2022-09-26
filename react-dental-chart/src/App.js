@@ -33,11 +33,11 @@ import { UpperLeftSecondPremolar } from './components/Teeth/UpperLeftSecondPremo
 import { UpperLeftCanine } from './components/Teeth/UpperLeftCanine'
 import { UpperLeftFirstMolar } from './components/Teeth/UpperLeftFirstMolar'
 import { UpperLeftSecondMolar } from './components/Teeth/UpperLeftSecondMolar'
+
 import Login from './pages/Login'
 
 export default function App() {
   return (
-    <div>
       <Router>
         <div className="container">
           <Routes>
@@ -95,6 +95,5 @@ export default function App() {
           ></div>
         </div>
       </Router>
-    </div>
   )
 }

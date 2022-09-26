@@ -1,30 +1,20 @@
+import { useContext } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { Alert } from '@mui/material';
-import { useState } from 'react';
-const axios = require('axios').default;
+// import { Alert } from '@mui/material';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const Login = () => {
-  const [error, setError] = useState(false);
+  const { signin } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-    axios.post('https://dd69-118-92-31-146.au.ngrok.io/signin', { email: data.get('email'), password: data.get('password') })
-    .then(function (response) {
-      console.log(response);
-
-
-    })
-    .catch(function (error) {
-      console.log(error);
-      setError(true);
-    });
+    signin({ email: data.get('email'), password: data.get('password') });
   };
 
   return (
@@ -74,7 +64,7 @@ const Login = () => {
           </Box>
         </Box>
 
-        {error && <Alert severity="error">Invalid login details, please try again.</Alert>}
+        {/* {error && <Alert severity="error">Invalid login details, please try again.</Alert>} */}
 
       </Container>
     </div>
