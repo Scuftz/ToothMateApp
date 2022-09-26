@@ -20,17 +20,17 @@ const AllImagesScreen = props => {
   }, [navigation]);
 
   const renderItem = React.useCallback(
-    (item, index) => (
+    item => (
       <TouchableWithoutFeedback
         onPress={() =>
           navigation.navigate('images', {
             images: base64images,
-            imageIndex: index,
+            imageIndex: item.index,
           })
         }
       >
         <View>
-          <AppointmentImage key={item.key} base64={item} />
+          <AppointmentImage key={item.index} base64={item.item} />
         </View>
       </TouchableWithoutFeedback>
     ),
