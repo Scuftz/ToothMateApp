@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, StyleSheet, Text, Platform, TouchableOpacity, ActivityIndicator } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState, useContext } from 'react';
+import { View, Text, Platform, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationEvents } from 'react-navigation';
 import { Input, Button } from 'react-native-elements';
@@ -12,6 +11,7 @@ import Spacer from '../../components/Spacer';
 import { Context as userContext } from '../../context/UserContext/UserContext';
 import { Context as authContext } from '../../context/AuthContext/AuthContext';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const MIN_DATE = dayjs().subtract(100, 'years');
 const MAX_DATE = dayjs();
@@ -49,11 +49,7 @@ const UserScreen = () => {
   };
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

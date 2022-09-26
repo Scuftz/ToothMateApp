@@ -73,10 +73,4 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     marginLeft: '-34%',
   },
-  activityIndicatorViewStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
 });

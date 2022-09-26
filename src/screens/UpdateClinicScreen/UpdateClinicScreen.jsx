@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ActivityIndicator, Image, Platform } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,6 +10,7 @@ import { Context as ClinicContext } from '../../context/ClinicContext/ClinicCont
 import { Context as UserContext } from '../../context/UserContext/UserContext';
 import ToothLogo from '../../assets/t_logo1.png';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const UpdateClinicScreen = () => {
   const {
@@ -49,11 +50,7 @@ const UpdateClinicScreen = () => {
   };
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

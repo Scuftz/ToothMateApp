@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, TouchableOpacity, Platform, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Platform } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Text, Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { Context as AuthContext } from '../../context/AuthContext/AuthContext';
 import Spacer from '../../components/Spacer';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const MIN_DATE = dayjs().subtract(100, 'years');
 const MAX_DATE = dayjs();
@@ -80,11 +81,7 @@ const SignupChildScreen = props => {
   };
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (
