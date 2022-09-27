@@ -1,25 +1,25 @@
-import React, { useReducer } from 'react';
+import React, { useReducer } from 'react'
 
 const createDataContext = (reducer, actions, defaultValue) => {
-  const Context = React.createContext();
+  const Context = React.createContext()
 
   const Provider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, defaultValue);
+    const [state, dispatch] = useReducer(reducer, defaultValue)
 
     const contextValue = React.useMemo(() => {
-      const boundActions = {};
+      const boundActions = {}
 
-      Object.keys(actions).forEach(key => {
-        boundActions[key] = actions[key](dispatch);
-      });
+      Object.keys(actions).forEach((key) => {
+        boundActions[key] = actions[key](dispatch)
+      })
 
-      return { state, ...boundActions };
-    }, [state]);
+      return { state, ...boundActions }
+    }, [state])
 
-    return <Context.Provider value={contextValue}>{children}</Context.Provider>;
-  };
+    return <Context.Provider value={contextValue}>{children}</Context.Provider>
+  }
 
-  return { Context, Provider };
-};
+  return { Context, Provider }
+}
 
-export default createDataContext;
+export default createDataContext

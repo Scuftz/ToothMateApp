@@ -1,9 +1,9 @@
-import React, { useRef, Suspense, useEffect, useState, useContext} from 'react'
+import React, { useRef, Suspense, useEffect, useState, useContext } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useGLTF } from '@react-three/drei'
-import { Context as AuthContext } from '../context/AuthContext';
-import { BiLogOut } from 'react-icons/bi';
+import { Context as AuthContext } from '../context/AuthContext'
+import { BiLogOut } from 'react-icons/bi'
 
 const CameraController = () => {
   const { camera, gl } = useThree()
@@ -321,36 +321,35 @@ const WholeMouthModel = ({ ...props }) => {
 }
 
 export default function WholeMouth() {
-  const [userData, setUserData] = useState([]);
-  const { getUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState([])
+  const { getUser } = useContext(AuthContext)
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getUser;
-      setUserData(result.data);
-    };
+      const result = await getUser
+      setUserData(result.data)
+    }
 
     fetchData().catch((err) => {
-      console.log(err);
-    });
-  }, [getUser]);
+      console.log(err)
+    })
+  }, [getUser])
 
   return (
     <>
-      <div style={{display: 'flex' }}>
-        <h1 className='welcome'>Welcome, {userData.firstname}!</h1>
+      <div style={{ display: 'flex' }}>
+        <h1 className="welcome">Welcome, {userData.firstname}!</h1>
         <button
-          className='sign-out-button'
+          className="sign-out-button"
           onClick={() => {
-            localStorage.clear();
-            window.location = '/login';
+            localStorage.clear()
+            window.location = '/login'
           }}
         >
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}> 
-            <BiLogOut style={{marginRight: '5px'}}/>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <BiLogOut style={{ marginRight: '5px' }} />
             Sign Out
           </div>
-         
         </button>
       </div>
       <Canvas>
