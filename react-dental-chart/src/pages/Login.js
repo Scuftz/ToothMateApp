@@ -5,11 +5,11 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-// import { Alert } from '@mui/material';
+import { Alert } from '@mui/material';
 import { Context as AuthContext } from '../context/AuthContext';
 
 const Login = () => {
-  const { signin } = useContext(AuthContext);
+  const { state, signin } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,13 +23,14 @@ const Login = () => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Typography component="h1" variant="h5">
+          <img src="/toothmate_logo.png" alt="logo" width={'90%'}/>
+          <Typography component="h1" variant="h5" sx={{mt: 2}}>
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -57,15 +58,14 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
+              style={{backgroundColor: '#2a2a51'}}
               sx={{ mt: 2, mb: 4 }}
             >
               Sign In
             </Button>
           </Box>
         </Box>
-
-        {/* {error && <Alert severity="error">Invalid login details, please try again.</Alert>} */}
-
+        {state.errorMessage && <Alert severity="error">{state.errorMessage}</Alert>}
       </Container>
     </div>
   );

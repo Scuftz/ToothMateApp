@@ -3,14 +3,14 @@ import axiosApi from '../api/axios';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case 'add_error':
+      return { ...state, errorMessage: action.payload };
     case 'signin':
       return {
         errorMessage: '',
         token: action.payload.token,
         id: action.payload.id,
       };
-    case 'signout':
-      return { token: null, errorMessage: '' };
     case 'user':
       return { errorMessage: 'Hello', token: action.payload };
     default:
@@ -39,28 +39,32 @@ const signin =
         type: 'signin',
         payload: { token: response.data.token, id: response.data.id },
       });
+
       window.location = '/'
     } catch (err) {
       dispatch({
         type: 'add_error',
-        payload: 'Invalid Login Details',
+        payload: 'Invalid login details, please try again.',
       });
     }
   };
 
-const signout = dispatch => async () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('id');
-  localStorage.removeItem('parentid');
-  dispatch({ type: 'signout' });
-};
+  async function getUser() {
+    try {
+      const id = localStorage.getItem('id');
+      const response = axiosApi.get(`/user/${id}`);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
 export const { Provider, Context } = createDataContext(
   authReducer,
   {
     signin,
-    signout,
     user,
+    getUser,
   },
   { token: null, errorMessage: '', id: null },
 );
