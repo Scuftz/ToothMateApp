@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { View, ImageBackground, ActivityIndicator, Platform } from 'react-native';
+import { View, ImageBackground, Platform } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import { Context as AuthContext } from '../../context/AuthContext/AuthContext';
 import styles from './styles';
 import ToothLogo from '../../assets/t_logo_crop2.png';
+import LoadingScreen from '../LoadingScreen';
 
 const passwordIcon = { type: 'fontawesome5', name: 'lock' };
 
@@ -23,11 +24,7 @@ const PasswordChangeScreen = () => {
   });
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen showTooth />;
   }
 
   return (

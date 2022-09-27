@@ -116,7 +116,10 @@ const getChildAccounts = dispatch => async () => {
       payload: { children: response.data },
     });
   } catch (err) {
-    console.log('Error retrieving child accounts');
+    dispatch({
+      type: 'add_error',
+      payload: 'Error retrieving child accounts',
+    });
   }
 };
 

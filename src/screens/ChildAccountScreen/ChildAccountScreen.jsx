@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, ImageBackground, ActivityIndicator, View } from 'react-native';
+import { Text, ImageBackground, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts, Righteous_400Regular } from '@expo-google-fonts/righteous';
 import styles from './styles';
 import ToothLogo from '../../assets/t_logo_crop2.png';
+import LoadingScreen from '../LoadingScreen';
 
 const AccountScreen = props => {
   const { navigation } = props;
@@ -15,17 +16,13 @@ const AccountScreen = props => {
   });
 
   if (!fontsLoaded) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen showTooth />;
   }
 
   const handleBackToParentPress = async () => {
+    await AsyncStorage.setItem('id', await AsyncStorage.getItem('parentId'));
+    await AsyncStorage.removeItem('parentId');
     navigation.navigate('mainFlow');
-    await AsyncStorage.setItem('id', await AsyncStorage.getItem('parentid'));
-    await AsyncStorage.removeItem('parentid');
   };
 
   return (
