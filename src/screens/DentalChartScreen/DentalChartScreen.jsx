@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Image, Modal, Pressable, Platform, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Image, Modal, Pressable, Platform } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import SwitchToggle from 'react-native-switch-toggle';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,6 +8,7 @@ import ChartEntryList from '../../components/ChartEntryList';
 import AdultDentalChart from '../../assets/adult_dental_chart.png';
 import ChildDentalChart from '../../assets/child_dental_chart.png';
 import styles from './styles';
+import LoadingScreen from '../LoadingScreen';
 
 const DentalChartScreen = props => {
   const { navigation } = props;
@@ -38,44 +39,46 @@ const DentalChartScreen = props => {
     // for each appointment
     appointments.forEach(app => {
       // for each dental treatment in appointment
-      app.dentalData.forEach(element => {
-        // index number of tooth from dental data
-        const index = parseInt(element.substring(3, 5), 10) - 1; // - 1 to align index starting at 0
-        // converting code to full dental treatment name
-        let code = '';
-        switch (element.substring(5)) {
-          case 'VNR':
-            code = 'Veneer';
-            break;
-          case 'FIL':
-            code = 'Filling';
-            break;
-          case 'BRK':
-            code = 'Broken Tooth';
-            break;
-          case 'RTC':
-            code = 'Root Canal';
-            break;
-          case 'EXT':
-            code = 'Tooth Extraction';
-            break;
-          case 'CRW':
-            code = 'Dental Crown';
-            break;
-          case 'BND':
-            code = 'Dental Bonding';
-            break;
-          case 'SEA':
-            code = 'Dental Sealant';
-            break;
-          default:
-            // if not found, use dental code
-            code = element.substring(5);
-            break;
-        }
-        const codeDateString = `${code} ${convertDate(app.date)}`; // create dental treatment with treatment date
-        allChartEntries.updateValue(index, codeDateString); // put dental treatment in array
-      });
+      if (app.dentalData) {
+        app.dentalData.forEach(element => {
+          // index number of tooth from dental data
+          const index = parseInt(element.substring(3, 5), 10) - 1; // - 1 to align index starting at 0
+          // converting code to full dental treatment name
+          let code = '';
+          switch (element.substring(5)) {
+            case 'VNR':
+              code = 'Veneer';
+              break;
+            case 'FIL':
+              code = 'Filling';
+              break;
+            case 'BRK':
+              code = 'Broken Tooth';
+              break;
+            case 'RTC':
+              code = 'Root Canal';
+              break;
+            case 'EXT':
+              code = 'Tooth Extraction';
+              break;
+            case 'CRW':
+              code = 'Dental Crown';
+              break;
+            case 'BND':
+              code = 'Dental Bonding';
+              break;
+            case 'SEA':
+              code = 'Dental Sealant';
+              break;
+            default:
+              // if not found, use dental code
+              code = element.substring(5);
+              break;
+          }
+          const codeDateString = `${code} ${convertDate(app.date)}`; // create dental treatment with treatment date
+          allChartEntries.updateValue(index, codeDateString); // put dental treatment in array
+        });
+      }
     });
   }, [allChartEntries, appointments]);
 
@@ -86,12 +89,9 @@ const DentalChartScreen = props => {
   }, []);
 
   if (!chart) {
-    return (
-      <View style={styles.activityIndicatorViewStyle}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingScreen />;
   }
+
   return (
     <LinearGradient colors={['#78d0f5', 'white', '#78d0f5']} style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.content}>
