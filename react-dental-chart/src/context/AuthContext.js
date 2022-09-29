@@ -30,17 +30,21 @@ const signin =
   (dispatch) =>
   async ({ email, password }) => {
     try {
-      const response = await axiosApi.post('/signin', { email, password })
+      if (email === '' || password === '') {
+        dispatch({ type: 'add_error', payload: 'Please fill in all fields' })
+      } else {
+        const response = await axiosApi.post('/signin', { email, password })
 
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('id', response.data.id)
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('id', response.data.id)
 
-      dispatch({
-        type: 'signin',
-        payload: { token: response.data.token, id: response.data.id },
-      })
+        dispatch({
+          type: 'signin',
+          payload: { token: response.data.token, id: response.data.id },
+        })
 
-      window.location = '/'
+        window.location = '/'
+      }
     } catch (err) {
       dispatch({
         type: 'add_error',
@@ -51,9 +55,13 @@ const signin =
 
 async function getUser() {
   try {
-    const id = localStorage.getItem('id')
-    const response = axiosApi.get(`/user/${id}`)
-    return response
+    if (localStorage.getItem('token') !== null) {
+      const id = localStorage.getItem('id')
+      const response = axiosApi.get(`/user/${id}`)
+      return response
+    } else {
+      return null
+    }
   } catch (err) {
     console.log(err)
   }
